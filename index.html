@@ -2322,6 +2322,61 @@
     .empire-vault-buttons { grid-template-columns:1fr; }
   }
 
+
+  /* =========================================================
+     EMPIRE UI CLIPPING / EXPLANATION HOTFIX
+     ========================================================= */
+  #panel-empire {
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  #panel-empire .empire-panel {
+    flex:1 1 auto!important;
+    height:0!important;
+    min-height:0!important;
+    width:100%!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    padding:0 5px 20px 0!important;
+    box-sizing:border-box!important;
+    overscroll-behavior:contain;
+  }
+  #panel-empire .empire-hero,
+  #panel-empire .empire-card,
+  #panel-empire .ascension-card {
+    flex:0 0 auto!important;
+    min-height:max-content!important;
+  }
+  #panel-empire .empire-project { flex:0 0 auto!important; }
+
+  #panel-empire .empire-panel::-webkit-scrollbar { width:7px; }
+  #panel-empire .empire-panel::-webkit-scrollbar-track { background:rgba(83,49,95,.07); border-radius:999px; }
+  #panel-empire .empire-panel::-webkit-scrollbar-thumb { background:rgba(126,76,148,.48); border-radius:999px; }
+
+  .empire-howto {
+    margin-top:9px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px;
+  }
+  .empire-howto-item {
+    padding:7px 6px; border-radius:10px; background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.13); font-size:.51rem; line-height:1.3;
+    color:#eee2f3; font-weight:700;
+  }
+  .empire-howto-item b {
+    display:block; margin-bottom:2px; color:#ffe7a0; font-family:'Baloo 2',sans-serif; font-size:.58rem;
+  }
+  .empire-helpbox {
+    margin-top:7px; padding:8px 9px; border-radius:11px; background:#f8effb;
+    border:1px solid rgba(126,76,148,.18); color:#725779; font-size:.55rem; line-height:1.4; font-weight:700;
+  }
+  .empire-helpbox b { color:#57315f; }
+
+  @media(max-width:1100px) {
+    .empire-howto { grid-template-columns:1fr; }
+  }
+  @media(max-width:720px) {
+    #panel-empire .empire-panel { height:auto!important; max-height:100%!important; }
+  }
+
 </style>
 </head>
 <body>
@@ -2546,11 +2601,16 @@
         <div class="empire-hero">
           <div class="empire-kicker">Late-game progression</div>
           <div class="empire-title">🏛️ Archie Empire</div>
-          <div class="empire-sub">For players who have more Archies than they know what to do with. Fund absurd mega-projects, push into repeatable infinite-scale projects, burn excess wealth for Influence, and Ascend to restart the economy with permanent prestige.</div>
+          <div class="empire-sub">This is the late-game system for players with ridiculous amounts of Archies. You do <b>not</b> have to reset anything just to use it.</div>
+          <div class="empire-howto">
+            <div class="empire-howto-item"><b>1 · Spend Archies</b>Fund Mega Projects. The early projects eventually finish; the final projects can be upgraded forever.</div>
+            <div class="empire-howto-item"><b>2 · Build Influence</b>Project levels and optional Vault sacrifices raise Empire Influence and your Empire rank.</div>
+            <div class="empire-howto-item"><b>3 · Ascend Later</b>Ascension is optional. It restarts your normal economy for permanent Stars while keeping the major prestige systems.</div>
+          </div>
           <div class="empire-metrics">
-            <div class="empire-metric"><b id="empireInfluenceValue">0</b><span>Influence</span></div>
-            <div class="empire-metric"><b id="empireStarsValue">0</b><span>Ascension Stars</span></div>
-            <div class="empire-metric"><b id="empireAscensionsValue">0</b><span>Ascensions</span></div>
+            <div class="empire-metric" title="Influence comes from Empire Projects and the Empire Vault."><b id="empireInfluenceValue">0</b><span>Influence</span></div>
+            <div class="empire-metric" title="Permanent Stars earned from optional Ascension."><b id="empireStarsValue">0</b><span>Ascension Stars</span></div>
+            <div class="empire-metric" title="How many times you have Ascended Archie."><b id="empireAscensionsValue">0</b><span>Ascensions</span></div>
           </div>
           <div class="empire-rank-wrap">
             <div class="empire-rank-line"><span id="empireRankName">Local Entrepreneur</span><span id="empireRankNext">Next rank</span></div>
@@ -2560,13 +2620,14 @@
 
         <div class="empire-card">
           <div class="empire-card-title">Mega Projects</div>
-          <div class="empire-card-sub">These projects are deliberately expensive. Early ones are finite milestones, then the final ones become repeatable forever so even players in the thousands of Dc still have a serious money sink.</div>
+          <div class="empire-card-sub">Buying a stage permanently removes its price from your <b>current Archie balance</b>. It does <b>not</b> reduce Lifetime Archies. Project levels stay with you through Ascension.</div>
+          <div class="empire-helpbox"><b>What do projects give?</b> Each funded level adds 1 Empire Influence. Influence mainly increases your Empire rank and gives a small capped production bonus. The main purpose is giving huge balances something worth spending on without another runaway x1000 multiplier.</div>
           <div class="empire-projects" id="empireProjects"></div>
         </div>
 
         <div class="empire-card">
           <div class="empire-card-title">Empire Vault</div>
-          <div class="empire-card-sub">Still too rich? Burn a percentage of your current Archies into permanent Empire Influence. Influence raises your Empire rank and gives only a small capped production bonus.</div>
+          <div class="empire-card-sub"><b>Optional money sink.</b> Burn 10%, 25% or 50% of your <b>current</b> Archies for permanent Empire Influence. This does not touch Lifetime Archies, Legacy, cosmetics or Projects.</div>
           <div class="empire-vault-buttons">
             <button class="empire-vault-btn" id="empireBurn10" type="button">Burn 10%</button>
             <button class="empire-vault-btn" id="empireBurn25" type="button">Burn 25%</button>
@@ -2577,7 +2638,7 @@
 
         <div class="ascension-card">
           <div class="ascension-title">✦ Archie Ascension</div>
-          <div class="ascension-sub">Ascension is the true rich-player reset. It wipes your <b>current Archies, normal upgrades, one-time boosts and current run</b>, but keeps Lifetime Archies, Legacy, cosmetics, friends, chests, Empire projects and all Ascension Stars.</div>
+          <div class="ascension-sub"><b>OPTIONAL — this is the only reset in the Empire section.</b><br>Ascension wipes current Archies, normal upgrade levels, one-time Boost purchases and current-run earnings. It <b>keeps Lifetime Archies, Legacy Points/skills, cosmetics, friends, chests, Empire Influence, Empire Projects and previous Ascension Stars</b>. In return you receive permanent Ascension Stars.</div>
           <div class="ascension-gain" id="ascensionGainText">Reach 1Qi current Archies to Ascend.</div>
           <button class="ascend-btn" id="ascendArchieBtn" type="button" disabled>Ascend Archie</button>
         </div>
