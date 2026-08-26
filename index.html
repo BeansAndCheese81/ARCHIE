@@ -1926,6 +1926,162 @@
     }
   }
 
+
+  /* =========================================================
+     RETENTION / SOCIAL / GUIDANCE UPDATE
+     ========================================================= */
+
+  /* Daily reward lives beside Profile, but opens its own panel. */
+  .daily-login-chip {
+    position:absolute; left:188px; top:10px; z-index:75;
+    display:flex; align-items:center; gap:6px;
+    min-height:38px; max-width:190px; padding:5px 10px;
+    border:2px solid rgba(222,165,46,.48); border-radius:999px;
+    background:linear-gradient(135deg,rgba(255,250,232,.97),rgba(255,236,176,.96));
+    color:#714615; box-shadow:0 3px 10px rgba(93,58,41,.14);
+    font-family:'Baloo 2',sans-serif; font-size:.66rem; font-weight:900; cursor:pointer;
+    transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+  }
+  .daily-login-chip:hover { transform:translateY(-2px); border-color:#e4a82c; box-shadow:0 7px 17px rgba(93,58,41,.17); }
+  .daily-login-chip.ready { border-color:#63bd72; background:linear-gradient(135deg,#f3fff0,#e2f7d9); color:#367743; animation:dailyReadyPulse 1.8s ease-in-out infinite; }
+  .daily-login-chip-icon { font-size:1rem; }
+  .daily-login-chip-copy { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  @keyframes dailyReadyPulse { 0%,100%{box-shadow:0 3px 10px rgba(93,58,41,.14)} 50%{box-shadow:0 4px 18px rgba(82,184,101,.33)} }
+
+  .daily-login-card {
+    display:none; position:fixed; left:188px; top:54px; z-index:181;
+    width:min(390px,calc(100vw - 24px)); max-height:calc(100vh - 70px); overflow:auto;
+    padding:13px; border:3px solid #dea52e; border-radius:18px;
+    background:linear-gradient(145deg,#fffaf0,#fff1cb);
+    box-shadow:0 18px 55px rgba(55,31,18,.30); text-align:left;
+  }
+  .daily-login-card.open { display:block; }
+  .daily-login-head { display:flex; justify-content:space-between; gap:9px; align-items:flex-start; }
+  .daily-login-title { font-family:'Baloo 2',sans-serif;font-size:1.06rem;font-weight:900;color:#6b4317; }
+  .daily-login-sub { font-size:.61rem;line-height:1.4;color:#8b6a4b;font-weight:700; }
+  .daily-login-countdown {
+    margin-top:9px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.62);
+    text-align:center;font-family:'Baloo 2',sans-serif;font-size:.86rem;font-weight:900;color:#79501c;
+  }
+  .daily-login-days { display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:9px; }
+  .daily-login-day {
+    min-width:0;padding:7px 3px;border:2px solid rgba(222,165,46,.22);border-radius:11px;
+    background:rgba(255,255,255,.68);text-align:center;color:#8b6a4b;
+  }
+  .daily-login-day.done { background:#eef9e8;border-color:#9bce91;opacity:.78; }
+  .daily-login-day.current { background:#fff0b7;border-color:#dea52e;transform:translateY(-2px);box-shadow:0 5px 12px rgba(143,93,20,.14); }
+  .daily-login-day .dnum { font-size:.52rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em; }
+  .daily-login-day .dicon { font-size:1.02rem;line-height:1.1;margin:2px 0; }
+  .daily-login-day .dlabel { font-size:.45rem;font-weight:800;line-height:1.15;overflow:hidden; }
+  .daily-login-reward {
+    margin-top:9px;padding:9px 10px;border-radius:12px;background:rgba(255,255,255,.76);
+    border:2px solid rgba(222,165,46,.22);
+  }
+  .daily-login-reward b { font-family:'Baloo 2',sans-serif;color:#704718; }
+  .daily-login-reward div { margin-top:2px;font-size:.61rem;color:#87674d;font-weight:700;line-height:1.35; }
+  .daily-login-claim {
+    width:100%;margin-top:9px;border:none;border-radius:999px;padding:9px 12px;
+    background:linear-gradient(100deg,#dc9629,#f2b73d);color:#fff;font-family:'Baloo 2',sans-serif;font-size:.76rem;font-weight:900;cursor:pointer;
+    box-shadow:0 5px 0 #a66a18;
+  }
+  .daily-login-claim:disabled { opacity:.5;cursor:not-allowed;box-shadow:none; }
+  .daily-login-note { margin-top:8px;text-align:center;font-size:.55rem;color:#967859;font-weight:700; }
+
+  /* Better first 10 minutes */
+  .starter-journey {
+    display:none;width:min(560px,90vw);padding:9px 11px;border-radius:15px;
+    border:2px solid rgba(94,174,113,.35);background:linear-gradient(110deg,rgba(242,255,240,.92),rgba(255,250,231,.94));
+    box-shadow:0 6px 18px rgba(48,79,40,.10);text-align:left;cursor:default;
+  }
+  .starter-journey.show { display:block; }
+  .starter-top { display:flex;justify-content:space-between;gap:10px;align-items:center; }
+  .starter-kicker { font-size:.49rem;letter-spacing:.08em;text-transform:uppercase;color:#4d925c;font-weight:900; }
+  .starter-title { font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:900;color:#385f3f; }
+  .starter-step { font-size:.55rem;color:#65806b;font-weight:800;white-space:nowrap; }
+  .starter-desc { font-size:.6rem;color:#6d765f;font-weight:700;margin-top:1px; }
+  .starter-track,.next-interesting-track { height:7px;border-radius:999px;overflow:hidden;background:#e5dccf;margin-top:6px; }
+  .starter-fill { height:100%;border-radius:999px;background:linear-gradient(90deg,#61b873,#9bd36c);transition:width .25s ease; }
+  .starter-reward { margin-top:4px;font-size:.53rem;color:#8b682f;font-weight:900; }
+
+  /* Always tell the player what's interesting next. */
+  .next-interesting {
+    width:min(560px,90vw);padding:8px 10px;border-radius:14px;
+    border:2px solid rgba(212,113,31,.24);background:rgba(255,250,240,.92);
+    box-shadow:0 5px 15px rgba(55,31,18,.09);display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+    gap:9px;align-items:center;text-align:left;cursor:pointer;
+    transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+  }
+  .next-interesting:hover { transform:translateY(-2px);box-shadow:0 8px 19px rgba(55,31,18,.13);border-color:var(--orange); }
+  .next-interesting-icon { width:33px;height:33px;border-radius:10px;background:#fff0d8;display:flex;align-items:center;justify-content:center;font-size:1.1rem; }
+  .next-interesting-kicker { font-size:.47rem;text-transform:uppercase;letter-spacing:.09em;color:#a17c61;font-weight:900; }
+  .next-interesting-title { font-family:'Baloo 2',sans-serif;font-size:.71rem;font-weight:900;color:var(--choc);line-height:1.1; }
+  .next-interesting-sub { font-size:.53rem;color:#8b6c57;font-weight:700;margin-top:1px;line-height:1.25; }
+  .next-interesting-action {
+    border:none;border-radius:999px;padding:6px 9px;background:var(--orange);color:#fff;
+    font-family:'Baloo 2',sans-serif;font-size:.58rem;font-weight:900;cursor:pointer;white-space:nowrap;
+  }
+  .next-interesting-track { grid-column:2/4;margin-top:-3px; }
+  .next-interesting-fill { height:100%;border-radius:999px;background:linear-gradient(90deg,var(--orange),#e46c9f);transition:width .25s ease; }
+
+  /* Boss contribution board */
+  .boss-contrib {
+    margin-top:7px;padding-top:6px;border-top:1px solid rgba(255,255,255,.16);
+  }
+  .boss-contrib-head {
+    display:flex;justify-content:space-between;align-items:center;gap:8px;
+    color:#ffd7df;font-size:.54rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .boss-contrib-list { display:flex;gap:5px;margin-top:5px;overflow-x:auto;padding-bottom:1px;scrollbar-width:none; }
+  .boss-contrib-list::-webkit-scrollbar { display:none; }
+  .boss-contrib-row {
+    flex:0 0 auto;min-width:100px;max-width:150px;padding:4px 7px;border-radius:10px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+    color:#ffe9ed;font-size:.53rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .boss-contrib-row.me { border-color:#77dd8d;background:rgba(92,210,116,.13); }
+  .boss-contrib-rank { color:#ffb6c4;margin-right:3px; }
+  .boss-contrib-hits { color:#fff;font-weight:900;margin-left:3px; }
+
+  /* Friend interaction buttons */
+  .friends-btn.gift { background:#dba23a; }
+  .friends-btn.cheer { background:#c66ca1; }
+  .friend-interaction-note { margin-top:4px;font-size:.52rem;color:#9b765c;font-weight:700; }
+
+  /* Deeper Legacy tree */
+  #panel-legacy .legacy-tree-canvas,
+  .legacy-tree-canvas { min-height:1180px!important;height:1180px!important; }
+
+  /* Responsive */
+  @media(max-width:720px) {
+    .daily-login-chip { left:auto;right:8px;top:8px;max-width:145px;min-height:34px;padding:4px 8px;font-size:.58rem; }
+    .daily-login-card { left:8px;right:8px;top:50px;width:auto;max-height:calc(100dvh - 60px); }
+    .daily-login-days { gap:3px; }
+    .daily-login-day { padding:5px 1px; }
+    .daily-login-day .dlabel { font-size:.4rem; }
+    .starter-journey,.next-interesting { width:min(94vw,520px); }
+    .next-interesting { grid-template-columns:30px minmax(0,1fr) auto;gap:6px;padding:7px 8px; }
+    .next-interesting-action { font-size:.52rem;padding:5px 7px; }
+    .boss-contrib-row { min-width:92px; }
+  }
+
+
+  /* Ultra-late economy cards */
+  .upgrade.ultra-late {
+    border-color:rgba(177,93,214,.38)!important;
+    background:linear-gradient(135deg,rgba(255,250,240,.96),rgba(248,232,255,.94))!important;
+  }
+  .upgrade.ultra-late::after {
+    content:'ENDGAME';
+    position:absolute; right:7px; top:6px;
+    padding:2px 5px; border-radius:999px;
+    background:rgba(126,67,156,.11); color:#8751a0;
+    font-size:.43rem; letter-spacing:.07em; font-weight:900;
+  }
+  .upgrade.ultra-late:hover {
+    border-color:#a865c5!important;
+    box-shadow:0 9px 20px rgba(125,71,153,.14)!important;
+  }
+
 </style>
 </head>
 <body>
@@ -1947,6 +2103,20 @@
       <img class="profile-chip-avatar" src="data:image/webp;base64,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" alt="">
       <span class="profile-chip-name" id="profileChipName">Profile</span>
     </button>
+    <button class="daily-login-chip" id="dailyLoginChip" type="button" aria-label="Open daily rewards">
+      <span class="daily-login-chip-icon">🎁</span><span class="daily-login-chip-copy" id="dailyLoginChipCopy">Daily Reward</span>
+    </button>
+    <div class="daily-login-card" id="dailyLoginCard">
+      <div class="daily-login-head">
+        <div><div class="daily-login-title">Daily Rewards</div><div class="daily-login-sub">A forgiving 7-day reward cycle. Missing a day does not reset your progress.</div></div>
+        <button class="profile-close" id="dailyLoginClose" type="button" aria-label="Close daily rewards">×</button>
+      </div>
+      <div class="daily-login-countdown" id="dailyLoginCountdown">Connecting to reward server…</div>
+      <div class="daily-login-days" id="dailyLoginDays"></div>
+      <div class="daily-login-reward"><b id="dailyLoginRewardName">Next reward</b><div id="dailyLoginRewardDesc">Loading…</div></div>
+      <button class="daily-login-claim" id="dailyLoginClaim" type="button" disabled>Claim Daily Reward</button>
+      <div class="daily-login-note">A new reward becomes available 20 hours after your last claim.</div>
+    </div>
     <div class="profile-card" id="profileCard">
       <div class="profile-card-head">
         <div class="profile-avatar"><img src="data:image/webp;base64,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" alt="Archie"></div>
@@ -1980,6 +2150,10 @@
       <div class="boss-top"><div class="boss-name" id="bossName">👹 Boss Archie <span class="boss-sync-live">LIVE SERVER</span></div><div class="boss-time" id="bossTime"></div></div>
       <div class="boss-track"><div class="boss-fill" id="bossFill"></div></div>
       <div class="boss-sub"><span id="bossHp">0 / 0 HP</span><span id="bossMyHits">Your hits: 0</span></div>
+      <div class="boss-contrib" id="bossContrib">
+        <div class="boss-contrib-head"><span>⚔ Top Attackers</span><span id="bossContribMe"></span></div>
+        <div class="boss-contrib-list" id="bossContribList"><div class="boss-contrib-row">Waiting for hits…</div></div>
+      </div>
     </div>
 
     <div class="boss-fight-stamp" id="bossFightStamp" aria-hidden="true"><strong>⚠ Boss Fight Active ⚠</strong><small>Every accepted click on Archie deals 1 damage to the shared boss</small></div>
@@ -2002,6 +2176,21 @@
 
     <div class="stats-line" id="stats">+1 per click &middot; +0 per second</div>
     <div class="stats-line totalline" id="totalline">Lifetime: 0 &middot; Total clicks: 0</div>
+
+    <div class="starter-journey" id="starterJourney">
+      <div class="starter-top"><div><div class="starter-kicker">Starter Journey</div><div class="starter-title" id="starterTitle">Meet Archie</div></div><div class="starter-step" id="starterStep">1 / 6</div></div>
+      <div class="starter-desc" id="starterDesc">Click Archie 10 times.</div>
+      <div class="starter-track"><div class="starter-fill" id="starterFill"></div></div>
+      <div class="starter-reward" id="starterReward">Reward: +25 Archies</div>
+    </div>
+
+    <div class="next-interesting" id="nextInterestingCard" role="button" tabindex="0">
+      <div class="next-interesting-icon" id="nextInterestingIcon">✨</div>
+      <div><div class="next-interesting-kicker">Up Next</div><div class="next-interesting-title" id="nextInterestingTitle">Keep building your Archie empire</div><div class="next-interesting-sub" id="nextInterestingSub"></div></div>
+      <button class="next-interesting-action" id="nextInterestingAction" type="button">Go</button>
+      <div class="next-interesting-track"><div class="next-interesting-fill" id="nextInterestingFill"></div></div>
+    </div>
+
     <div class="cps-note">Click Archie or press <b>SPACE</b> · maximum 15 accepted clicks per second</div>
   </main>
 
@@ -2424,6 +2613,13 @@
   let inboxRows = [];
   let inboxBusy = false;
   let lastInboxUnread = -1;
+  let dailyLoginState = null;
+  let dailyLoginBusy = false;
+  let bossContributionRows = [];
+  let bossContributionBusy = false;
+  let starterJourneyStep = 0;
+  let starterJourneyCompleted = false;
+  let nextInterestingHandler = null;
   let leaderboardMode = 'global';
   let isCreatorAccount = false;
   const cosmeticsOwned = new Set();
@@ -2750,6 +2946,18 @@
     { id: 'omnifist',name:'Omni Fist',desc: '+25,000 per click',baseCost: 5000000000000,type:'click',amount:25000,owned:0 },
     { id: 'dimension',name:'Archie Dimension',desc: '+8,000,000 Archies / sec',baseCost: 15000000000000,type:'auto',amount:8000000,owned:0 },
     { id: 'multiverse',name:'Archie Multiverse',desc: '+75,000,000 Archies / sec',baseCost: 300000000000000,type:'auto',amount:75000000,owned:0 },
+
+    // Ultra-late-game upgrades: deliberately expensive long-term money sinks.
+    { id:'realityknuckle',name:'Reality Knuckle',desc:'+250,000 per click',baseCost:5000000000000000,type:'click',amount:250000,owned:0 },
+    { id:'starforge',name:'Archie Star Forge',desc:'+600,000,000 Archies / sec',baseCost:8000000000000000,type:'auto',amount:600000000,owned:0 },
+    { id:'cosmiccouncil',name:'Cosmic Archie Council',desc:'+3,000,000,000 Archies / sec',baseCost:70000000000000000,type:'auto',amount:3000000000,owned:0 },
+    { id:'paradoxfist',name:'Paradox Fist',desc:'+2,000,000 per click',baseCost:150000000000000000,type:'click',amount:2000000,owned:0 },
+    { id:'timeline',name:'Archie Timeline',desc:'+15,000,000,000 Archies / sec',baseCost:800000000000000000,type:'auto',amount:15000000000,owned:0 },
+    { id:'infinitepunch',name:'Infinite Punch',desc:'+12,000,000 per click',baseCost:3000000000000000000,type:'click',amount:12000000,owned:0 },
+    { id:'omniverse2',name:'Archie Omniverse',desc:'+90,000,000,000 Archies / sec',baseCost:10000000000000000000,type:'auto',amount:90000000000,owned:0 },
+    { id:'realityengine',name:'Reality Engine',desc:'+600,000,000,000 Archies / sec',baseCost:75000000000000000000,type:'auto',amount:600000000000,owned:0 },
+    { id:'eternalfist',name:'Eternal Fist',desc:'+100,000,000 per click',baseCost:250000000000000000000,type:'click',amount:100000000,owned:0 },
+    { id:'eternity',name:'Archie Eternity',desc:'+4,000,000,000,000 Archies / sec',baseCost:900000000000000000000,type:'auto',amount:4000000000000,owned:0 },
   ];
 
   const boosts = [
@@ -2764,6 +2972,17 @@
     { id: 'b9', name: 'Critical Theory',  desc: '+10% critical click chance', cost: 50000000000, type: 'crit', mult: 0.10, purchased: false },
     { id: 'b10', name: 'Archie Ascendant', desc: 'x25 click power, permanently', cost: 50000000000000, type: 'clickMult', mult: 25, purchased: false },
     { id: 'b11', name: 'Infinite Workforce', desc: 'x25 Archies/sec, permanently', cost: 500000000000000, type: 'autoMult', mult: 25, purchased: false },
+
+    // Wealth-tier permanent boosts.
+    { id:'b12', name:'Hypercapitalisation', desc:'x50 Archies/sec, permanently', cost:5000000000000000, type:'autoMult', mult:50, purchased:false },
+    { id:'b13', name:'Reality Breaker', desc:'x50 click power, permanently', cost:20000000000000000, type:'clickMult', mult:50, purchased:false },
+    { id:'b14', name:'Impossible Luck', desc:'+15% critical click chance', cost:80000000000000000, type:'crit', mult:0.15, purchased:false },
+    { id:'b15', name:'Cosmic Workforce', desc:'x100 Archies/sec, permanently', cost:500000000000000000, type:'autoMult', mult:100, purchased:false },
+    { id:'b16', name:'Hand of Archie', desc:'x100 click power, permanently', cost:2000000000000000000, type:'clickMult', mult:100, purchased:false },
+    { id:'b17', name:'Eternal Industry', desc:'x250 Archies/sec, permanently', cost:50000000000000000000, type:'autoMult', mult:250, purchased:false },
+    { id:'b18', name:'Beyond Reality', desc:'x250 click power, permanently', cost:150000000000000000000, type:'clickMult', mult:250, purchased:false },
+    { id:'b19', name:'The Archie Economy', desc:'x1,000 Archies/sec, permanently', cost:2000000000000000000000, type:'autoMult', mult:1000, purchased:false },
+    { id:'b20', name:'Final Form Archie', desc:'x1,000 click power, permanently', cost:5000000000000000000000, type:'clickMult', mult:1000, purchased:false },
   ];
 
   let critChance = 0.03;
@@ -2775,35 +2994,50 @@
     { id:'ls_click1', branch:'Click Power', name:'Old Habits', desc:'+25% click power forever.', cost:1, type:'clickMult', value:1.25, prereqs:[], x:120,y:105 },
     { id:'ls_click2', branch:'Click Power', name:'Muscle Memory', desc:'x1.5 additional click power.', cost:5, type:'clickMult', value:1.5, prereqs:['ls_click1'], x:120,y:255 },
     { id:'ls_click3', branch:'Click Power', name:'Golden Knuckles', desc:'+3% critical click chance.', cost:12, type:'critAdd', value:0.03, prereqs:['ls_click2'], x:120,y:405 },
+    { id:'ls_click4', branch:'Click Power', name:'Titan Memory', desc:'x1.75 additional click power.', cost:35, type:'clickMult', value:1.75, prereqs:['ls_click3'], x:120,y:555 },
+    { id:'ls_click5', branch:'Click Power', name:'Hands of History', desc:'x2 additional click power.', cost:80, type:'clickMult', value:2, prereqs:['ls_click4'], x:120,y:705 },
 
     // Critical branch
     { id:'ls_crit1', branch:'Criticals', name:'Lucky Instinct', desc:'+2% critical click chance.', cost:3, type:'critAdd', value:0.02, prereqs:['ls_click1'], x:340,y:105 },
     { id:'ls_crit2', branch:'Criticals', name:'Heavy Crits', desc:'Critical clicks deal x1.5 extra.', cost:12, type:'critPower', value:1.5, prereqs:['ls_crit1'], x:340,y:255 },
     { id:'ls_crit3', branch:'Criticals', name:'Critical Legacy', desc:'+5% critical click chance.', cost:28, type:'critAdd', value:0.05, prereqs:['ls_crit2'], x:340,y:405 },
+    { id:'ls_crit4', branch:'Criticals', name:'Golden Impact', desc:'Critical clicks deal x1.75 extra.', cost:55, type:'critPower', value:1.75, prereqs:['ls_crit3'], x:340,y:555 },
+    { id:'ls_crit5', branch:'Criticals', name:'Destiny Favors Archie', desc:'+7% critical click chance.', cost:95, type:'critAdd', value:0.07, prereqs:['ls_crit4'], x:340,y:705 },
 
     // Automation branch
     { id:'ls_auto1', branch:'Automation', name:'Old Workforce', desc:'+25% Archies per second forever.', cost:1, type:'autoMult', value:1.25, prereqs:[], x:560,y:105 },
     { id:'ls_auto2', branch:'Automation', name:'Assembly Wisdom', desc:'x1.5 additional Archies per second.', cost:5, type:'autoMult', value:1.5, prereqs:['ls_auto1'], x:560,y:255 },
     { id:'ls_auto3', branch:'Automation', name:'Legacy Engine', desc:'x2 additional Archies per second.', cost:20, type:'autoMult', value:2, prereqs:['ls_auto2'], x:560,y:405 },
+    { id:'ls_auto4', branch:'Automation', name:'Generational Factory', desc:'x2 additional Archies per second.', cost:45, type:'autoMult', value:2, prereqs:['ls_auto3'], x:560,y:555 },
+    { id:'ls_auto5', branch:'Automation', name:'Endless Workforce', desc:'x2.5 additional Archies per second.', cost:100, type:'autoMult', value:2.5, prereqs:['ls_auto4'], x:560,y:705 },
 
     // Offline branch
     { id:'ls_off1', branch:'Offline', name:'Night Shift', desc:'Offline earnings rise from 35% to 50%.', cost:2, type:'offlineRate', value:0.15, prereqs:['ls_auto1'], x:780,y:105 },
     { id:'ls_off2', branch:'Offline', name:'Long Hours', desc:'+4 hours maximum offline time.', cost:8, type:'offlineHours', value:4, prereqs:['ls_off1'], x:780,y:255 },
     { id:'ls_off3', branch:'Offline', name:'Always Working', desc:'+25% offline earnings rate.', cost:20, type:'offlineRate', value:0.25, prereqs:['ls_off2'], x:780,y:405 },
     { id:'ls_off4', branch:'Offline', name:'Archie Never Sleeps', desc:'+12 hours maximum offline time.', cost:45, type:'offlineHours', value:12, prereqs:['ls_off3'], x:780,y:555 },
+    { id:'ls_off5', branch:'Offline', name:'Dream Economy', desc:'+15% offline earnings rate.', cost:75, type:'offlineRate', value:0.15, prereqs:['ls_off4'], x:780,y:705 },
+    { id:'ls_off6', branch:'Offline', name:'Always Open', desc:'+24 hours maximum offline time.', cost:135, type:'offlineHours', value:24, prereqs:['ls_off5'], x:780,y:855 },
 
     // Fortune / retirement
     { id:'ls_bonus', branch:'Fortune', name:'Inheritance', desc:'x2 Archie bonus-event rewards.', cost:3, type:'bonusMult', value:2, prereqs:[], x:1000,y:105 },
     { id:'ls_prestige', branch:'Fortune', name:'Retirement Plan', desc:'+25% Legacy Points earned when retiring.', cost:20, type:'prestigeMult', value:1.25, prereqs:['ls_bonus'], x:1000,y:255 },
+    { id:'ls_prestige2', branch:'Fortune', name:'Family Trust', desc:'+25% additional Legacy Points when retiring.', cost:55, type:'prestigeMult', value:1.25, prereqs:['ls_prestige'], x:1000,y:405 },
+    { id:'ls_bonus2', branch:'Fortune', name:'Golden Opportunity', desc:'x2 additional random bonus-event rewards.', cost:85, type:'bonusMult', value:2, prereqs:['ls_prestige2'], x:1000,y:555 },
+    { id:'ls_prestige3', branch:'Fortune', name:'Generational Wealth', desc:'+35% additional Legacy Points when retiring.', cost:135, type:'prestigeMult', value:1.35, prereqs:['ls_bonus2'], x:1000,y:705 },
 
     // Live events branch
     { id:'ls_event1', branch:'Events', name:'Event Regular', desc:'+10% strength from live production events.', cost:5, type:'eventMult', value:1.10, prereqs:['ls_bonus'], x:1220,y:105 },
     { id:'ls_event2', branch:'Events', name:'Event Veteran', desc:'+20% additional live-event strength.', cost:18, type:'eventMult', value:1.20, prereqs:['ls_event1'], x:1220,y:255 },
     { id:'ls_event3', branch:'Events', name:'Event Legend', desc:'+25% additional live-event strength.', cost:40, type:'eventMult', value:1.25, prereqs:['ls_event2'], x:1220,y:405 },
+    { id:'ls_event4', branch:'Events', name:'Event Magnet', desc:'+35% additional live-event strength.', cost:75, type:'eventMult', value:1.35, prereqs:['ls_event3'], x:1220,y:555 },
+    { id:'ls_event5', branch:'Events', name:'Born for the Moment', desc:'+50% additional live-event strength.', cost:140, type:'eventMult', value:1.5, prereqs:['ls_event4'], x:1220,y:705 },
 
-    // Final convergence
-    { id:'ls_dynasty', branch:'Mastery', name:'Archie Dynasty', desc:'x2 ALL click and auto production forever.', cost:110, type:'globalMult', value:2, prereqs:['ls_click3','ls_crit3','ls_auto3','ls_off3','ls_prestige','ls_event3'], x:650,y:650 },
+    // Mastery
+    { id:'ls_dynasty', branch:'Mastery', name:'Archie Dynasty', desc:'x2 ALL click and auto production forever.', cost:110, type:'globalMult', value:2, prereqs:['ls_click3','ls_crit3','ls_auto3','ls_off3','ls_prestige','ls_event3'], x:650,y:900 },
+    { id:'ls_eternal', branch:'Mastery', name:'Archie Empire Eternal', desc:'x2 ALL click and auto production again. The deepest Legacy mastery.', cost:300, type:'globalMult', value:2, prereqs:['ls_dynasty','ls_click5','ls_crit5','ls_auto5','ls_off6','ls_prestige3','ls_event5'], x:650,y:1050 },
   ];
+
   const legacySkillsOwned = new Set();
 
   const achievements = [
@@ -2859,6 +3093,7 @@
       cosmeticsOwned: Array.from(cosmeticsOwned), equippedTitle, equippedFrame, equippedEffect,
       selectedWorldStage, worldEffectsEnabled, worldHighestAnnounced,
       lastAdminResetVersion,
+      starterJourneyStep, starterJourneyCompleted,
       savedAt: Date.now()
     };
   }
@@ -2898,6 +3133,14 @@
     critCount = Number(data.critCount) || 0;
     critChance = Number(data.critChance) || critChance;
     lastAdminResetVersion = Math.max(0, Math.floor(Number(data.lastAdminResetVersion) || 0));
+    if (Number.isFinite(Number(data.starterJourneyStep))) {
+      starterJourneyStep = Math.max(0, Math.min(6, Math.floor(Number(data.starterJourneyStep))));
+      starterJourneyCompleted = data.starterJourneyCompleted === true || starterJourneyStep >= 6;
+    } else if (totalEarned >= 10000) {
+      // Existing veteran saves do not get forced through beginner onboarding.
+      starterJourneyStep = 6;
+      starterJourneyCompleted = true;
+    }
 
     if (Array.isArray(data.upgrades)) {
       upgrades.forEach((u, i) => {
@@ -2927,11 +3170,23 @@
   function cost(u) { return Math.round(u.baseCost * Math.pow(1.15, u.owned)); }
 
   function fmt(n) {
-    if (n < 1000) return Math.floor(n).toString();
-    if (n < 1000000) return (n/1000).toFixed(1) + 'K';
-    if (n < 1000000000) return (n/1000000).toFixed(1) + 'M';
-    if (n < 1000000000000) return (n/1000000000).toFixed(1) + 'B';
-    return (n/1000000000000).toFixed(1) + 'T';
+    n = Number(n) || 0;
+    const sign = n < 0 ? '-' : '';
+    n = Math.abs(n);
+    if (n < 1000) return sign + Math.floor(n).toString();
+
+    const units = [
+      [1e33,'Dc'], [1e30,'No'], [1e27,'Oc'], [1e24,'Sp'], [1e21,'Sx'],
+      [1e18,'Qi'], [1e15,'Qa'], [1e12,'T'], [1e9,'B'], [1e6,'M'], [1e3,'K']
+    ];
+    for (const [value,label] of units) {
+      if (n >= value) {
+        const scaled = n / value;
+        const digits = scaled >= 100 ? 0 : scaled >= 10 ? 1 : 2;
+        return sign + scaled.toFixed(digits).replace(/\.0+$|(?<=\.[0-9])0+$/,'') + label;
+      }
+    }
+    return sign + Math.floor(n).toString();
   }
 
   const scoreEl = document.getElementById('score');
@@ -2998,6 +3253,116 @@
     return Math.floor(basePrestigeGain(runEarned) * legacyProduct('prestigeMult'));
   }
 
+
+  const STARTER_JOURNEY = [
+    { title:'Meet Archie', desc:'Click Archie 10 times.', reward:25, target:10, progress:()=>Math.min(10,totalClicks), done:()=>totalClicks>=10 },
+    { title:'First Investment', desc:'Buy your first upgrade.', reward:75, target:1, progress:()=>Math.min(1,upgrades.reduce((n,u)=>n+u.owned,0)), done:()=>upgrades.some(u=>u.owned>0) },
+    { title:'Tiny Empire', desc:'Reach 250 Lifetime Archies.', reward:150, target:250, progress:()=>Math.min(250,totalEarned), done:()=>totalEarned>=250 },
+    { title:'Automation!', desc:'Own an upgrade that earns Archies per second.', reward:300, target:1, progress:()=>Math.min(1,upgrades.filter(u=>u.type==='auto').reduce((n,u)=>n+u.owned,0)), done:()=>upgrades.some(u=>u.type==='auto'&&u.owned>0) },
+    { title:'Lucky Archie', desc:'Land your first critical click.', reward:500, target:1, progress:()=>Math.min(1,critCount), done:()=>critCount>=1 },
+    { title:'First Milestone', desc:'Reach 2,500 Lifetime Archies.', reward:1000, target:2500, progress:()=>Math.min(2500,totalEarned), done:()=>totalEarned>=2500 }
+  ];
+
+  function starterMaybeAdvance() {
+    if (starterJourneyCompleted) return false;
+    let advanced = false;
+    while (starterJourneyStep < STARTER_JOURNEY.length && STARTER_JOURNEY[starterJourneyStep].done()) {
+      const step = STARTER_JOURNEY[starterJourneyStep];
+      const reward = step.reward;
+      score += reward;
+      totalEarned += reward;
+      runEarned += reward;
+      starterJourneyStep++;
+      advanced = true;
+      showToast('🌟 Starter Journey: ' + step.title + ' complete · +' + fmt(reward) + ' Archies');
+      playUISound('confirm');
+    }
+    if (starterJourneyStep >= STARTER_JOURNEY.length) {
+      starterJourneyCompleted = true;
+      if (advanced) {
+        setTimeout(()=>showToast('🎉 Starter Journey complete — the Archie empire is yours.'),350);
+        burstConfetti(window.innerWidth/2,window.innerHeight/2,48);
+      }
+    }
+    if (advanced) saveGame();
+    return advanced;
+  }
+
+  function renderStarterJourney() {
+    const wrap=document.getElementById('starterJourney');
+    if(!wrap)return;
+    if(starterJourneyCompleted){wrap.classList.remove('show');return;}
+    wrap.classList.add('show');
+    const step=STARTER_JOURNEY[Math.min(starterJourneyStep,STARTER_JOURNEY.length-1)];
+    const progress=Math.max(0,Number(step.progress())||0);
+    const pct=Math.min(100,progress/Math.max(1,step.target)*100);
+    document.getElementById('starterTitle').textContent=step.title;
+    document.getElementById('starterDesc').textContent=step.desc;
+    document.getElementById('starterStep').textContent=(starterJourneyStep+1)+' / '+STARTER_JOURNEY.length;
+    document.getElementById('starterFill').style.width=pct+'%';
+    document.getElementById('starterReward').textContent='Reward: +'+fmt(step.reward)+' Archies · '+fmt(progress)+' / '+fmt(step.target);
+  }
+
+  function incomingFriendRequestCount() {
+    const badge=document.getElementById('friendRequestCount');
+    return badge && badge.style.display!=='none' ? Math.max(0,Number(badge.textContent)||0) : 0;
+  }
+
+  function setNextInteresting(icon,title,sub,actionLabel,handler,percent=0) {
+    const card=document.getElementById('nextInterestingCard');
+    if(!card)return;
+    document.getElementById('nextInterestingIcon').textContent=icon;
+    document.getElementById('nextInterestingTitle').textContent=title;
+    document.getElementById('nextInterestingSub').textContent=sub||'';
+    document.getElementById('nextInterestingAction').textContent=actionLabel||'Go';
+    document.getElementById('nextInterestingFill').style.width=Math.max(0,Math.min(100,percent))+'%';
+    nextInterestingHandler=typeof handler==='function'?handler:null;
+  }
+
+  function renderNextInteresting() {
+    const bossActive=!!(bossState&&bossState.active&&bossState.ends_at&&new Date(bossState.ends_at).getTime()>Date.now());
+    if(bossActive){
+      const hp=Math.max(0,Number(bossState.current_hp)||0),max=Math.max(1,Number(bossState.max_hp)||1);
+      setNextInteresting('👹','Boss fight happening now',(bossState.name||'Boss Archie')+' has '+fmt(hp)+' HP left. Every accepted click attacks it.','Fight',()=>{document.getElementById('archieBtn')?.focus();},100-hp/max*100);return;
+    }
+    if(dailyLoginState&&dailyLoginState.can_claim){
+      setNextInteresting('🎁','Your Daily Reward is ready',dailyLoginState.reward_name||'A fresh Archie reward is waiting.','Claim',()=>openDailyLoginCard(),100);return;
+    }
+    const unread=(inboxRows||[]).filter(r=>!r.read_at).length;
+    if(unread>0){
+      setNextInteresting('📬',unread+' unread Inbox '+(unread===1?'message':'messages'),'Rewards, gifts or server mail are waiting.','Inbox',()=>openGameTab('inbox'),100);return;
+    }
+    const quest=(dailyQuestRows||[]).find(q=>q.complete&&!q.claimed);
+    if(quest){
+      setNextInteresting('🎯','Daily Quest reward ready',quest.title+' is complete. Claim it for your reward.','Claim',()=>openGameTab('quests'),100);return;
+    }
+    const requests=incomingFriendRequestCount();
+    if(requests>0){
+      setNextInteresting('👥',requests+' friend '+(requests===1?'request':'requests'),'Someone wants to join your Archie network.','Friends',()=>openGameTab('friends'),100);return;
+    }
+    const chests=Number((serverItems.get('chest_mystery')||{}).quantity||0);
+    if(chests>0){
+      setNextInteresting('🧰',chests+' Treasure '+(chests===1?'Chest':'Chests')+' ready','There could be a secret cosmetic or timed boost inside.','Open',()=>{openGameTab('cosmetics');setTimeout(openTreasureChest,130);},100);return;
+    }
+    if(!starterJourneyCompleted){
+      const s=STARTER_JOURNEY[Math.min(starterJourneyStep,STARTER_JOURNEY.length-1)];
+      const p=Math.max(0,Number(s.progress())||0);
+      setNextInteresting('🌟','Starter Journey: '+s.title,s.desc,'Do it',()=>document.getElementById('archieBtn')?.focus(),p/Math.max(1,s.target)*100);return;
+    }
+    const gain=prestigeGain();
+    if(gain>=1){
+      setNextInteresting('🌳','Retirement is available','Retire this run for +'+gain+' Legacy Points and strengthen future runs.','Legacy',()=>openGameTab('legacy'),100);return;
+    }
+    const highest=highestUnlockedWorldIndex();
+    if(highest<worldStages.length-1){
+      const next=worldStages[highest+1],cur=worldStages[highest];
+      const span=Math.max(1,next.min-cur.min);
+      const p=Math.max(0,Math.min(100,(totalEarned-cur.min)/span*100));
+      setNextInteresting(next.icon,'Next world: '+next.name,fmt(Math.max(0,next.min-totalEarned))+' Lifetime Archies to go.','Build',()=>openGameTab('shop'),p);return;
+    }
+    setNextInteresting('✨','Build your perfect Archie empire','Chase Legacy mastery, friends, Boss fights, cosmetics and personal records.','Upgrades',()=>openGameTab('shop'),100);
+  }
+
   function render() {
     scoreEl.textContent = fmt(score) + ' Archies';
     rankEl.textContent = isCreatorAccount ? '★ Creator' : currentRank();
@@ -3009,7 +3374,7 @@
     upgrades.forEach(u => {
       const c = cost(u);
       const div = document.createElement('div');
-      div.className = 'upgrade' + (score < c ? ' disabled' : '');
+      div.className = 'upgrade' + (u.baseCost >= 5000000000000000 ? ' ultra-late' : '') + (score < c ? ' disabled' : '');
       div.dataset.id = u.id;
       div.innerHTML =
         '<div class="info"><div class="name">' + u.name + '</div><div class="desc">' + u.desc + '</div><div class="owned">owned: ' + u.owned + '</div></div>' +
@@ -3047,6 +3412,10 @@
     renderLegacyTree();
     renderOrbits();
     renderHat();
+    const starterAdvanced = starterMaybeAdvance();
+    renderStarterJourney();
+    renderNextInteresting();
+    if (starterAdvanced) setTimeout(render,0);
   }
 
   function legacyPrereqsMet(skill) {
@@ -3073,7 +3442,7 @@
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('class','legacy-lines');
-    svg.setAttribute('viewBox','0 0 1320 760');
+    svg.setAttribute('viewBox','0 0 1320 1180');
 
     legacySkills.forEach(skill => {
       (skill.prereqs || []).forEach(parentId => {
@@ -3321,9 +3690,13 @@
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     targetTab.classList.add('active');
     targetPanel.classList.add('active');
+    document.body.classList.toggle('legacy-screen-open', tabName === 'legacy');
     if (tabName === 'leaderboard') refreshLeaderboard();
     if (tabName === 'friends') refreshFriends();
+    if (tabName === 'quests') refreshDailyQuests(true);
+    if (tabName === 'inbox') { refreshInbox(true); setTimeout(markInboxRead,500); }
     if (tabName === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
+    if (tabName === 'legacy') renderLegacyTree();
   }
 
   function hideChestArrival() {
@@ -3467,6 +3840,38 @@
     document.getElementById('bossTime').textContent=mins+'m left · reward '+Number(bossState.reward_chests||1)+' chest'+(Number(bossState.reward_chests||1)===1?'':'s');
   }
 
+
+  function renderBossContributions(rows) {
+    bossContributionRows=rows||[];
+    const list=document.getElementById('bossContribList');
+    const mine=document.getElementById('bossContribMe');
+    if(!list||!mine)return;
+    list.innerHTML='';
+    let myRow=null;
+    bossContributionRows.forEach(row=>{
+      if(row.is_me)myRow=row;
+      const d=document.createElement('div');
+      d.className='boss-contrib-row'+(row.is_me?' me':'');
+      d.innerHTML='<span class="boss-contrib-rank">#'+Number(row.rank_position)+'</span><span class="boss-contrib-name"></span><span class="boss-contrib-hits">'+fmt(Number(row.hits)||0)+'</span>';
+      d.querySelector('.boss-contrib-name').textContent=row.username||'Player';
+      list.appendChild(d);
+    });
+    if(!bossContributionRows.length)list.innerHTML='<div class="boss-contrib-row">Be the first attacker!</div>';
+    mine.textContent=myRow?('You: #'+Number(myRow.rank_position)+' · '+fmt(Number(myRow.hits)||0)+' hits'):'';
+  }
+
+  async function refreshBossContributions(force=false) {
+    if(!leaderboardDb||!leaderboardUser||bossContributionBusy)return;
+    if(!bossState||!bossState.active){renderBossContributions([]);return;}
+    bossContributionBusy=true;
+    try{
+      const {data,error}=await leaderboardDb.rpc('archie_get_boss_leaderboard',{p_limit:5});
+      if(error)throw error;
+      renderBossContributions(data||[]);
+    }catch(err){if(force)console.warn('Boss contribution board:',err&&err.message?err.message:err);}
+    finally{bossContributionBusy=false;}
+  }
+
   async function refreshBossState(force=false) {
     if (!leaderboardDb || !leaderboardUser || bossPollBusy) return;
     bossPollBusy=true;
@@ -3478,6 +3883,7 @@
       bossState=row||null;
       bossWasActive=!!(row&&row.active);
       renderBossHud();
+      if(row&&row.active)refreshBossContributions(); else renderBossContributions([]);
       if (wasActive && row && !row.active && Number(row.current_hp||0)<=0) {
         showToast('Boss Archie defeated! Contributors received treasure chests.');
         burstConfetti(window.innerWidth/2,window.innerHeight/2,90);
@@ -3508,6 +3914,7 @@
         document.body.appendChild(hitText);
         setTimeout(()=>hitText.remove(),600);
         renderBossHud();
+        refreshBossContributions();
       }
     } catch(err) {
       bossPendingHits=0;
@@ -3606,6 +4013,8 @@
     legacySkillsOwned.clear();
     lastAdminResetVersion = Math.max(lastAdminResetVersion, Math.floor(Number(resetVersion) || 0));
     lastSyncedLifetimeArchies = 0;
+    starterJourneyStep = 0;
+    starterJourneyCompleted = false;
     if (leaderboardProfile) leaderboardProfile.archies = 0;
     renderAchvList();
     render();
@@ -4424,6 +4833,7 @@
       await refreshBossState(true);
       await refreshDailyQuests(true);
       await refreshInbox(true);
+      await refreshDailyLogin(true);
       await refreshLeaderboard();
       showToast('Leaderboard joined as ' + username);
     } catch (err) {
@@ -4595,6 +5005,115 @@
     catch(err){showToast('Mail claim error: '+(err&&err.message?err.message:'try again'));}
   }
 
+
+  const DAILY_LOGIN_REWARDS = [
+    ['💰','Archie Starter Parcel'],
+    ['⚡','Double Tap · 10 min'],
+    ['🧰','Mystery Treasure Chest'],
+    ['💰','Bigger Archie Parcel'],
+    ['⏳','2× Everything · 30 min'],
+    ['🧰','Mystery Treasure Chest'],
+    ['🎉','2× Mystery Chests']
+  ];
+
+  function formatCountdown(ms) {
+    ms=Math.max(0,ms);
+    const total=Math.floor(ms/1000);
+    const h=Math.floor(total/3600);
+    const m=Math.floor((total%3600)/60);
+    const s=total%60;
+    return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  }
+
+  function renderDailyLogin() {
+    const chip=document.getElementById('dailyLoginChip');
+    const copy=document.getElementById('dailyLoginChipCopy');
+    const countdown=document.getElementById('dailyLoginCountdown');
+    const days=document.getElementById('dailyLoginDays');
+    const claim=document.getElementById('dailyLoginClaim');
+    if(!chip||!copy||!countdown||!days||!claim)return;
+
+    if(!dailyLoginState){
+      chip.classList.remove('ready');
+      copy.textContent='Daily Reward';
+      countdown.textContent=leaderboardUser?'Loading daily reward…':'Connecting…';
+      claim.disabled=true;
+      return;
+    }
+
+    const nextAt=dailyLoginState.next_claim_at?new Date(dailyLoginState.next_claim_at).getTime():0;
+    const canClaim=!!dailyLoginState.can_claim||!nextAt||nextAt<=Date.now();
+    dailyLoginState.can_claim=canClaim;
+    chip.classList.toggle('ready',canClaim);
+    copy.textContent=canClaim?'Daily Reward Ready!':('Day '+Number(dailyLoginState.reward_day||1)+' · '+formatCountdown(nextAt-Date.now()));
+    countdown.textContent=canClaim?'🎁 Your next Daily Reward is ready now.':'Next Daily Reward in '+formatCountdown(nextAt-Date.now());
+
+    const current=Math.max(1,Math.min(7,Number(dailyLoginState.reward_day)||1));
+    days.innerHTML='';
+    DAILY_LOGIN_REWARDS.forEach((r,i)=>{
+      const day=i+1;
+      const d=document.createElement('div');
+      d.className='daily-login-day'+(day<current?' done':'')+(day===current?' current':'');
+      d.innerHTML='<div class="dnum">Day '+day+'</div><div class="dicon">'+r[0]+'</div><div class="dlabel"></div>';
+      d.querySelector('.dlabel').textContent=r[1];
+      days.appendChild(d);
+    });
+
+    document.getElementById('dailyLoginRewardName').textContent='Day '+current+' · '+(dailyLoginState.reward_name||DAILY_LOGIN_REWARDS[current-1][1]);
+    document.getElementById('dailyLoginRewardDesc').textContent=dailyLoginState.reward_description||'A fresh reward for coming back to Archie Clicker.';
+    claim.disabled=!canClaim||dailyLoginBusy;
+    claim.textContent=canClaim?'Claim Day '+current+' Reward':'Come back when the countdown ends';
+    renderNextInteresting();
+  }
+
+  async function refreshDailyLogin(force=false) {
+    if(!leaderboardDb||!leaderboardUser||dailyLoginBusy)return;
+    dailyLoginBusy=true;
+    try{
+      const {data,error}=await leaderboardDb.rpc('archie_get_daily_login');
+      if(error)throw error;
+      dailyLoginState=Array.isArray(data)?data[0]:data;
+    }catch(err){
+      if(force)showToast('Daily Reward error: '+(err&&err.message?err.message:'could not load'));
+    }finally{
+      dailyLoginBusy=false;
+      renderDailyLogin();
+    }
+  }
+
+  async function claimDailyLogin() {
+    if(!leaderboardDb||!leaderboardUser||dailyLoginBusy)return;
+    dailyLoginBusy=true;
+    const btn=document.getElementById('dailyLoginClaim');
+    if(btn)btn.disabled=true;
+    try{
+      const {data,error}=await leaderboardDb.rpc('archie_claim_daily_login');
+      if(error)throw error;
+      const row=Array.isArray(data)?data[0]:data;
+      showToast('🎁 Daily Reward claimed: '+(row?.reward_name||'Reward'));
+      burstConfetti(window.innerWidth*.30,90,42);
+      playUISound('confirm');
+      await pollClientState(true);
+      await refreshServerItems(true);
+    }catch(err){
+      showToast('Daily Reward: '+(err&&err.message?err.message:'try again'));
+    }finally{
+      dailyLoginBusy=false;
+      await refreshDailyLogin(true);
+      saveGame();
+    }
+  }
+
+  function openDailyLoginCard() {
+    const card=document.getElementById('dailyLoginCard');
+    if(profileCard)profileCard.classList.remove('open');
+    if(card){card.classList.add('open');refreshDailyLogin(true);}
+  }
+
+  function closeDailyLoginCard() {
+    document.getElementById('dailyLoginCard')?.classList.remove('open');
+  }
+
   function setFriendsStatus(msg) {
     const el = document.getElementById('friendsStatus');
     if (el) el.textContent = msg || '';
@@ -4614,6 +5133,28 @@
     if (rel === 'incoming') return 'Requested you';
     if (rel === 'outgoing') return 'Request sent';
     return '';
+  }
+
+
+  async function sendFriendGift(userId,username) {
+    if(!leaderboardDb||!userId)return;
+    try{
+      const {data,error}=await leaderboardDb.rpc('archie_send_friend_gift',{p_target_user:userId});
+      if(error)throw error;
+      const reward=Number(data)||0;
+      showToast('🎁 Friend gift sent to '+username+(reward>0?' · '+fmt(reward)+' Archies':''));
+      playUISound('confirm');
+    }catch(err){showToast('Friend Gift: '+(err&&err.message?err.message:'try again later'));}
+  }
+
+  async function sendFriendCheer(userId,username) {
+    if(!leaderboardDb||!userId)return;
+    try{
+      const {error}=await leaderboardDb.rpc('archie_send_friend_cheer',{p_target_user:userId});
+      if(error)throw error;
+      showToast('🙌 You cheered on '+username+'!');
+      playUISound('confirm');
+    }catch(err){showToast('Cheer: '+(err&&err.message?err.message:'try again later'));}
   }
 
   function makeFriendRow(row, kind) {
@@ -4661,7 +5202,13 @@
       const compare = document.createElement('button');
       compare.className = 'friends-btn'; compare.textContent = 'Compare';
       compare.addEventListener('click', (e) => { e.stopPropagation(); openPlayerProfile(row.user_id); });
-      actions.appendChild(compare);
+      const gift = document.createElement('button');
+      gift.className = 'friends-btn gift'; gift.textContent = '🎁 Gift';
+      gift.addEventListener('click',(e)=>{e.stopPropagation();sendFriendGift(row.user_id,row.username);});
+      const cheer = document.createElement('button');
+      cheer.className = 'friends-btn cheer'; cheer.textContent = '🙌 Cheer';
+      cheer.addEventListener('click',(e)=>{e.stopPropagation();sendFriendCheer(row.user_id,row.username);});
+      actions.append(compare,gift,cheer);
     } else if (kind === 'search') {
       const rel = row.relationship || 'none';
       if (rel === 'none') {
@@ -4744,6 +5291,7 @@
       const incomingCount = (incomingRes.data || []).length;
       if (badge) { badge.textContent = String(incomingCount); badge.style.display = incomingCount ? 'inline-flex' : 'none'; }
       setFriendsStatus((friendsRes.data || []).length + ' friend' + ((friendsRes.data || []).length === 1 ? '' : 's') + '.');
+      renderNextInteresting();
     } catch (err) {
       setFriendsStatus('Friends error: ' + (err && err.message ? err.message : 'run the Friends/Profile SQL update'));
     } finally {
@@ -4872,8 +5420,11 @@
         const accept = document.createElement('button'); accept.className='friends-btn good'; accept.textContent='Accept Friend Request'; accept.addEventListener('click',()=>sendFriendRequest(profile.user_id, profile.username)); actions.appendChild(accept);
         if (status) status.textContent = profile.username + ' has sent you a friend request.';
       } else if (profile.relationship === 'friends') {
-        const remove = document.createElement('button'); remove.className='friends-btn danger'; remove.textContent='Remove Friend'; remove.addEventListener('click',()=>removeFriendship(profile.user_id, profile.username, true)); actions.appendChild(remove);
-        if (status) status.textContent = 'Friends · stats are synced from each player’s latest game session.';
+        const gift = document.createElement('button'); gift.className='friends-btn gift'; gift.textContent='🎁 Send Daily Gift'; gift.addEventListener('click',()=>sendFriendGift(profile.user_id,profile.username));
+        const cheer = document.createElement('button'); cheer.className='friends-btn cheer'; cheer.textContent='🙌 Cheer Them On'; cheer.addEventListener('click',()=>sendFriendCheer(profile.user_id,profile.username));
+        const remove = document.createElement('button'); remove.className='friends-btn danger'; remove.textContent='Remove Friend'; remove.addEventListener('click',()=>removeFriendship(profile.user_id, profile.username, true));
+        actions.append(gift,cheer,remove);
+        if (status) status.textContent = 'Friends · send one Daily Gift every 20 hours, or a cheer every 4 hours.';
       } else if (profile.relationship === 'self') {
         if (status) status.textContent = 'This is your public Archie profile.';
       }
@@ -5400,9 +5951,12 @@
   setInterval(() => { const active = document.querySelector('.tab.active'); if (active && active.dataset.tab === 'friends') refreshFriends(); }, 10000);
   setInterval(refreshServerItems, 10000);
   setInterval(refreshBossState, 2000);
+  setInterval(refreshBossContributions, 2000);
   setInterval(flushBossHits, 300);
   setInterval(refreshDailyQuests, 10000);
   setInterval(refreshInbox, 10000);
+  setInterval(refreshDailyLogin, 60000);
+  setInterval(renderDailyLogin, 1000);
 
   function spawnBonus() {
     if (playerIsBanned) return;
@@ -5434,7 +5988,7 @@
     setTimeout(() => { if (!clicked) el.remove(); }, 6000);
   }
   function scheduleBonus() {
-    const delay = 18000 + Math.random() * 22000;
+    const delay = totalEarned < 10000 ? (8000 + Math.random() * 6000) : (18000 + Math.random() * 22000);
     setTimeout(() => { spawnBonus(); scheduleBonus(); }, delay);
   }
   scheduleBonus();
@@ -5482,9 +6036,20 @@
   document.getElementById('globalLeaderboardBtn').addEventListener('click',()=>{leaderboardMode='global';document.getElementById('globalLeaderboardBtn').classList.add('active');document.getElementById('friendsLeaderboardBtn').classList.remove('active');refreshLeaderboard();});
   document.getElementById('friendsLeaderboardBtn').addEventListener('click',()=>{leaderboardMode='friends';document.getElementById('friendsLeaderboardBtn').classList.add('active');document.getElementById('globalLeaderboardBtn').classList.remove('active');refreshLeaderboard();});
 
-  if (profileChip) profileChip.addEventListener('click', (e) => { e.stopPropagation(); if (profileCard) profileCard.classList.toggle('open'); renderProfilePanel(); });
+  if (profileChip) profileChip.addEventListener('click', (e) => { e.stopPropagation(); closeDailyLoginCard(); if (profileCard) profileCard.classList.toggle('open'); renderProfilePanel(); });
   document.getElementById('profileClose').addEventListener('click', () => { if (profileCard) profileCard.classList.remove('open'); });
-  document.addEventListener('click', (e) => { if (profileCard && profileCard.classList.contains('open') && !profileCard.contains(e.target) && e.target !== profileChip) profileCard.classList.remove('open'); });
+  document.getElementById('dailyLoginChip').addEventListener('click',(e)=>{e.stopPropagation();const card=document.getElementById('dailyLoginCard');if(card?.classList.contains('open'))closeDailyLoginCard();else openDailyLoginCard();});
+  document.getElementById('dailyLoginClose').addEventListener('click',closeDailyLoginCard);
+  document.getElementById('dailyLoginClaim').addEventListener('click',claimDailyLogin);
+  document.addEventListener('click', (e) => {
+    if (profileCard && profileCard.classList.contains('open') && !profileCard.contains(e.target) && !profileChip.contains(e.target)) profileCard.classList.remove('open');
+    const daily=document.getElementById('dailyLoginCard'),chip=document.getElementById('dailyLoginChip');
+    if(daily&&daily.classList.contains('open')&&!daily.contains(e.target)&&!chip.contains(e.target))daily.classList.remove('open');
+  });
+  const runNextInteresting=()=>{if(nextInterestingHandler)nextInterestingHandler();};
+  document.getElementById('nextInterestingAction').addEventListener('click',(e)=>{e.stopPropagation();runNextInteresting();});
+  document.getElementById('nextInterestingCard').addEventListener('click',runNextInteresting);
+  document.getElementById('nextInterestingCard').addEventListener('keydown',(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();runNextInteresting();}});
   document.getElementById('friendSearchBtn').addEventListener('click', searchFriends);
   document.getElementById('friendSearchInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') searchFriends(); });
   document.getElementById('friendsRefreshBtn').addEventListener('click', refreshFriends);
