@@ -2906,7 +2906,7 @@
       <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
         <div>
           <div class="admin-section-title">Players</div>
-          <div class="admin-muted">Red rows have hit the 15 clicks/sec limit. Give Archies, reset progress, ban/unban, or clear flags.</div>
+          <div class="admin-muted">Red rows have an anti-cheat flag (click-rate or suspicious score sync). Give/Take Archies, reset, ban/unban, or clear flags.</div>
         </div>
         <button class="admin-btn" id="adminRefreshPlayers">Refresh</button>
       </div>
@@ -3089,6 +3089,7 @@
   let leaderboardUser = null;
   let leaderboardProfile = null;
   let leaderboardSyncBusy = false;
+  let leaderboardScoreHeld = false;
   let leaderboardRefreshBusy = false;
   let lastSyncedLifetimeArchies = -1;
   let clientStatePollBusy = false;
@@ -5467,6 +5468,7 @@
 
   async function syncLifetimeArchies(force = false) {
     if (!leaderboardDb || !leaderboardProfile || leaderboardSyncBusy || playerIsBanned) return;
+    if (leaderboardScoreHeld && !force) return;
     const lifetime = Math.max(0, Math.floor(Number(totalEarned) || 0));
     if (!force && lifetime <= lastSyncedLifetimeArchies) return;
 
@@ -5476,8 +5478,18 @@
       if (error) throw error;
       const serverLifetime = Number(data);
       leaderboardProfile.archies = Number.isFinite(serverLifetime) ? serverLifetime : lifetime;
-      lastSyncedLifetimeArchies = leaderboardProfile.archies;
-      setLeaderboardStatus('Leaderboard synced: ' + fmt(leaderboardProfile.archies) + ' Lifetime Archies');
+      if (Number.isFinite(serverLifetime) && serverLifetime + 1 < lifetime) {
+        // The server rejected/held a suspicious jump. Local progress is deliberately
+        // left untouched; only competitive/shared score syncing is paused.
+        leaderboardScoreHeld = true;
+        lastSyncedLifetimeArchies = lifetime;
+        setLeaderboardStatus('⚠ Score verification hold: your local game is unchanged, but this Lifetime total was not accepted for the leaderboard.');
+        showToast('⚠ Leaderboard verification held this score for developer review.');
+      } else {
+        leaderboardScoreHeld = false;
+        lastSyncedLifetimeArchies = leaderboardProfile.archies;
+        setLeaderboardStatus('Leaderboard synced: ' + fmt(leaderboardProfile.archies) + ' Lifetime Archies');
+      }
     } catch (err) {
       const msg = err && err.message ? err.message : 'connection problem';
       setLeaderboardStatus('Lifetime Archie sync paused: ' + msg);
@@ -6405,7 +6417,7 @@
       scoreInfo.innerHTML = '<span>' + fmt(Number(row.archies) || 0) + ' Lifetime</span><span style="display:block;font-size:.58rem;color:#9a7a64;margin-top:1px">' + formatLastSeen(row.updated_at, false) + '</span>';
       const flag = document.createElement('div');
       flag.className = 'admin-flag';
-      flag.textContent = (Number(row.cheat_flags) || 0) > 0 ? ('⚑ ' + Number(row.cheat_flags) + ' limit flag' + (Number(row.cheat_flags) === 1 ? '' : 's')) : (row.is_banned ? 'BANNED' : 'clean');
+      flag.textContent = (Number(row.cheat_flags) || 0) > 0 ? ('⚑ ' + Number(row.cheat_flags) + ' anti-cheat flag' + (Number(row.cheat_flags) === 1 ? '' : 's')) : (row.is_banned ? 'BANNED' : 'clean');
       head.append(name, scoreInfo, flag);
       card.appendChild(head);
 
