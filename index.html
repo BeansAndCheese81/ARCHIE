@@ -2230,6 +2230,98 @@
     .admin-afl-grid { grid-template-columns:1fr; }
   }
 
+
+  /* =========================================================
+     ARCHIE EMPIRE — ENDGAME PROGRESSION
+     ========================================================= */
+  .empire-panel { display:flex; flex-direction:column; gap:9px; overflow:auto; min-height:0; padding-bottom:8px; }
+  .empire-hero {
+    position:relative; overflow:hidden; padding:14px; border-radius:17px;
+    background:linear-gradient(135deg,#21142f,#4c245f 52%,#8b4c51);
+    border:2px solid rgba(255,221,117,.38); color:#fff;
+    box-shadow:0 12px 30px rgba(48,20,63,.18);
+  }
+  .empire-hero::after {
+    content:''; position:absolute; inset:-80% -15%;
+    background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.13) 50%,transparent 62%);
+    animation:empireShine 5.2s linear infinite; pointer-events:none;
+  }
+  @keyframes empireShine { from{transform:translateX(-60%)} to{transform:translateX(60%)} }
+  .empire-kicker { font-size:.51rem; letter-spacing:.14em; text-transform:uppercase; color:#efca79; font-weight:900; }
+  .empire-title { font-family:'Baloo 2',sans-serif; font-size:1.15rem; font-weight:900; line-height:1.05; }
+  .empire-sub { margin-top:3px; font-size:.61rem; line-height:1.4; color:#eadcf0; font-weight:700; }
+  .empire-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:10px; }
+  .empire-metric { padding:7px 6px; border-radius:11px; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.13); text-align:center; }
+  .empire-metric b { display:block; font-family:'Baloo 2',sans-serif; font-size:.82rem; color:#fff4c8; }
+  .empire-metric span { display:block; margin-top:1px; font-size:.46rem; text-transform:uppercase; letter-spacing:.06em; color:#dccae5; font-weight:900; }
+
+  .empire-card {
+    padding:11px; border-radius:15px; background:rgba(255,250,240,.95);
+    border:2px solid rgba(131,72,152,.20); box-shadow:0 5px 14px rgba(61,36,72,.08);
+  }
+  .empire-card-title { font-family:'Baloo 2',sans-serif; font-size:.88rem; font-weight:900; color:#57315f; }
+  .empire-card-sub { margin-top:1px; font-size:.58rem; line-height:1.4; color:#876d8b; font-weight:700; }
+
+  .empire-rank-wrap { margin-top:8px; }
+  .empire-rank-line { display:flex; justify-content:space-between; gap:8px; align-items:center; font-size:.57rem; font-weight:900; color:#76517c; }
+  .empire-track { height:9px; margin-top:5px; border-radius:999px; overflow:hidden; background:#e4d9e6; }
+  .empire-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,#8d59b5,#d56c8d,#efbb57); transition:width .25s ease; }
+
+  .empire-projects { display:flex; flex-direction:column; gap:6px; margin-top:8px; }
+  .empire-project {
+    position:relative; overflow:hidden; padding:9px; border-radius:13px;
+    border:2px solid rgba(114,65,135,.16); background:linear-gradient(135deg,#fff,#fbf3ff);
+    transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+  }
+  .empire-project:hover { transform:translateY(-2px); border-color:#a773ba; box-shadow:0 7px 16px rgba(74,40,89,.11); }
+  .empire-project.complete { border-color:#d2a54a; background:linear-gradient(135deg,#fffaf0,#fff0c9); }
+  .empire-project-top { display:flex; justify-content:space-between; gap:8px; align-items:flex-start; }
+  .empire-project-name { font-family:'Baloo 2',sans-serif; font-size:.75rem; font-weight:900; color:#57315f; }
+  .empire-project-level { flex:0 0 auto; padding:2px 6px; border-radius:999px; background:#eee0f2; color:#785383; font-size:.48rem; font-weight:900; }
+  .empire-project-desc { margin-top:1px; font-size:.54rem; color:#8c728e; line-height:1.35; font-weight:700; padding-right:4px; }
+  .empire-project-cost { margin-top:6px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .empire-project-cost span { font-size:.55rem; color:#765b79; font-weight:900; }
+  .empire-buy {
+    border:none; border-radius:999px; padding:6px 9px; background:#7e4c94; color:#fff;
+    font-family:'Baloo 2',sans-serif; font-size:.56rem; font-weight:900; cursor:pointer;
+  }
+  .empire-buy:disabled { opacity:.42; cursor:not-allowed; }
+
+  .empire-vault-buttons { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; margin-top:8px; }
+  .empire-vault-btn {
+    border:2px solid rgba(182,122,42,.22); border-radius:12px; padding:8px 5px;
+    background:linear-gradient(135deg,#fff8e4,#fff0bd); color:#805718;
+    font-family:'Baloo 2',sans-serif; font-size:.58rem; font-weight:900; cursor:pointer;
+  }
+  .empire-vault-btn:disabled { opacity:.42; cursor:not-allowed; }
+  .empire-vault-note { margin-top:6px; font-size:.52rem; color:#8a745a; line-height:1.35; font-weight:700; }
+
+  .ascension-card {
+    padding:12px; border-radius:16px; border:2px solid rgba(226,166,55,.34);
+    background:linear-gradient(135deg,#2e1539,#5b2853 60%,#996140); color:#fff;
+    box-shadow:0 8px 24px rgba(72,31,77,.16);
+  }
+  .ascension-title { font-family:'Baloo 2',sans-serif; font-size:.9rem; font-weight:900; color:#ffeab2; }
+  .ascension-sub { margin-top:2px; font-size:.57rem; line-height:1.45; color:#f0dce7; font-weight:700; }
+  .ascension-gain { margin-top:8px; padding:7px 9px; border-radius:11px; background:rgba(255,255,255,.09); font-size:.61rem; font-weight:900; color:#fff2c9; }
+  .ascend-btn {
+    width:100%; margin-top:8px; border:none; border-radius:999px; padding:9px 11px;
+    background:linear-gradient(90deg,#d79636,#f4c760); color:#4f2f08;
+    font-family:'Baloo 2',sans-serif; font-size:.69rem; font-weight:900; cursor:pointer;
+    box-shadow:0 5px 0 rgba(120,74,11,.45);
+  }
+  .ascend-btn:disabled { opacity:.38; cursor:not-allowed; box-shadow:none; }
+
+  .empire-new-badge {
+    display:inline-flex; margin-left:4px; padding:1px 4px; border-radius:999px;
+    background:#f2b84b; color:#58350a; font-size:.42rem; font-weight:900; letter-spacing:.04em;
+  }
+
+  @media(max-width:720px) {
+    .empire-metrics { grid-template-columns:1fr 1fr 1fr; }
+    .empire-vault-buttons { grid-template-columns:1fr; }
+  }
+
 </style>
 </head>
 <body>
@@ -2352,6 +2444,7 @@
       <div class="tab" data-tab="inbox"><span class="tab-icon">📬</span><span class="tab-label">Inbox</span><span class="tab-badge" id="inboxBadge">0</span></div>
       <div class="tab" data-tab="cosmetics"><span class="tab-icon">✨</span><span class="tab-label">Cosmetics</span></div>
       <div class="tab" data-tab="legacy"><span class="tab-icon">🌳</span><span class="tab-label">Legacy</span></div>
+      <div class="tab" data-tab="empire"><span class="tab-icon">🏛️</span><span class="tab-label">Empire</span><span class="empire-new-badge">NEW</span></div>
       <div class="tab" data-tab="leaderboard"><span class="tab-icon">🏆</span><span class="tab-label">Leaderboard</span></div>
     </div>
 
@@ -2445,6 +2538,49 @@
           <button class="prestige-btn" id="prestigeBtn">Retire for +0 Legacy</button>
         </div>
         <div class="legacy-tree" id="legacyTree"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-empire">
+      <div class="empire-panel">
+        <div class="empire-hero">
+          <div class="empire-kicker">Late-game progression</div>
+          <div class="empire-title">🏛️ Archie Empire</div>
+          <div class="empire-sub">For players who have more Archies than they know what to do with. Fund absurd mega-projects, push into repeatable infinite-scale projects, burn excess wealth for Influence, and Ascend to restart the economy with permanent prestige.</div>
+          <div class="empire-metrics">
+            <div class="empire-metric"><b id="empireInfluenceValue">0</b><span>Influence</span></div>
+            <div class="empire-metric"><b id="empireStarsValue">0</b><span>Ascension Stars</span></div>
+            <div class="empire-metric"><b id="empireAscensionsValue">0</b><span>Ascensions</span></div>
+          </div>
+          <div class="empire-rank-wrap">
+            <div class="empire-rank-line"><span id="empireRankName">Local Entrepreneur</span><span id="empireRankNext">Next rank</span></div>
+            <div class="empire-track"><div class="empire-fill" id="empireRankFill"></div></div>
+          </div>
+        </div>
+
+        <div class="empire-card">
+          <div class="empire-card-title">Mega Projects</div>
+          <div class="empire-card-sub">These projects are deliberately expensive. Early ones are finite milestones, then the final ones become repeatable forever so even players in the thousands of Dc still have a serious money sink.</div>
+          <div class="empire-projects" id="empireProjects"></div>
+        </div>
+
+        <div class="empire-card">
+          <div class="empire-card-title">Empire Vault</div>
+          <div class="empire-card-sub">Still too rich? Burn a percentage of your current Archies into permanent Empire Influence. Influence raises your Empire rank and gives only a small capped production bonus.</div>
+          <div class="empire-vault-buttons">
+            <button class="empire-vault-btn" id="empireBurn10" type="button">Burn 10%</button>
+            <button class="empire-vault-btn" id="empireBurn25" type="button">Burn 25%</button>
+            <button class="empire-vault-btn" id="empireBurn50" type="button">Burn 50%</button>
+          </div>
+          <div class="empire-vault-note" id="empireVaultNote">The bigger the sacrifice, the more Influence it can create. This permanently removes those current Archies.</div>
+        </div>
+
+        <div class="ascension-card">
+          <div class="ascension-title">✦ Archie Ascension</div>
+          <div class="ascension-sub">Ascension is the true rich-player reset. It wipes your <b>current Archies, normal upgrades, one-time boosts and current run</b>, but keeps Lifetime Archies, Legacy, cosmetics, friends, chests, Empire projects and all Ascension Stars.</div>
+          <div class="ascension-gain" id="ascensionGainText">Reach 1Qi current Archies to Ascend.</div>
+          <button class="ascend-btn" id="ascendArchieBtn" type="button" disabled>Ascend Archie</button>
+        </div>
       </div>
     </div>
 
@@ -2845,6 +2981,11 @@
   let bossPendingHits = 0;
   let bossPollBusy = false;
   let bossWasActive = false;
+  let empireInfluence = 0;
+  let ascensionStars = 0;
+  let ascensionCount = 0;
+  let empireProjectLevels = {};
+  let economyVersion = 2;
   let aflState = { active:false, eventId:'', name:'AFL Archie Shootout', endsAt:0 };
   let aflUi = { open:false, eventId:'', goals:0, shots:0, chestRewards:0, marker:0.5, dir:1, raf:0, lastTs:0, locked:false, endedToastShown:false };
 
@@ -3131,8 +3272,35 @@
   }
   function legacyTokensAvailable() { return Math.max(0, legacyPoints - legacyTokensSpent()); }
   function effectiveCritChance() { return Math.min(0.95, critChance + legacySum('critAdd')); }
-  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult') * liveEventMultiplier() * timedClickMultiplier(); }
-  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult') * liveEventMultiplier() * timedAutoMultiplier(); }
+  const EMPIRE_PROJECTS = [
+    // Finite projects for strong late-game players.
+    {id:'stadium',icon:'🏟️',name:'Archie Super Stadium',desc:'A monument to excessive wealth and questionable financial decisions.',base:1e18,growth:4.2,max:14},
+    {id:'tower',icon:'🏙️',name:'Archie World Headquarters',desc:'An unnecessarily tall headquarters visible from several postcode zones.',base:2e21,growth:4.8,max:15},
+    {id:'exchange',icon:'💹',name:'Archie Global Exchange',desc:'Monetise every possible Archie-related market before regulators notice.',base:8e24,growth:5.2,max:16},
+    {id:'moon',icon:'🌕',name:'Lunar Archie Colony',desc:'Because owning Earth apparently was not enough.',base:3e28,growth:5.6,max:17},
+    {id:'fleet',icon:'🚀',name:'Constellation Archie Fleet',desc:'Industrialise the galaxy with a fleet that should probably be illegal.',base:9e31,growth:5.9,max:18},
+    {id:'dyson',icon:'☀️',name:'Archie Dyson Sphere',desc:'Surround a star with enough Archie infrastructure to concern astronomers.',base:4e34,growth:6.2,max:18},
+
+    // Repeatable forever — for the actually ridiculous balances.
+    {id:'mint',icon:'🏦',name:'Infinite Archie Mint',desc:'A repeatable high-tier money sink that keeps getting nastier forever.',base:1.2e35,growth:1.95,repeatable:true},
+    {id:'foundry',icon:'🪐',name:'Reality Foundry',desc:'Forge whole realities into Archie wealth and then spend that too.',base:4.5e35,growth:2.15,repeatable:true},
+    {id:'vault',icon:'🧿',name:'Omega Archie Vault',desc:'Lock impossible amounts of Archies away to gain prestige and rank.',base:1.3e36,growth:2.35,repeatable:true},
+    {id:'throne',icon:'👑',name:'Eternal Archie Throne',desc:'The endgame sink for players whose balances have become absurd.',base:3.8e36,growth:2.65,repeatable:true}
+  ];
+
+  function empireProjectLevel(id){ return Math.max(0,Math.floor(Number(empireProjectLevels[id])||0)); }
+  function empireProjectCost(p){ return p.base * Math.pow(p.growth, empireProjectLevel(p.id)); }
+  function empireProjectIsComplete(p){ return !p.repeatable && Number.isFinite(Number(p.max)) && empireProjectLevel(p.id) >= Number(p.max); }
+  function empireProjectInfluence(){ return EMPIRE_PROJECTS.reduce((n,p)=>n+empireProjectLevel(p.id),0); }
+  function totalEmpireInfluence(){ return Math.max(0,Math.floor(Number(empireInfluence)||0)) + empireProjectInfluence(); }
+  function empireProductionMultiplier(){
+    const influenceBonus = Math.min(0.75,totalEmpireInfluence()*0.0015);
+    const starBonus = Math.min(4,Math.max(0,ascensionStars)*0.035);
+    return 1 + influenceBonus + starBonus;
+  }
+
+  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult') * empireProductionMultiplier() * liveEventMultiplier() * timedClickMultiplier(); }
+  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult') * empireProductionMultiplier() * liveEventMultiplier() * timedAutoMultiplier(); }
 
   const upgrades = [
     { id: 'click2',   name: 'Firmer Tap',       desc: '+1 per click',        baseCost: 15,      type: 'click', amount: 1,     owned: 0 },
@@ -3182,15 +3350,15 @@
     { id: 'b11', name: 'Infinite Workforce', desc: 'x25 Archies/sec, permanently', cost: 500000000000000, type: 'autoMult', mult: 25, purchased: false },
 
     // Wealth-tier permanent boosts.
-    { id:'b12', name:'Hypercapitalisation', desc:'x50 Archies/sec, permanently', cost:5000000000000000, type:'autoMult', mult:50, purchased:false },
-    { id:'b13', name:'Reality Breaker', desc:'x50 click power, permanently', cost:20000000000000000, type:'clickMult', mult:50, purchased:false },
-    { id:'b14', name:'Impossible Luck', desc:'+15% critical click chance', cost:80000000000000000, type:'crit', mult:0.15, purchased:false },
-    { id:'b15', name:'Cosmic Workforce', desc:'x100 Archies/sec, permanently', cost:500000000000000000, type:'autoMult', mult:100, purchased:false },
-    { id:'b16', name:'Hand of Archie', desc:'x100 click power, permanently', cost:2000000000000000000, type:'clickMult', mult:100, purchased:false },
-    { id:'b17', name:'Eternal Industry', desc:'x250 Archies/sec, permanently', cost:50000000000000000000, type:'autoMult', mult:250, purchased:false },
-    { id:'b18', name:'Beyond Reality', desc:'x250 click power, permanently', cost:150000000000000000000, type:'clickMult', mult:250, purchased:false },
-    { id:'b19', name:'The Archie Economy', desc:'x1,000 Archies/sec, permanently', cost:2000000000000000000000, type:'autoMult', mult:1000, purchased:false },
-    { id:'b20', name:'Final Form Archie', desc:'x1,000 click power, permanently', cost:5000000000000000000000, type:'clickMult', mult:1000, purchased:false },
+    { id:'b12', name:'Hypercapitalisation', desc:'x2 Archies/sec, permanently', cost:5000000000000000, type:'autoMult', mult:2, purchased:false },
+    { id:'b13', name:'Reality Breaker', desc:'x2 click power, permanently', cost:20000000000000000, type:'clickMult', mult:2, purchased:false },
+    { id:'b14', name:'Impossible Luck', desc:'+5% critical click chance', cost:80000000000000000, type:'crit', mult:0.05, purchased:false },
+    { id:'b15', name:'Cosmic Workforce', desc:'x3 Archies/sec, permanently', cost:500000000000000000, type:'autoMult', mult:3, purchased:false },
+    { id:'b16', name:'Hand of Archie', desc:'x3 click power, permanently', cost:2000000000000000000, type:'clickMult', mult:3, purchased:false },
+    { id:'b17', name:'Eternal Industry', desc:'x4 Archies/sec, permanently', cost:50000000000000000000, type:'autoMult', mult:4, purchased:false },
+    { id:'b18', name:'Beyond Reality', desc:'x4 click power, permanently', cost:150000000000000000000, type:'clickMult', mult:4, purchased:false },
+    { id:'b19', name:'The Archie Economy', desc:'x5 Archies/sec, permanently', cost:2000000000000000000000, type:'autoMult', mult:5, purchased:false },
+    { id:'b20', name:'Final Form Archie', desc:'x5 click power, permanently', cost:5000000000000000000000, type:'clickMult', mult:5, purchased:false },
   ];
 
   let critChance = 0.03;
@@ -3302,6 +3470,7 @@
       selectedWorldStage, worldEffectsEnabled, worldHighestAnnounced,
       lastAdminResetVersion,
       starterJourneyStep, starterJourneyCompleted,
+      empireInfluence, ascensionStars, ascensionCount, empireProjectLevels, economyVersion,
       savedAt: Date.now()
     };
   }
@@ -3341,6 +3510,11 @@
     critCount = Number(data.critCount) || 0;
     critChance = Number(data.critChance) || critChance;
     lastAdminResetVersion = Math.max(0, Math.floor(Number(data.lastAdminResetVersion) || 0));
+    empireInfluence = Math.max(0,Math.floor(Number(data.empireInfluence)||0));
+    ascensionStars = Math.max(0,Math.floor(Number(data.ascensionStars)||0));
+    ascensionCount = Math.max(0,Math.floor(Number(data.ascensionCount)||0));
+    empireProjectLevels = data.empireProjectLevels && typeof data.empireProjectLevels === 'object' ? {...data.empireProjectLevels} : {};
+    economyVersion = Math.max(0,Math.floor(Number(data.economyVersion)||0));
     if (Number.isFinite(Number(data.starterJourneyStep))) {
       starterJourneyStep = Math.max(0, Math.min(6, Math.floor(Number(data.starterJourneyStep))));
       starterJourneyCompleted = data.starterJourneyCompleted === true || starterJourneyStep >= 6;
@@ -3358,6 +3532,24 @@
     if (Array.isArray(data.boosts)) {
       boosts.forEach((b, i) => { if (data.boosts[i]) b.purchased = true; });
     }
+
+    // One-time late-game economy rebalance. It preserves every purchased boost
+    // and upgrade, but rebuilds stored multipliers from their current balanced values.
+    if (economyVersion < 2) {
+      bonusClickAdd = upgrades.filter(u=>u.type==='click').reduce((n,u)=>n+(u.amount*u.owned),0);
+      bonusAutoAdd = upgrades.filter(u=>u.type==='auto').reduce((n,u)=>n+(u.amount*u.owned),0);
+      clickMult = 1;
+      autoMult = 1;
+      critChance = 0.03;
+      boosts.forEach(b=>{
+        if(!b.purchased) return;
+        if(b.type==='clickMult') clickMult *= b.mult;
+        if(b.type==='autoMult') autoMult *= b.mult;
+        if(b.type==='crit') critChance += b.mult;
+      });
+      economyVersion = 2;
+    }
+
     if (Array.isArray(data.achievements)) {
       data.achievements.forEach(id => unlocked.add(id));
     }
@@ -3375,7 +3567,10 @@
   }
 
   // ---------------- helpers ----------------
-  function cost(u) { return Math.round(u.baseCost * Math.pow(1.15, u.owned)); }
+  function cost(u) {
+    const growth = u.baseCost >= 5e15 ? 1.55 : (u.baseCost >= 1e12 ? 1.28 : 1.15);
+    return Math.round(u.baseCost * Math.pow(growth, u.owned));
+  }
 
   function fmt(n) {
     n = Number(n) || 0;
@@ -3557,6 +3752,14 @@
       const p=Math.max(0,Number(s.progress())||0);
       setNextInteresting('🌟','Starter Journey: '+s.title,s.desc,'Do it',()=>document.getElementById('archieBtn')?.focus(),p/Math.max(1,s.target)*100);return;
     }
+    if(score>=1e15 || totalEmpireInfluence()>0 || ascensionStars>0){
+      const nextProject=EMPIRE_PROJECTS.find(p=>!empireProjectIsComplete(p));
+      const sub=nextProject
+        ? ('Fund '+nextProject.name+' · next stage costs '+fmt(empireProjectCost(nextProject))+' Archies.')
+        : 'Use the Empire Vault or Ascend Archie for a new late-game cycle.';
+      setNextInteresting('🏛️','Your Archie Empire needs funding',sub,'Empire',()=>openGameTab('empire'),Math.min(100,totalEmpireInfluence()/25));
+      return;
+    }
     const gain=prestigeGain();
     if(gain>=1){
       setNextInteresting('🌳','Retirement is available','Retire this run for +'+gain+' Legacy Points and strengthen future runs.','Legacy',()=>openGameTab('legacy'),100);return;
@@ -3569,6 +3772,146 @@
       setNextInteresting(next.icon,'Next world: '+next.name,fmt(Math.max(0,next.min-totalEarned))+' Lifetime Archies to go.','Build',()=>openGameTab('shop'),p);return;
     }
     setNextInteresting('✨','Build your perfect Archie empire','Chase Legacy mastery, friends, Boss fights, cosmetics and personal records.','Upgrades',()=>openGameTab('shop'),100);
+  }
+
+
+  const EMPIRE_RANKS = [
+    [0,'Local Entrepreneur'],[15,'Archie Investor'],[35,'Archie Magnate'],[70,'Archie Tycoon'],
+    [120,'Global Industrialist'],[190,'Planetary Mogul'],[290,'Galactic Chairman'],[420,'Reality Baron'],
+    [600,'Archie Emperor'],[850,'Eternal Empire'],[1150,'Infinite Chancellor'],[1500,'Cosmic Sovereign'],
+    [1950,'Multiversal Overlord'],[2500,'God Emperor of Archie']
+  ];
+
+  function empireRankInfo(){
+    const points=totalEmpireInfluence();
+    let current=EMPIRE_RANKS[0],next=null;
+    for(let i=0;i<EMPIRE_RANKS.length;i++){
+      if(points>=EMPIRE_RANKS[i][0]) current=EMPIRE_RANKS[i];
+      else { next=EMPIRE_RANKS[i]; break; }
+    }
+    const prev=current[0],nextAt=next?next[0]:prev;
+    const pct=next?Math.max(0,Math.min(100,(points-prev)/Math.max(1,nextAt-prev)*100)):100;
+    return {points,currentName:current[1],next,pct};
+  }
+
+  function ascensionTarget(){
+    return 1e24 * Math.pow(1e3, Math.max(0,ascensionCount));
+  }
+
+  function ascensionGain(){
+    const target = ascensionTarget();
+    if(score < target) return 0;
+    return Math.max(1,Math.min(250,Math.floor(Math.log10(Math.max(1,(score/target)+1))*4)+1));
+  }
+
+  function renderEmpire(){
+    const projectsEl=document.getElementById('empireProjects');
+    if(!projectsEl) return;
+
+    const info=empireRankInfo();
+    document.getElementById('empireInfluenceValue').textContent=fmt(info.points);
+    document.getElementById('empireStarsValue').textContent=fmt(ascensionStars);
+    document.getElementById('empireAscensionsValue').textContent=fmt(ascensionCount);
+    document.getElementById('empireRankName').textContent=info.currentName;
+    document.getElementById('empireRankNext').textContent=info.next?('Next: '+info.next[1]+' · '+fmt(info.next[0])+' Influence'):'Maximum Empire Rank';
+    document.getElementById('empireRankFill').style.width=info.pct+'%';
+
+    projectsEl.innerHTML='';
+    EMPIRE_PROJECTS.forEach(p=>{
+      const level=empireProjectLevel(p.id);
+      const complete=empireProjectIsComplete(p);
+      const c=complete?0:empireProjectCost(p);
+      const levelLabel = p.repeatable ? ('LV '+level+' · Repeatable') : ('LV '+level+' / '+p.max);
+      const progressPct = p.repeatable
+        ? (((level % 10) + 1) / 10) * 100
+        : (level / Math.max(1,p.max) * 100);
+      const row=document.createElement('div');
+      row.className='empire-project'+(complete?' complete':'');
+      row.innerHTML=
+        '<div class="empire-project-top"><div><div class="empire-project-name">'+p.icon+' '+p.name+'</div><div class="empire-project-desc">'+p.desc+'</div></div>'+
+        '<div class="empire-project-level">'+levelLabel+'</div></div>'+
+        '<div class="empire-track"><div class="empire-fill" style="width:'+progressPct+'%"></div></div>'+
+        '<div class="empire-project-cost"><span>'+(complete?'PROJECT COMPLETE':('Next stage: '+fmt(c)+' Archies'))+'</span><button class="empire-buy" '+(complete||score<c?'disabled':'')+'>'+(complete?'✓ Complete':(p.repeatable?'Fund Again':'Fund Stage'))+'</button></div>';
+      const btn=row.querySelector('.empire-buy');
+      if(!complete) btn.addEventListener('click',()=>buyEmpireProject(p));
+      projectsEl.appendChild(row);
+    });
+
+    const vault=document.getElementById('empireVaultNote');
+    if(vault) vault.textContent='Current balance: '+fmt(score)+' · Empire production bonus: x'+empireProductionMultiplier().toFixed(2)+' · Vault and repeatable projects are the main sinks for extreme rich-player balances.';
+
+    ['10','25','50'].forEach(n=>{
+      const b=document.getElementById('empireBurn'+n);
+      if(b) b.disabled=score<1e15;
+    });
+
+    const gain=ascensionGain();
+    const gainText=document.getElementById('ascensionGainText');
+    const button=document.getElementById('ascendArchieBtn');
+    const target=ascensionTarget();
+    if(gainText) gainText.textContent=gain>0
+      ? 'Ascend now for +'+gain+' Ascension Star'+(gain===1?'':'s')+'. Next Ascension target scales up brutally after each Ascension.'
+      : 'Reach '+fmt(target)+' current Archies to Ascend. Current: '+fmt(score)+'.';
+    if(button){
+      button.disabled=gain<1;
+      button.textContent=gain>0?('Ascend for +'+gain+' Star'+(gain===1?'':'s')):'Ascend Archie';
+    }
+  }
+
+  function buyEmpireProject(project){
+    const level=empireProjectLevel(project.id);
+    if(empireProjectIsComplete(project)) return;
+    const c=empireProjectCost(project);
+    if(score<c) return;
+    score-=c;
+    empireProjectLevels[project.id]=level+1;
+    showToast(project.icon+' '+project.name+' funded · Level '+(level+1));
+    playUISound('purchase');
+    burstConfetti(window.innerWidth*.72,window.innerHeight*.45,22);
+    saveGame();
+    render();
+  }
+
+  function burnEmpireWealth(percent){
+    percent=Math.max(0.01,Math.min(.9,Number(percent)||0));
+    if(score<1e15) { showToast('You need at least 1Qa Archies to use the Empire Vault.'); return; }
+    const spend=Math.floor(score*percent);
+    if(spend<1) return;
+    const gain=Math.max(1,Math.min(200,Math.floor(Math.pow(Math.max(1,Math.log10(Math.max(1,spend))-14),1.18))));
+    if(!confirm('Permanently burn '+fmt(spend)+' current Archies for +'+gain+' Empire Influence?')) return;
+    score=Math.max(0,score-spend);
+    empireInfluence+=gain;
+    showToast('🏛️ Empire Vault: +'+gain+' Influence');
+    playUISound('confirm');
+    burstConfetti(window.innerWidth*.75,window.innerHeight*.48,24);
+    saveGame();
+    render();
+  }
+
+  function ascendArchie(){
+    const gain=ascensionGain();
+    if(gain<1) return;
+    const message='ASCEND ARCHIE?\\n\\nThis deliberately resets your CURRENT economy:\\n• current Archies\\n• normal upgrade levels\\n• one-time boost purchases\\n• current run earnings\\n\\nIt KEEPS Lifetime Archies, Legacy Points/skills, cosmetics, friends, chests, Empire projects, Empire Influence and all Ascension Stars.\\n\\nYou will gain +'+gain+' Ascension Star'+(gain===1?'':'s')+'.';
+    if(!confirm(message)) return;
+
+    ascensionStars+=gain;
+    ascensionCount+=1;
+    score=0;
+    runEarned=0;
+    bonusClickAdd=0;
+    bonusAutoAdd=0;
+    clickMult=1;
+    autoMult=1;
+    critChance=0.03;
+    upgrades.forEach(u=>u.owned=0);
+    boosts.forEach(b=>b.purchased=false);
+
+    showToast('✦ Archie Ascended · +'+gain+' Star'+(gain===1?'':'s'));
+    burstConfetti(window.innerWidth/2,window.innerHeight/2,80);
+    playUISound('confirm');
+    renderAchvList();
+    saveGame();
+    render();
   }
 
   function render() {
@@ -3622,6 +3965,7 @@
     renderHat();
     const starterAdvanced = starterMaybeAdvance();
     renderStarterJourney();
+    renderEmpire();
     renderNextInteresting();
     if (starterAdvanced) setTimeout(render,0);
   }
@@ -3905,6 +4249,7 @@
     if (tabName === 'inbox') { refreshInbox(true); setTimeout(markInboxRead,500); }
     if (tabName === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
     if (tabName === 'legacy') renderLegacyTree();
+    if (tabName === 'empire') renderEmpire();
   }
 
   function hideChestArrival() {
@@ -4223,6 +4568,11 @@
     lastSyncedLifetimeArchies = 0;
     starterJourneyStep = 0;
     starterJourneyCompleted = false;
+    empireInfluence = 0;
+    ascensionStars = 0;
+    ascensionCount = 0;
+    empireProjectLevels = {};
+    economyVersion = 2;
     if (leaderboardProfile) leaderboardProfile.archies = 0;
     renderAchvList();
     render();
@@ -4252,6 +4602,8 @@
       statCard('Critical clicks', fmt(critCount)) +
       statCard('Legacy Points', legacyPoints + ' total · ' + legacyTokensAvailable() + ' available') +
       statCard('Legacy base bonus', 'x' + legacyMultiplier().toFixed(2)) +
+      statCard('Empire rank', empireRankInfo().currentName + ' · ' + totalEmpireInfluence() + ' Influence') +
+      statCard('Ascension', ascensionStars + ' Stars · ' + ascensionCount + ' total') +
       statCard('Click power', fmt(effClick())) +
       statCard('Archies / sec', fmt(effAuto())) +
       statCard('Crit chance', Math.round(effectiveCritChance() * 100) + '%') +
@@ -6371,6 +6723,7 @@
       if (tab.dataset.tab === 'inbox') { refreshInbox(true); setTimeout(markInboxRead, 500); }
       if (tab.dataset.tab === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
       if (tab.dataset.tab === 'legacy') renderLegacyTree();
+      if (tab.dataset.tab === 'empire') renderEmpire();
     });
   });
 
@@ -6479,6 +6832,10 @@
   document.getElementById('inboxRefreshBtn').addEventListener('click',()=>refreshInbox(true));
   document.getElementById('adminSendMailPlayer').addEventListener('click',()=>adminSendMailbox(false));
   document.getElementById('adminSendMailAll').addEventListener('click',()=>adminSendMailbox(true));
+  document.getElementById('empireBurn10').addEventListener('click',()=>burnEmpireWealth(.10));
+  document.getElementById('empireBurn25').addEventListener('click',()=>burnEmpireWealth(.25));
+  document.getElementById('empireBurn50').addEventListener('click',()=>burnEmpireWealth(.50));
+  document.getElementById('ascendArchieBtn').addEventListener('click',ascendArchie);
 
   initLeaderboard();
 
