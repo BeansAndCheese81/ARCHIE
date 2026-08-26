@@ -649,6 +649,82 @@
     .world-bg::before,.world-bg::after,.era-unlock,.world-transition { animation:none!important; }
   }
 
+
+  /* ---------------- readability hotfix for evolving worlds ---------------- */
+  body.world-dark-ui h1 {
+    color: #fff8ec;
+    text-shadow: 0 2px 4px rgba(0,0,0,.78), 0 0 18px rgba(0,0,0,.5);
+  }
+  body.world-dark-ui .subtitle {
+    color: #ffe7c8;
+    text-shadow: 0 2px 4px rgba(0,0,0,.8), 0 0 12px rgba(0,0,0,.55);
+  }
+  body.world-dark-ui .rank {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(20, 15, 26, .48);
+    border: 1px solid rgba(255,255,255,.22);
+    box-shadow: 0 3px 14px rgba(0,0,0,.2);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    text-shadow: 0 1px 3px rgba(0,0,0,.85);
+  }
+  body.world-dark-ui .rank #rank { color: #ffc66e; }
+  body.world-dark-ui .rank .legacy { color: #ffd0ea; }
+
+  body.world-dark-ui .stats-line,
+  body.world-dark-ui .cps-note {
+    color: #fff8ec;
+    text-shadow: 0 2px 4px rgba(0,0,0,.9);
+    background: rgba(20, 15, 26, .46);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 999px;
+    padding: 3px 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.16);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+  body.world-dark-ui .stats-line.totalline { color: #f8e7d7; }
+
+  /* The scenery stays visible, but the controls get a consistent readable glass layer. */
+  body.world-dark-ui .sidebar {
+    background: rgba(255, 250, 240, .84);
+    border-left: 1px solid rgba(255,255,255,.45);
+    border-radius: 18px 0 0 18px;
+    box-shadow: -8px 0 26px rgba(0,0,0,.16);
+    backdrop-filter: blur(13px) saturate(1.08);
+    -webkit-backdrop-filter: blur(13px) saturate(1.08);
+  }
+  body.world-dark-ui .tab {
+    background: rgba(255,255,255,.88);
+    color: #674a38;
+    border-color: rgba(212,113,31,.35);
+  }
+  body.world-dark-ui .tab.active {
+    background: var(--orange);
+    color: #fff;
+    border-color: var(--orange-deep);
+  }
+  body.world-dark-ui .upgrade,
+  body.world-dark-ui .achv-item,
+  body.world-dark-ui .stat-card,
+  body.world-dark-ui .prestige-box,
+  body.world-dark-ui .leaderboard-card,
+  body.world-dark-ui .friends-card,
+  body.world-dark-ui .friend-card,
+  body.world-dark-ui .legacy-branch,
+  body.world-dark-ui .cosmetics-card {
+    background-color: rgba(255,250,240,.94);
+  }
+
+  @media (max-width: 720px) {
+    body.world-dark-ui .sidebar {
+      border-radius: 16px 16px 0 0;
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,.45);
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1064,6 +1140,7 @@
     document.body.classList.add('world-themed');
     for (let i=0;i<worldStages.length;i++) document.body.classList.remove('world-stage-'+i);
     document.body.classList.add('world-stage-'+index);
+    document.body.classList.toggle('world-dark-ui', index >= 2);
     document.documentElement.style.setProperty('--era-accent', stage.accent);
     const name = document.getElementById('eraName');
     if (name) name.textContent = stage.icon + ' ' + stage.name + (selectedWorldStage === 'auto' ? '' : ' · Selected');
@@ -1959,11 +2036,23 @@
 
   function formatLastSeen(value, online) {
     if (online) return 'Online now';
-    if (!value) return 'Last seen unknown';
-    const ms = Date.now() - new Date(value).getTime(), mins = Math.max(1, Math.floor(ms/60000));
+    if (!value) return 'Last active before tracking';
+
+    const timestamp = new Date(value).getTime();
+    if (!Number.isFinite(timestamp)) return 'Last active before tracking';
+
+    const ms = Math.max(0, Date.now() - timestamp);
+    const mins = Math.max(1, Math.floor(ms / 60000));
     if (mins < 60) return 'Last seen ' + mins + 'm ago';
-    const hrs = Math.floor(mins/60); if (hrs < 24) return 'Last seen ' + hrs + 'h ago';
-    return 'Last seen ' + Math.floor(hrs/24) + 'd ago';
+
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return 'Last seen ' + hrs + 'h ago';
+
+    const days = Math.floor(hrs / 24);
+    if (days < 30) return 'Last seen ' + days + 'd ago';
+
+    const months = Math.floor(days / 30);
+    return 'Last seen ' + months + 'mo ago';
   }
 
   function applyRowCosmetics(el,row) {
@@ -1978,7 +2067,7 @@
     const medal=document.createElement('div'); medal.className='podium-medal'; medal.textContent=place===1?'🥇':place===2?'🥈':'🥉';
     const name=document.createElement('div'); name.className='podium-name'; name.textContent=row.username;
     const score=document.createElement('div'); score.className='podium-score'; score.textContent=fmt(Number(row.archies)||0)+' Archies';
-    const pres=document.createElement('div'); pres.className='presence-text'; pres.innerHTML='<span class="presence-dot'+(row.is_online?' online':'')+'"></span>'+formatLastSeen(row.last_seen_at,row.is_online);
+    const pres=document.createElement('div'); pres.className='presence-text'; pres.innerHTML='<span class="presence-dot'+(row.is_online?' online':'')+'"></span>'+formatLastSeen(row.last_seen_at || row.updated_at,row.is_online);
     card.append(medal,name,score,pres); card.addEventListener('click',()=>openPlayerProfile(row.user_id)); return card;
   }
 
@@ -1991,7 +2080,7 @@
       creator.classList.add('show');
       creator.innerHTML='<div class="creator-title">★ Archie Clicker Creator</div><div class="creator-name"></div><div class="presence-text"></div>';
       creator.querySelector('.creator-name').textContent=creatorRow.username;
-      creator.querySelector('.presence-text').innerHTML='<span class="presence-dot'+(creatorRow.is_online?' online':'')+'"></span>'+formatLastSeen(creatorRow.last_seen_at,creatorRow.is_online)+' · '+fmt(Number(creatorRow.archies)||0)+' Lifetime Archies';
+      creator.querySelector('.presence-text').innerHTML='<span class="presence-dot'+(creatorRow.is_online?' online':'')+'"></span>'+formatLastSeen(creatorRow.last_seen_at || creatorRow.updated_at,creatorRow.is_online)+' · '+fmt(Number(creatorRow.archies)||0)+' Lifetime Archies';
       creator.onclick=()=>openPlayerProfile(creatorRow.user_id);
     }
     const ranked=all.filter(r=>!r.is_creator);
@@ -2004,7 +2093,7 @@
       const pos=document.createElement('div'); pos.className='leaderboard-pos'; pos.textContent='#'+(index+4);
       const user=document.createElement('div');
       const name=document.createElement('div'); name.className='leaderboard-user'; name.textContent=row.username+(row.profile_title?' · '+row.profile_title:'');
-      const presence=document.createElement('div'); presence.className='presence-text'; presence.innerHTML='<span class="presence-dot'+(row.is_online?' online':'')+'"></span>'+formatLastSeen(row.last_seen_at,row.is_online);
+      const presence=document.createElement('div'); presence.className='presence-text'; presence.innerHTML='<span class="presence-dot'+(row.is_online?' online':'')+'"></span>'+formatLastSeen(row.last_seen_at || row.updated_at,row.is_online);
       user.append(name,presence);
       const archies=document.createElement('div'); archies.className='leaderboard-clicks'; archies.textContent=fmt(Number(row.archies)||0)+' Archies';
       item.append(pos,user,archies); item.addEventListener('click',()=>openPlayerProfile(row.user_id)); list.appendChild(item);
@@ -2177,7 +2266,7 @@
     meta.textContent = (row.is_creator ? 'Creator' : (row.profile_title || row.rank_title || 'Archie Nobody')) + ' · ' + fmt(Number(row.archies) || 0) + ' Lifetime';
     const presence = document.createElement('div');
     presence.className = 'presence-text';
-    presence.innerHTML = '<span class="presence-dot' + (row.is_online ? ' online' : '') + '"></span>' + formatLastSeen(row.last_seen_at, row.is_online);
+    presence.innerHTML = '<span class="presence-dot' + (row.is_online ? ' online' : '') + '"></span>' + formatLastSeen(row.last_seen_at || row.updated_at, row.is_online);
     user.append(name, meta, presence);
     main.appendChild(user);
     card.appendChild(main);
@@ -2395,7 +2484,7 @@
       if (rankEl2) rankEl2.textContent = profile.is_creator ? '★ Creator' : (profile.profile_title || profile.rank_title || 'Archie Nobody');
       const modal=document.querySelector('#playerProfileOverlay .social-modal');
       if(modal){['frame-orange','frame-berry','frame-gold','frame-cosmic','effect-sparkle','effect-rainbow','effect-royal'].forEach(c=>modal.classList.remove(c));if(profile.profile_frame)modal.classList.add(cosmeticClass('frame',profile.profile_frame));if(profile.profile_effect)modal.classList.add(cosmeticClass('effect',profile.profile_effect));if(profile.is_creator)modal.classList.add('frame-gold','effect-royal');}
-      if (summary) summary.innerHTML = statCard('Lifetime Archies', fmt(Number(profile.archies) || 0)) + statCard('Status', formatLastSeen(profile.last_seen_at, profile.is_online)) + statCard('Relationship', relationshipText(profile.relationship) || (profile.relationship === 'self' ? 'This is you' : 'Not friends yet'));
+      if (summary) summary.innerHTML = statCard('Lifetime Archies', fmt(Number(profile.archies) || 0)) + statCard('Status', formatLastSeen(profile.last_seen_at || profile.updated_at, profile.is_online)) + statCard('Relationship', relationshipText(profile.relationship) || (profile.relationship === 'self' ? 'This is you' : 'Not friends yet'));
 
       if (profile.relationship === 'none') {
         const add = document.createElement('button'); add.className='friends-btn'; add.textContent='Send Friend Request';
