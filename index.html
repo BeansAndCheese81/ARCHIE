@@ -1758,6 +1758,174 @@
   .admin-update-copy { margin-top:2px; font-size:.59rem; line-height:1.42; color:#86694f; font-weight:700; }
   .admin-update-current { margin-top:7px; font-size:.62rem; font-weight:900; color:#65462d; }
 
+
+  /* =========================================================
+     BOSS HUD STABILITY + CROSS-CLIENT SYNC VISUALS
+     ========================================================= */
+
+  /* The Boss HUD now lives in the Stage's flex flow.
+     This guarantees the sidebar/menu can never cover it. */
+  .boss-hud,
+  body.boss-mode .boss-hud {
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:auto!important;
+    transform:none!important;
+    width:min(760px,calc(100% - 24px))!important;
+    max-width:760px!important;
+    margin:2px auto 5px!important;
+    padding:11px 15px!important;
+    z-index:24!important;
+    flex:0 0 auto!important;
+    box-sizing:border-box!important;
+    border-radius:17px!important;
+  }
+
+  body.boss-mode .stage {
+    justify-content:flex-start!important;
+    padding-top:7px!important;
+    overflow:hidden!important;
+  }
+
+  body.boss-mode #bossHud {
+    order:-20!important;
+  }
+
+  /* There was already a large alert inside the HUD, so the extra stamp only
+     created overlap. Keep one clean, unmistakable boss banner. */
+  body.boss-mode .boss-fight-stamp {
+    display:none!important;
+  }
+
+  /* Critically: boss damage feedback no longer animates transform.
+     Transform was also being used for centering, which caused the HUD to jump
+     across the screen on every hit. */
+  .boss-hud.hit {
+    animation:bossHudDamagePulse .22s ease!important;
+  }
+
+  @keyframes bossHudDamagePulse {
+    0%,100% {
+      filter:brightness(1);
+      box-shadow:0 12px 38px rgba(0,0,0,.42),0 0 28px rgba(255,61,98,.26);
+    }
+    45% {
+      filter:brightness(1.24);
+      box-shadow:0 14px 42px rgba(0,0,0,.46),0 0 40px rgba(255,77,110,.62);
+    }
+  }
+
+  .boss-hud.show {
+    display:block!important;
+    animation:bossHudDockIn .32s cubic-bezier(.2,.85,.2,1.1);
+  }
+
+  @keyframes bossHudDockIn {
+    from { opacity:0; transform:translateY(-10px) scale(.97); }
+    to   { opacity:1; transform:none; }
+  }
+
+  body.boss-mode .boss-alert {
+    padding:2px 0 5px!important;
+    color:#ffd4dc!important;
+  }
+
+  body.boss-mode .boss-track {
+    height:25px!important;
+    margin:7px 0!important;
+    border-radius:999px!important;
+  }
+
+  body.boss-mode .boss-fill {
+    transition:width .2s ease!important;
+  }
+
+  body.boss-mode .orbit-zone {
+    width:min(54vw,58vh,470px)!important;
+    height:min(54vw,58vh,470px)!important;
+    flex:0 1 auto!important;
+  }
+
+  body.boss-mode #archieBtn {
+    width:min(38vw,42vh,330px)!important;
+    height:min(38vw,42vh,330px)!important;
+  }
+
+  /* Remote-sync status cue. */
+  .boss-sync-live {
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    margin-left:7px;
+    padding:2px 7px;
+    border-radius:999px;
+    background:rgba(92,210,116,.14);
+    border:1px solid rgba(92,210,116,.34);
+    color:#bff8c9;
+    font-size:.54rem;
+    font-weight:900;
+    vertical-align:middle;
+    white-space:nowrap;
+  }
+
+  .boss-sync-live::before {
+    content:'';
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#65db7d;
+    box-shadow:0 0 8px rgba(101,219,125,.88);
+  }
+
+  @media(max-width:1100px) {
+    body.boss-mode .boss-hud {
+      width:min(680px,calc(100% - 18px))!important;
+    }
+    body.boss-mode .orbit-zone {
+      width:min(50vw,53vh,420px)!important;
+      height:min(50vw,53vh,420px)!important;
+    }
+  }
+
+  @media(max-width:720px) {
+    body.boss-mode .stage {
+      padding-top:4px!important;
+      gap:5px!important;
+    }
+    .boss-hud,
+    body.boss-mode .boss-hud {
+      width:calc(100% - 10px)!important;
+      padding:8px 10px!important;
+      margin:0 auto 3px!important;
+      border-radius:14px!important;
+    }
+    body.boss-mode .boss-alert {
+      font-size:.54rem!important;
+      letter-spacing:.07em!important;
+    }
+    body.boss-mode .boss-name {
+      font-size:.84rem!important;
+    }
+    body.boss-mode .boss-time,
+    body.boss-mode .boss-sub {
+      font-size:.54rem!important;
+    }
+    body.boss-mode .boss-track {
+      height:18px!important;
+      margin:5px 0!important;
+    }
+    body.boss-mode .orbit-zone {
+      width:min(72vw,38vh,330px)!important;
+      height:min(72vw,38vh,330px)!important;
+    }
+    body.boss-mode #archieBtn {
+      width:min(52vw,29vh,245px)!important;
+      height:min(52vw,29vh,245px)!important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1809,7 +1977,7 @@
 
     <div class="boss-hud" id="bossHud">
       <div class="boss-alert">⚠ Server Boss Active — Every Accepted Click Deals Damage ⚠</div>
-      <div class="boss-top"><div class="boss-name" id="bossName">👹 Boss Archie</div><div class="boss-time" id="bossTime"></div></div>
+      <div class="boss-top"><div class="boss-name" id="bossName">👹 Boss Archie <span class="boss-sync-live">LIVE SERVER</span></div><div class="boss-time" id="bossTime"></div></div>
       <div class="boss-track"><div class="boss-fill" id="bossFill"></div></div>
       <div class="boss-sub"><span id="bossHp">0 / 0 HP</span><span id="bossMyHits">Your hits: 0</span></div>
     </div>
@@ -3279,13 +3447,19 @@
     if (active && !wasVisualBoss) {
       showToast('⚠ BOSS FIGHT ACTIVE — click Archie to attack!');
       playUISound('danger');
-      layoutRoot.classList.remove('shake'); void layoutRoot.offsetWidth; layoutRoot.classList.add('shake');
     }
     if (!active) return;
 
     const hp=Math.max(0,Number(bossState.current_hp)||0);
     const max=Math.max(1,Number(bossState.max_hp)||1);
-    document.getElementById('bossName').textContent='👹 '+(bossState.name||'Boss Archie');
+    const bossNameEl=document.getElementById('bossName');
+    if (bossNameEl) {
+      bossNameEl.textContent='👹 '+(bossState.name||'Boss Archie')+' ';
+      const live=document.createElement('span');
+      live.className='boss-sync-live';
+      live.textContent='LIVE SERVER';
+      bossNameEl.appendChild(live);
+    }
     document.getElementById('bossFill').style.width=Math.max(0,Math.min(100,hp/max*100))+'%';
     document.getElementById('bossHp').textContent=fmt(hp)+' / '+fmt(max)+' HP · '+Math.max(0,Math.round(hp/max*100))+'% remaining';
     document.getElementById('bossMyHits').textContent='Your hits: '+fmt(Number(bossState.my_hits)||0);
@@ -3310,7 +3484,9 @@
         await refreshServerItems(true);
       }
     } catch(err) {
-      if(force) console.warn('Boss state failed:',err&&err.message?err.message:err);
+      // Global client-state polling also carries Boss state in this build,
+      // so one failed dedicated Boss request cannot make the fight disappear.
+      if(force) console.warn('Dedicated Boss-state request failed; using global server state:',err&&err.message?err.message:err);
     } finally { bossPollBusy=false; }
   }
 
@@ -4854,7 +5030,10 @@
     if (!leaderboardDb || !leaderboardUser || clientStatePollBusy) return;
     clientStatePollBusy = true;
     try {
-      let response = await leaderboardDb.rpc('archie_get_client_state_v3');
+      let response = await leaderboardDb.rpc('archie_get_client_state_v4');
+      if (response.error && /does not exist|not found|schema cache/i.test(String(response.error.message || ''))) {
+        response = await leaderboardDb.rpc('archie_get_client_state_v3');
+      }
       if (response.error && /does not exist|not found|schema cache/i.test(String(response.error.message || ''))) {
         response = await leaderboardDb.rpc('archie_get_client_state_v2');
       }
@@ -4874,6 +5053,29 @@
       } else if (serverGameVersion > knownGameVersion) {
         knownGameVersion = serverGameVersion;
         queueSafeGameRefresh(serverGameVersion);
+      }
+
+      if (typeof row.boss_active !== 'undefined') {
+        const previousBossId = bossState && bossState.boss_id ? String(bossState.boss_id) : '';
+        const nextBossId = row.boss_id ? String(row.boss_id) : '';
+        const wasActive = !!(bossState && bossState.active);
+
+        bossState = {
+          boss_id: row.boss_id || null,
+          active: !!row.boss_active,
+          name: row.boss_name || 'Boss Archie',
+          current_hp: Math.max(0, Number(row.boss_current_hp) || 0),
+          max_hp: Math.max(1, Number(row.boss_max_hp) || 1),
+          ends_at: row.boss_ends_at || null,
+          reward_chests: Math.max(1, Number(row.boss_reward_chests) || 1),
+          my_hits: Math.max(0, Number(row.boss_my_hits) || 0)
+        };
+        bossWasActive = !!bossState.active;
+        renderBossHud();
+
+        if (bossState.active && (!wasActive || previousBossId !== nextBossId)) {
+          showToast('⚠ Server Boss started — click Archie to fight!');
+        }
       }
 
       setPlayerBanned(row.is_banned);
