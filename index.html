@@ -1580,6 +1580,34 @@
   .creator-scoreline { margin-top:2px; color:#8a6340; font-size:.62rem; font-weight:800; }
   .leaderboard-rankline { color:#a27d62; font-size:.56rem; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
+
+  /* Leaderboard presence: show who is online, but never show last-seen times here. */
+  .leaderboard-online {
+    display:inline-flex; align-items:center; gap:4px; margin-left:5px;
+    padding:2px 6px; border-radius:999px; background:rgba(76,181,100,.12);
+    color:#3e9b55; font-size:.52rem; font-weight:900; vertical-align:middle; white-space:nowrap;
+  }
+  .leaderboard-online::before {
+    content:''; width:7px; height:7px; flex:0 0 7px; border-radius:50%; background:#54bf69;
+    box-shadow:0 0 8px rgba(84,191,105,.8);
+  }
+  .podium-online {
+    display:flex; align-items:center; justify-content:center; gap:4px; margin-top:4px;
+    color:#3e9b55; font-size:.52rem; font-weight:900;
+  }
+  .podium-online::before {
+    content:''; width:7px; height:7px; border-radius:50%; background:#54bf69;
+    box-shadow:0 0 8px rgba(84,191,105,.8);
+  }
+  .creator-online {
+    display:inline-flex; align-items:center; gap:4px; margin-left:7px; color:#3e9b55;
+    font-size:.58rem; font-weight:900;
+  }
+  .creator-online::before {
+    content:''; width:8px; height:8px; border-radius:50%; background:#54bf69;
+    box-shadow:0 0 9px rgba(84,191,105,.85);
+  }
+
 </style>
 </head>
 <body>
@@ -3737,6 +3765,12 @@
     score.textContent=fmt(Number(row.archies)||0)+' Archies';
 
     card.append(placeLabel,medal,name,title,score);
+    if (row.is_online) {
+      const online=document.createElement('div');
+      online.className='podium-online';
+      online.textContent='Online';
+      card.appendChild(online);
+    }
     card.addEventListener('click',()=>openPlayerProfile(row.user_id));
     return card;
   }
@@ -3750,7 +3784,14 @@
       creator.classList.add('show');
       creator.innerHTML='<div class="creator-title">★ Archie Clicker Creator</div><div class="creator-name"></div><div class="creator-scoreline"></div>';
       creator.querySelector('.creator-name').textContent=creatorRow.username;
-      creator.querySelector('.creator-scoreline').textContent=fmt(Number(creatorRow.archies)||0)+' Lifetime Archies · Creator';
+      const creatorScoreline=creator.querySelector('.creator-scoreline');
+      creatorScoreline.textContent=fmt(Number(creatorRow.archies)||0)+' Lifetime Archies · Creator';
+      if (creatorRow.is_online) {
+        const online=document.createElement('span');
+        online.className='creator-online';
+        online.textContent='Online';
+        creatorScoreline.appendChild(online);
+      }
       creator.onclick=()=>openPlayerProfile(creatorRow.user_id);
     }
     const ranked=all.filter(r=>!r.is_creator);
@@ -3762,7 +3803,12 @@
       const item=document.createElement('div'); item.className='leaderboard-row'+(leaderboardUser&&row.user_id===leaderboardUser.id?' me':''); applyRowCosmetics(item,row);
       const pos=document.createElement('div'); pos.className='leaderboard-pos'; pos.textContent='#'+(index+4);
       const user=document.createElement('div');
-      const name=document.createElement('div'); name.className='leaderboard-user'; name.textContent=row.username+(row.profile_title?' · '+row.profile_title:'');
+      const name=document.createElement('div'); name.className='leaderboard-user';
+      const nameText=document.createElement('span'); nameText.textContent=row.username+(row.profile_title?' · '+row.profile_title:'');
+      name.appendChild(nameText);
+      if (row.is_online) {
+        const online=document.createElement('span'); online.className='leaderboard-online'; online.textContent='Online'; name.appendChild(online);
+      }
       const subtitle=document.createElement('div'); subtitle.className='leaderboard-rankline'; subtitle.textContent=row.rank_title || '';
       user.append(name,subtitle);
       const archies=document.createElement('div'); archies.className='leaderboard-clicks'; archies.textContent=fmt(Number(row.archies)||0)+' Archies';
