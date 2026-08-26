@@ -725,6 +725,193 @@
     }
   }
 
+
+  /* =========================================================
+     BIG PROGRESSION UPDATE
+     Offline earnings · Boss Archie · Treasure Vault · Full Legacy Tree
+     ========================================================= */
+
+  /* Restore the original simple starter background. */
+  .world-bg.world-0 {
+    background: linear-gradient(160deg, var(--cream), var(--cream-deep) 70%) !important;
+  }
+  .world-bg.world-0::before,
+  .world-bg.world-0::after { display:none !important; }
+
+  /* Offline earnings */
+  .offline-overlay {
+    display:none; position:fixed; inset:0; z-index:240;
+    align-items:center; justify-content:center; padding:20px;
+    background:rgba(35,22,16,.48); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .offline-overlay.show { display:flex; }
+  .offline-card {
+    width:min(420px,94vw); border:3px solid var(--orange); border-radius:26px;
+    background:linear-gradient(145deg,#fffaf0,#ffe5bb);
+    box-shadow:0 24px 70px rgba(35,22,16,.35);
+    padding:24px; text-align:center; animation:offlinePop .42s cubic-bezier(.2,.9,.2,1.25);
+  }
+  .offline-icon { font-size:3rem; filter:drop-shadow(0 5px 8px rgba(0,0,0,.15)); }
+  .offline-title { font-family:'Baloo 2',sans-serif; font-size:1.55rem; font-weight:900; color:var(--choc); }
+  .offline-earned { font-family:'Baloo 2',sans-serif; font-size:2rem; font-weight:900; color:var(--orange-deep); margin:5px 0; }
+  .offline-sub { color:var(--muted); font-size:.78rem; font-weight:700; line-height:1.5; }
+  @keyframes offlinePop { from{opacity:0;transform:translateY(25px) scale(.9)} to{opacity:1;transform:none} }
+
+  /* Boss Archie */
+  .boss-hud {
+    display:none; width:min(520px,88vw); border:2px solid #8f4dcb; border-radius:18px;
+    padding:8px 12px; background:rgba(28,15,42,.86); color:#fff; box-shadow:0 5px 24px rgba(78,30,110,.35);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  }
+  .boss-hud.show { display:block; animation:bossAppear .35s ease; }
+  .boss-hud.hit { animation:bossHit .18s ease; }
+  .boss-top { display:flex; justify-content:space-between; gap:10px; align-items:center; }
+  .boss-name { font-family:'Baloo 2',sans-serif; font-weight:900; color:#f1c9ff; }
+  .boss-time { color:#d7bfea; font-size:.63rem; font-weight:800; }
+  .boss-track { height:13px; border-radius:999px; overflow:hidden; background:#1b1021; border:1px solid rgba(255,255,255,.18); margin:5px 0; }
+  .boss-fill { height:100%; width:100%; background:linear-gradient(90deg,#c85cff,#ff637d,#ffbf5d); transition:width .18s ease; }
+  .boss-sub { display:flex; justify-content:space-between; gap:8px; font-size:.62rem; color:#e7d7ef; font-weight:700; }
+  @keyframes bossAppear { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:none} }
+  @keyframes bossHit { 0%,100%{transform:translateX(0)} 35%{transform:translateX(-5px)} 70%{transform:translateX(5px)} }
+
+  /* Treasure vault */
+  .vault-summary {
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    border:2px solid rgba(185,128,31,.32); border-radius:14px; padding:10px;
+    background:linear-gradient(135deg,#fff8cf,#fffaf0);
+  }
+  .vault-count { font-family:'Baloo 2',sans-serif; font-weight:900; font-size:1.2rem; color:#81551a; }
+  .active-boosts { display:flex; flex-wrap:wrap; gap:5px; margin-top:7px; }
+  .boost-pill { border-radius:999px; padding:4px 8px; background:#efe2ff; color:#6a3b90; font-size:.58rem; font-weight:900; }
+  .secret-label { display:inline-flex; align-items:center; gap:4px; font-size:.55rem; color:#8d4ba8; font-weight:900; text-transform:uppercase; letter-spacing:.05em; }
+
+  /* Chest opening cinematic */
+  .chest-overlay {
+    display:none; position:fixed; inset:0; z-index:260; overflow:hidden;
+    align-items:center; justify-content:center; background:radial-gradient(circle at center,rgba(75,36,92,.78),rgba(8,5,18,.94));
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .chest-overlay.show { display:flex; }
+  .chest-rays {
+    position:absolute; width:620px; height:620px; border-radius:50%;
+    background:repeating-conic-gradient(from 0deg,rgba(255,224,100,.24) 0 7deg,transparent 7deg 16deg);
+    animation:chestRays 10s linear infinite; opacity:0;
+  }
+  .chest-overlay.reveal .chest-rays { opacity:1; transition:opacity .3s; }
+  .chest-scene { position:relative; width:min(520px,94vw); min-height:440px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .treasure-chest { position:relative; width:210px; height:145px; perspective:700px; filter:drop-shadow(0 22px 20px rgba(0,0,0,.42)); }
+  .chest-body {
+    position:absolute; left:10px; right:10px; bottom:0; height:88px; border-radius:10px 10px 22px 22px;
+    border:5px solid #6c4014; background:
+      linear-gradient(90deg,transparent 0 14%,rgba(255,223,102,.7) 15% 20%,transparent 21% 79%,rgba(255,223,102,.7) 80% 85%,transparent 86%),
+      linear-gradient(#bb6a23,#814316);
+    box-shadow:inset 0 -12px 0 rgba(50,22,5,.2);
+  }
+  .chest-lid {
+    position:absolute; left:6px; right:6px; top:20px; height:68px; transform-origin:50% 100%;
+    border:5px solid #6c4014; border-radius:52px 52px 8px 8px;
+    background:
+      linear-gradient(90deg,transparent 0 14%,rgba(255,223,102,.75) 15% 20%,transparent 21% 79%,rgba(255,223,102,.75) 80% 85%,transparent 86%),
+      linear-gradient(#d9802a,#934b15);
+    transition:transform .55s cubic-bezier(.17,.8,.25,1.2), top .55s;
+  }
+  .chest-lock {
+    position:absolute; z-index:5; left:50%; bottom:50px; transform:translateX(-50%);
+    width:38px; height:46px; border-radius:7px; background:linear-gradient(#ffe06d,#c98b19);
+    border:4px solid #68400e; box-shadow:0 3px 8px rgba(0,0,0,.25);
+  }
+  .chest-overlay.shaking .treasure-chest { animation:chestShake .75s ease-in-out 2; }
+  .chest-overlay.reveal .chest-lid { transform:rotateX(-115deg) translateY(-8px); top:4px; }
+  .chest-overlay.reveal .chest-lock { animation:lockPop .4s forwards; }
+  .chest-glow {
+    position:absolute; width:270px; height:160px; bottom:85px; border-radius:50%;
+    background:radial-gradient(circle,rgba(255,244,160,.95),rgba(255,199,65,.35) 35%,transparent 70%);
+    opacity:0; transform:scale(.5);
+  }
+  .chest-overlay.reveal .chest-glow { opacity:1; transform:scale(1.35); transition:.45s ease .2s; }
+  .chest-reward {
+    opacity:0; transform:translateY(25px) scale(.8); margin-top:28px; min-width:280px; max-width:90vw;
+    border:2px solid rgba(255,225,130,.75); border-radius:18px; padding:13px 18px;
+    background:rgba(255,250,235,.96); box-shadow:0 10px 40px rgba(255,202,65,.25);
+  }
+  .chest-overlay.reward .chest-reward { opacity:1; transform:none; transition:.45s cubic-bezier(.2,.9,.2,1.2); }
+  .chest-rarity { font-size:.62rem; font-weight:900; text-transform:uppercase; letter-spacing:.1em; color:#a56a17; }
+  .chest-reward-name { font-family:'Baloo 2',sans-serif; font-size:1.35rem; font-weight:900; color:var(--choc-deep); }
+  .chest-reward-desc { font-size:.7rem; color:var(--muted); font-weight:700; }
+  @keyframes chestShake { 0%,100%{transform:rotate(0) scale(1)} 20%{transform:rotate(-5deg) scale(1.03)} 40%{transform:rotate(5deg) scale(1.04)} 60%{transform:rotate(-4deg) scale(1.04)} 80%{transform:rotate(4deg) scale(1.03)} }
+  @keyframes chestRays { to{transform:rotate(360deg)} }
+  @keyframes lockPop { to{transform:translateX(-50%) translateY(-40px) rotate(18deg) scale(.4);opacity:0} }
+
+  /* Secret cosmetic visuals */
+  .frame-obsidian { box-shadow:0 0 0 3px #5f5570,0 0 22px rgba(132,105,178,.8)!important; }
+  .frame-emerald { box-shadow:0 0 0 3px #44d58b,0 0 24px rgba(68,213,139,.75)!important; }
+  .frame-frost { box-shadow:0 0 0 3px #b9ecff,0 0 26px rgba(185,236,255,.9)!important; }
+  .effect-stardust { animation:secretStardust 1.8s ease-in-out infinite; }
+  .effect-ember { animation:secretEmber 1.5s ease-in-out infinite; }
+  .effect-snowfall { animation:secretSnow 2.3s ease-in-out infinite; }
+  @keyframes secretStardust { 0%,100%{filter:drop-shadow(0 0 3px #a98cff)} 50%{filter:drop-shadow(0 0 15px #f4dcff) brightness(1.1)} }
+  @keyframes secretEmber { 0%,100%{filter:drop-shadow(0 0 3px #ff793f)} 50%{filter:drop-shadow(0 0 15px #ffb24e) brightness(1.12)} }
+  @keyframes secretSnow { 0%,100%{filter:drop-shadow(0 0 4px #aee9ff)} 50%{filter:drop-shadow(0 0 16px #fff) brightness(1.12)} }
+
+  /* Fullscreen RPG-style Legacy tree */
+  #panel-legacy.active {
+    position:fixed; z-index:170; inset:72px 3vw 3vh 3vw;
+    display:flex; background:rgba(23,15,30,.96); border:2px solid rgba(219,146,255,.42);
+    border-radius:24px; padding:16px; box-shadow:0 24px 80px rgba(0,0,0,.48);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  }
+  #panel-legacy .legacy-panel { width:100%; height:100%; overflow:hidden; display:grid; grid-template-rows:auto 1fr; }
+  #panel-legacy .legacy-summary {
+    position:relative; color:#f7e9ff; background:rgba(255,255,255,.08); border-color:rgba(218,146,255,.35);
+    padding-right:150px;
+  }
+  #panel-legacy .legacy-summary b { color:#fff; font-size:1.05rem; }
+  #panel-legacy .prestige-box { position:absolute; right:18px; top:15px; width:min(315px,34vw); z-index:3; }
+  .legacy-full-close {
+    position:absolute; right:10px; top:8px; z-index:6; border:none; border-radius:999px;
+    width:34px; height:34px; background:#5b3a70; color:#fff; font-weight:900; cursor:pointer;
+  }
+  .legacy-tree {
+    position:relative; display:block!important; overflow:auto; min-height:0; border-radius:18px;
+    background:
+      radial-gradient(circle at 50% 50%,rgba(180,100,255,.10),transparent 34%),
+      linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
+      #120d18;
+    background-size:auto,40px 40px,40px 40px,auto;
+  }
+  .legacy-tree-canvas { position:relative; width:1320px; height:760px; min-width:1320px; }
+  .legacy-lines { position:absolute; inset:0; width:1320px; height:760px; pointer-events:none; overflow:visible; }
+  .legacy-line { stroke:rgba(198,91,220,.3); stroke-width:4; fill:none; }
+  .legacy-line.active { stroke:#70d980; filter:drop-shadow(0 0 6px rgba(112,217,128,.6)); }
+  .legacy-branch-label {
+    position:absolute; transform:translateX(-50%); color:#e6b8ff; font-family:'Baloo 2',sans-serif;
+    font-weight:900; font-size:.8rem; text-transform:uppercase; letter-spacing:.08em;
+  }
+  .legacy-node {
+    position:absolute; width:180px; min-height:92px; margin:0!important; padding:9px!important;
+    background:linear-gradient(145deg,rgba(255,250,255,.98),rgba(238,224,247,.96))!important;
+    border:3px solid #8d5e9d!important; box-shadow:0 8px 18px rgba(0,0,0,.28);
+  }
+  .legacy-node.purchased { border-color:#63c976!important; background:linear-gradient(145deg,#f1fff2,#dff4e1)!important; }
+  .legacy-node.locked { opacity:.43; filter:saturate(.4); }
+  .legacy-node-name { font-size:.78rem!important; }
+  .legacy-node-cost { font-size:.58rem!important; }
+  .legacy-node-desc { font-size:.59rem!important; }
+  .legacy-node-prereq { font-size:.54rem!important; }
+  body:has(#panel-legacy.active) { overflow:hidden; }
+
+  /* Friend streaks */
+  .friend-streak { display:inline-flex; align-items:center; gap:3px; padding:3px 7px; border-radius:999px; background:#fff0d5; color:#b65b18; font-size:.56rem; font-weight:900; margin-top:3px; }
+
+  /* Developer additions */
+  .admin-dashboard-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-top:7px; }
+  .admin-metric { border:2px solid rgba(212,113,31,.22); border-radius:12px; background:#fffaf0; padding:8px; text-align:center; }
+  .admin-metric-value { font-family:'Baloo 2',sans-serif; font-weight:900; font-size:1.2rem; color:var(--orange-deep); }
+  .admin-metric-label { font-size:.57rem; color:var(--muted); font-weight:800; }
+  .admin-grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
+  .admin-select { width:100%; padding:8px; border:2px solid rgba(212,113,31,.28); border-radius:10px; background:#fff; color:var(--choc); font-family:'Quicksand',sans-serif; font-weight:700; }
+
 </style>
 </head>
 <body>
@@ -764,6 +951,12 @@
     <div class="era-badge" id="eraBadge">
       <div class="era-name" id="eraName">🏠 Archie's Room</div>
       <div class="era-progress"><span id="eraProgressText">Starter World</span><div class="era-progress-track"><div class="era-progress-fill" id="eraProgressFill"></div></div></div>
+    </div>
+
+    <div class="boss-hud" id="bossHud">
+      <div class="boss-top"><div class="boss-name" id="bossName">👹 Boss Archie</div><div class="boss-time" id="bossTime"></div></div>
+      <div class="boss-track"><div class="boss-fill" id="bossFill"></div></div>
+      <div class="boss-sub"><span id="bossHp">0 / 0 HP</span><span id="bossMyHits">Your hits: 0</span></div>
     </div>
 
     <div class="orbit-zone">
@@ -830,6 +1023,15 @@
           <div id="cosmeticsList" class="cosmetic-grid"></div>
         </div>
         <div class="cosmetics-card">
+          <div class="cosmetics-title">Treasure Vault</div>
+          <div class="cosmetics-sub">Mystery chests can contain secret cosmetics and powerful timed boosts.</div>
+          <div class="vault-summary">
+            <div><div style="font-size:1.8rem">🧰</div><div class="vault-count" id="treasureChestCount">0 Chests</div></div>
+            <button class="cosmetic-btn" id="openTreasureChestBtn" type="button">Open Chest</button>
+          </div>
+          <div class="active-boosts" id="activeBoosts"></div>
+        </div>
+        <div class="cosmetics-card">
           <div class="cosmetics-title">Worlds</div>
           <div class="cosmetics-sub">Your surroundings evolve automatically with Lifetime Archies. Revisit any world you have already unlocked.</div>
           <div id="worldSelector" class="world-selector"></div>
@@ -841,6 +1043,7 @@
     <div class="panel" id="panel-legacy">
       <div class="legacy-panel">
         <div class="legacy-summary">
+          <button class="legacy-full-close" id="legacyFullscreenClose" type="button" title="Close Legacy Tree">×</button>
           <b>Legacy Skill Tree</b><br>
           <span id="legacyTokenSummary">0 Legacy Tokens available</span><br>
           <span style="font-size:.64rem">Skills are permanent and survive retirement. Legacy Points still keep their normal +2% each bonus.</span>
@@ -900,6 +1103,35 @@
   </div>
 </div>
 
+
+<div class="offline-overlay" id="offlineOverlay" aria-hidden="true">
+  <div class="offline-card">
+    <div class="offline-icon">🌙</div>
+    <div class="offline-title">Archie kept working.</div>
+    <div class="offline-earned" id="offlineEarned">+0 Archies</div>
+    <div class="offline-sub" id="offlineDetails"></div>
+    <button class="cosmetic-btn" id="offlineCollectBtn" type="button" style="margin-top:14px;padding:9px 18px">Nice.</button>
+  </div>
+</div>
+
+<div class="chest-overlay" id="chestOverlay" aria-hidden="true">
+  <div class="chest-rays"></div>
+  <div class="chest-scene">
+    <div class="treasure-chest">
+      <div class="chest-glow"></div>
+      <div class="chest-lid"></div>
+      <div class="chest-body"></div>
+      <div class="chest-lock"></div>
+    </div>
+    <div class="chest-reward">
+      <div class="chest-rarity" id="chestRewardRarity">Mystery Reward</div>
+      <div class="chest-reward-name" id="chestRewardName">???</div>
+      <div class="chest-reward-desc" id="chestRewardDesc"></div>
+      <button class="cosmetic-btn" id="chestCloseBtn" type="button" style="margin-top:10px">Claim Reward</button>
+    </div>
+  </div>
+</div>
+
 <div class="admin-overlay" id="developerPinOverlay" aria-hidden="true">
   <div class="admin-modal admin-small">
     <div class="admin-header">
@@ -922,6 +1154,74 @@
         <div class="admin-muted">Server-protected controls for player moderation and live announcements.</div>
       </div>
       <button class="admin-btn secondary" id="developerAdminClose">Close</button>
+    </div>
+
+
+    <div class="admin-section">
+      <div class="admin-section-title">Live Server</div>
+      <div class="admin-dashboard-row">
+        <div class="admin-metric"><div class="admin-metric-value" id="adminOnlineCount">—</div><div class="admin-metric-label">Players Online</div></div>
+        <div class="admin-metric"><div class="admin-metric-value" id="adminChestTotal">—</div><div class="admin-metric-label">Chests Held</div></div>
+        <div class="admin-metric"><div class="admin-metric-value" id="adminBossStatusMetric">OFF</div><div class="admin-metric-label">Boss Status</div></div>
+      </div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Boss Archie</div>
+      <div class="admin-muted">Start a server-wide boss. Every accepted Archie click damages it. Anyone who contributes gets the chest reward when it dies.</div>
+      <div class="admin-grid-2" style="margin-top:7px">
+        <input class="admin-input" id="adminBossName" maxlength="40" value="Boss Archie" placeholder="Boss name">
+        <input class="admin-input" id="adminBossHp" type="number" min="100" step="100" value="10000" placeholder="Boss HP">
+        <input class="admin-input" id="adminBossMinutes" type="number" min="1" max="120" value="15" placeholder="Minutes">
+        <input class="admin-input" id="adminBossReward" type="number" min="1" max="10" value="1" placeholder="Chest reward">
+      </div>
+      <div class="admin-actions">
+        <button class="admin-btn" id="adminBossStart">Start Boss</button>
+        <button class="admin-btn danger" id="adminBossStop">Stop Boss</button>
+      </div>
+      <div class="admin-status" id="adminBossStatus"></div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Global Gifts</div>
+      <div class="admin-muted">Queue a gift for every registered player, including players who are offline.</div>
+      <div class="admin-grid-2" style="margin-top:7px">
+        <input class="admin-input" id="adminGiftAllAmount" type="number" min="1" step="1" placeholder="Archies for everyone">
+        <label class="admin-check"><input id="adminGiftAllLifetime" type="checkbox" checked> count toward Lifetime</label>
+      </div>
+      <div class="admin-actions">
+        <button class="admin-btn good" id="adminGiftAllArchies">Gift Archies to Everyone</button>
+        <button class="admin-btn" id="adminGiftAllChest">Send 1 Chest to Everyone</button>
+      </div>
+      <div class="admin-status" id="adminGiftAllStatus"></div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Secret / Limited Item Lab</div>
+      <div class="admin-muted">Grant any chest item, secret cosmetic or timed boost directly. Your own account appears in this player list too.</div>
+      <div class="admin-grid-2" style="margin-top:7px">
+        <select class="admin-select" id="adminItemPlayer"></select>
+        <select class="admin-select" id="adminItemSelect">
+          <option value="chest_mystery">🧰 Mystery Treasure Chest</option>
+          <option value="cos_title_treasure_hunter">🏷 Treasure Hunter title</option>
+          <option value="cos_title_boss_slayer">🏷 Boss Slayer title</option>
+          <option value="cos_title_founder">🏷 Founder title (limited)</option>
+          <option value="cos_frame_obsidian">⬛ Obsidian frame</option>
+          <option value="cos_frame_emerald">💚 Emerald frame</option>
+          <option value="cos_frame_frost">❄ Frost frame (limited)</option>
+          <option value="cos_effect_stardust">✨ Stardust effect</option>
+          <option value="cos_effect_ember">🔥 Ember effect</option>
+          <option value="cos_effect_snowfall">❄ Snowfall effect (limited)</option>
+          <option value="boost_click2_10">⚡ 2× Clicks · 10 min</option>
+          <option value="boost_auto2_10">⚙ 2× Auto · 10 min</option>
+          <option value="boost_all3_5">💥 3× Everything · 5 min</option>
+          <option value="boost_all2_30">⏳ 2× Everything · 30 min</option>
+          <option value="boost_all5_10">🌟 5× Everything · 10 min (limited)</option>
+          <option value="boost_click10_5">👊 10× Clicks · 5 min (limited)</option>
+        </select>
+      </div>
+      <div class="admin-actions"><button class="admin-btn good" id="adminGrantItem">Grant Selected Item</button></div>
+      <div class="admin-status" id="adminItemStatus"></div>
     </div>
 
     <div class="admin-section">
@@ -1004,6 +1304,13 @@
   let worldEffectsEnabled = true;
   let worldHighestAnnounced = -1;
   let activeWorldStage = -1;
+  let offlineSavedAt = 0;
+  let serverItems = new Map();
+  let serverItemsBusy = false;
+  let bossState = null;
+  let bossPendingHits = 0;
+  let bossPollBusy = false;
+  let bossWasActive = false;
 
   // ---------------- fair-play click limiter ----------------
   // Rolling 1-second window. Clicks above this limit are ignored locally.
@@ -1071,12 +1378,70 @@
     { id:'frame_cosmic', kind:'frame', name:'Cosmic Frame', desc:'Late-game cosmic frame', cost:50000000000, value:'cosmic' },
     { id:'effect_sparkle', kind:'effect', name:'Archie Sparkles', desc:'Soft shimmering effect', cost:1000000, value:'sparkle' },
     { id:'effect_rainbow', kind:'effect', name:'Rainbow Shift', desc:'Slow colour-shift effect', cost:100000000, value:'rainbow' },
-    { id:'effect_royal', kind:'effect', name:'Royal Aura', desc:'Gold and berry pulsing aura', cost:10000000000, value:'royal' }
+    { id:'effect_royal', kind:'effect', name:'Royal Aura', desc:'Gold and berry pulsing aura', cost:10000000000, value:'royal' },
+
+    // Secret / limited cosmetics are completely hidden until the server says you own them.
+    { id:'secret_title_treasure', kind:'title', name:'Treasure Hunter', desc:'A secret title found in treasure chests.', value:'Treasure Hunter', secret:true, serverItem:'cos_title_treasure_hunter' },
+    { id:'secret_title_boss', kind:'title', name:'Boss Slayer', desc:'A rare title tied to Boss Archie.', value:'Boss Slayer', secret:true, serverItem:'cos_title_boss_slayer' },
+    { id:'limited_title_founder', kind:'title', name:'Founder', desc:'A limited title only a developer can grant.', value:'Founder', secret:true, limited:true, serverItem:'cos_title_founder' },
+    { id:'secret_frame_obsidian', kind:'frame', name:'Obsidian Frame', desc:'A shadowy treasure-only profile frame.', value:'obsidian', secret:true, serverItem:'cos_frame_obsidian' },
+    { id:'secret_frame_emerald', kind:'frame', name:'Emerald Frame', desc:'A rare treasure-only green aura.', value:'emerald', secret:true, serverItem:'cos_frame_emerald' },
+    { id:'limited_frame_frost', kind:'frame', name:'Frost Frame', desc:'Limited winter profile frame.', value:'frost', secret:true, limited:true, serverItem:'cos_frame_frost' },
+    { id:'secret_effect_stardust', kind:'effect', name:'Stardust', desc:'A secret cosmic shimmer.', value:'stardust', secret:true, serverItem:'cos_effect_stardust' },
+    { id:'secret_effect_ember', kind:'effect', name:'Ember Aura', desc:'A rare warm treasure aura.', value:'ember', secret:true, serverItem:'cos_effect_ember' },
+    { id:'limited_effect_snow', kind:'effect', name:'Snowfall', desc:'Limited seasonal snowfall aura.', value:'snowfall', secret:true, limited:true, serverItem:'cos_effect_snowfall' }
   ];
+
+  const serverItemCatalog = {
+    chest_mystery: { name:'Mystery Treasure Chest', kind:'chest', desc:'Contains a random secret item or timed boost.' },
+    cos_title_treasure_hunter:{ name:'Treasure Hunter', kind:'cosmetic', desc:'Secret profile title.' },
+    cos_title_boss_slayer:{ name:'Boss Slayer', kind:'cosmetic', desc:'Rare Boss Archie title.' },
+    cos_title_founder:{ name:'Founder', kind:'cosmetic', desc:'Limited developer-granted title.' },
+    cos_frame_obsidian:{ name:'Obsidian Frame', kind:'cosmetic', desc:'Secret profile frame.' },
+    cos_frame_emerald:{ name:'Emerald Frame', kind:'cosmetic', desc:'Rare profile frame.' },
+    cos_frame_frost:{ name:'Frost Frame', kind:'cosmetic', desc:'Limited winter frame.' },
+    cos_effect_stardust:{ name:'Stardust', kind:'cosmetic', desc:'Secret profile effect.' },
+    cos_effect_ember:{ name:'Ember Aura', kind:'cosmetic', desc:'Rare profile effect.' },
+    cos_effect_snowfall:{ name:'Snowfall', kind:'cosmetic', desc:'Limited winter effect.' },
+    boost_click2_10:{ name:'Double Tap', kind:'boost', desc:'2× click power for 10 minutes.', click:2 },
+    boost_auto2_10:{ name:'Overtime', kind:'boost', desc:'2× Archies/sec for 10 minutes.', auto:2 },
+    boost_all3_5:{ name:'Jackpot Rush', kind:'boost', desc:'3× all production for 5 minutes.', click:3, auto:3 },
+    boost_all2_30:{ name:'Golden Half Hour', kind:'boost', desc:'2× all production for 30 minutes.', click:2, auto:2 },
+    boost_all5_10:{ name:'Creator Overdrive', kind:'boost', desc:'5× all production for 10 minutes.', click:5, auto:5, limited:true },
+    boost_click10_5:{ name:'Titan Fingers', kind:'boost', desc:'10× click power for 5 minutes.', click:10, limited:true }
+  };
 
   function liveEventMultiplier() {
     if (!liveEventEndsAt || Date.now() >= liveEventEndsAt) return 1;
-    return Math.max(1, Number(liveEventMultiplierValue) || 1);
+    const base = Math.max(1, Number(liveEventMultiplierValue) || 1);
+    return 1 + (base - 1) * legacyProduct('eventMult');
+  }
+
+  function serverItemOwned(id) {
+    const row = serverItems.get(id);
+    return !!row && Number(row.quantity || 0) > 0;
+  }
+
+  function serverItemActive(id) {
+    const row = serverItems.get(id);
+    if (!row || !row.expires_at) return false;
+    return new Date(row.expires_at).getTime() > Date.now();
+  }
+
+  function timedClickMultiplier() {
+    let m = 1;
+    Object.entries(serverItemCatalog).forEach(([id,item]) => {
+      if (item.kind === 'boost' && item.click && serverItemActive(id)) m *= item.click;
+    });
+    return m;
+  }
+
+  function timedAutoMultiplier() {
+    let m = 1;
+    Object.entries(serverItemCatalog).forEach(([id,item]) => {
+      if (item.kind === 'boost' && item.auto && serverItemActive(id)) m *= item.auto;
+    });
+    return m;
   }
 
   function publicTitle() {
@@ -1227,8 +1592,8 @@
   }
   function legacyTokensAvailable() { return Math.max(0, legacyPoints - legacyTokensSpent()); }
   function effectiveCritChance() { return Math.min(0.95, critChance + legacySum('critAdd')); }
-  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult') * liveEventMultiplier(); }
-  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult') * liveEventMultiplier(); }
+  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult') * liveEventMultiplier() * timedClickMultiplier(); }
+  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult') * liveEventMultiplier() * timedAutoMultiplier(); }
 
   const upgrades = [
     { id: 'click2',   name: 'Firmer Tap',       desc: '+1 per click',        baseCost: 15,      type: 'click', amount: 1,     owned: 0 },
@@ -1271,17 +1636,38 @@
   // ---------------- permanent legacy skill tree ----------------
   // Existing saves remain compatible: old Legacy Points become immediately spendable.
   const legacySkills = [
-    // The first nodes stay cheap so your first retirement can buy something immediately.
-    // Deeper nodes are deliberately expensive so Legacy remains a long-term system.
-    { id:'ls_click1', branch:'Click Power', name:'Old Habits', desc:'+25% click power forever.', cost:1, type:'clickMult', value:1.25, prereqs:[] },
-    { id:'ls_click2', branch:'Click Power', name:'Muscle Memory', desc:'x1.5 additional click power.', cost:5, type:'clickMult', value:1.5, prereqs:['ls_click1'] },
-    { id:'ls_click3', branch:'Click Power', name:'Golden Knuckles', desc:'+3% critical click chance.', cost:12, type:'critAdd', value:0.03, prereqs:['ls_click2'] },
-    { id:'ls_auto1', branch:'Automation', name:'Old Workforce', desc:'+25% Archies per second forever.', cost:1, type:'autoMult', value:1.25, prereqs:[] },
-    { id:'ls_auto2', branch:'Automation', name:'Assembly Wisdom', desc:'x1.5 additional Archies per second.', cost:5, type:'autoMult', value:1.5, prereqs:['ls_auto1'] },
-    { id:'ls_auto3', branch:'Automation', name:'Legacy Engine', desc:'x2 additional Archies per second.', cost:20, type:'autoMult', value:2, prereqs:['ls_auto2'] },
-    { id:'ls_bonus', branch:'Fortune', name:'Inheritance', desc:'x2 Archie bonus-event rewards.', cost:3, type:'bonusMult', value:2, prereqs:[] },
-    { id:'ls_prestige', branch:'Fortune', name:'Retirement Plan', desc:'+25% Legacy Points earned when retiring.', cost:20, type:'prestigeMult', value:1.25, prereqs:['ls_bonus'] },
-    { id:'ls_dynasty', branch:'Mastery', name:'Archie Dynasty', desc:'x2 ALL click and auto production forever.', cost:90, type:'globalMult', value:2, prereqs:['ls_click3','ls_auto3','ls_prestige'] },
+    // Click branch
+    { id:'ls_click1', branch:'Click Power', name:'Old Habits', desc:'+25% click power forever.', cost:1, type:'clickMult', value:1.25, prereqs:[], x:120,y:105 },
+    { id:'ls_click2', branch:'Click Power', name:'Muscle Memory', desc:'x1.5 additional click power.', cost:5, type:'clickMult', value:1.5, prereqs:['ls_click1'], x:120,y:255 },
+    { id:'ls_click3', branch:'Click Power', name:'Golden Knuckles', desc:'+3% critical click chance.', cost:12, type:'critAdd', value:0.03, prereqs:['ls_click2'], x:120,y:405 },
+
+    // Critical branch
+    { id:'ls_crit1', branch:'Criticals', name:'Lucky Instinct', desc:'+2% critical click chance.', cost:3, type:'critAdd', value:0.02, prereqs:['ls_click1'], x:340,y:105 },
+    { id:'ls_crit2', branch:'Criticals', name:'Heavy Crits', desc:'Critical clicks deal x1.5 extra.', cost:12, type:'critPower', value:1.5, prereqs:['ls_crit1'], x:340,y:255 },
+    { id:'ls_crit3', branch:'Criticals', name:'Critical Legacy', desc:'+5% critical click chance.', cost:28, type:'critAdd', value:0.05, prereqs:['ls_crit2'], x:340,y:405 },
+
+    // Automation branch
+    { id:'ls_auto1', branch:'Automation', name:'Old Workforce', desc:'+25% Archies per second forever.', cost:1, type:'autoMult', value:1.25, prereqs:[], x:560,y:105 },
+    { id:'ls_auto2', branch:'Automation', name:'Assembly Wisdom', desc:'x1.5 additional Archies per second.', cost:5, type:'autoMult', value:1.5, prereqs:['ls_auto1'], x:560,y:255 },
+    { id:'ls_auto3', branch:'Automation', name:'Legacy Engine', desc:'x2 additional Archies per second.', cost:20, type:'autoMult', value:2, prereqs:['ls_auto2'], x:560,y:405 },
+
+    // Offline branch
+    { id:'ls_off1', branch:'Offline', name:'Night Shift', desc:'Offline earnings rise from 35% to 50%.', cost:2, type:'offlineRate', value:0.15, prereqs:['ls_auto1'], x:780,y:105 },
+    { id:'ls_off2', branch:'Offline', name:'Long Hours', desc:'+4 hours maximum offline time.', cost:8, type:'offlineHours', value:4, prereqs:['ls_off1'], x:780,y:255 },
+    { id:'ls_off3', branch:'Offline', name:'Always Working', desc:'+25% offline earnings rate.', cost:20, type:'offlineRate', value:0.25, prereqs:['ls_off2'], x:780,y:405 },
+    { id:'ls_off4', branch:'Offline', name:'Archie Never Sleeps', desc:'+12 hours maximum offline time.', cost:45, type:'offlineHours', value:12, prereqs:['ls_off3'], x:780,y:555 },
+
+    // Fortune / retirement
+    { id:'ls_bonus', branch:'Fortune', name:'Inheritance', desc:'x2 Archie bonus-event rewards.', cost:3, type:'bonusMult', value:2, prereqs:[], x:1000,y:105 },
+    { id:'ls_prestige', branch:'Fortune', name:'Retirement Plan', desc:'+25% Legacy Points earned when retiring.', cost:20, type:'prestigeMult', value:1.25, prereqs:['ls_bonus'], x:1000,y:255 },
+
+    // Live events branch
+    { id:'ls_event1', branch:'Events', name:'Event Regular', desc:'+10% strength from live production events.', cost:5, type:'eventMult', value:1.10, prereqs:['ls_bonus'], x:1220,y:105 },
+    { id:'ls_event2', branch:'Events', name:'Event Veteran', desc:'+20% additional live-event strength.', cost:18, type:'eventMult', value:1.20, prereqs:['ls_event1'], x:1220,y:255 },
+    { id:'ls_event3', branch:'Events', name:'Event Legend', desc:'+25% additional live-event strength.', cost:40, type:'eventMult', value:1.25, prereqs:['ls_event2'], x:1220,y:405 },
+
+    // Final convergence
+    { id:'ls_dynasty', branch:'Mastery', name:'Archie Dynasty', desc:'x2 ALL click and auto production forever.', cost:110, type:'globalMult', value:2, prereqs:['ls_click3','ls_crit3','ls_auto3','ls_off3','ls_prestige','ls_event3'], x:650,y:650 },
   ];
   const legacySkillsOwned = new Set();
 
@@ -1353,6 +1739,7 @@
     try { data = JSON.parse(raw); } catch (e) { return; }
     if (!data || typeof data !== 'object') return;
 
+    offlineSavedAt = Number(data.savedAt) || Date.now();
     score = Number(data.score) || 0;
     bonusClickAdd = Number(data.bonusClickAdd) || 0;
     bonusAutoAdd = Number(data.bonusAutoAdd) || 0;
@@ -1532,29 +1919,64 @@
     if (!legacyTreeEl || !legacyTokenSummary) return;
     legacyTokenSummary.textContent = legacyTokensAvailable() + ' available · ' + legacyPoints + ' total · ' + legacyTokensSpent() + ' spent';
     legacyTreeEl.innerHTML = '';
-    const branches = [...new Set(legacySkills.map(s => s.branch))];
-    branches.forEach(branch => {
-      const group = document.createElement('div');
-      group.className = 'legacy-branch';
-      const title = document.createElement('div');
-      title.className = 'legacy-branch-title';
-      title.textContent = branch;
-      group.appendChild(title);
-      legacySkills.filter(s => s.branch === branch).forEach(skill => {
-        const bought = legacySkillsOwned.has(skill.id);
-        const prereqs = legacyPrereqsMet(skill);
-        const affordable = legacyTokensAvailable() >= skill.cost;
-        const node = document.createElement('div');
-        node.className = 'legacy-node' + (bought ? ' purchased' : ((!prereqs || !affordable) ? ' locked' : ''));
-        const reqNames = (skill.prereqs || []).map(id => (legacySkills.find(s => s.id === id) || {}).name).filter(Boolean);
-        node.innerHTML = '<div class="legacy-node-top"><div class="legacy-node-name">' + skill.name + '</div><div class="legacy-node-cost">' + (bought ? '✓ OWNED' : skill.cost + ' Legacy') + '</div></div>' +
-          '<div class="legacy-node-desc">' + skill.desc + '</div>' +
-          (reqNames.length ? '<div class="legacy-node-prereq">Requires: ' + reqNames.join(', ') + '</div>' : '');
-        if (!bought && prereqs && affordable) node.addEventListener('click', () => buyLegacySkill(skill));
-        group.appendChild(node);
+
+    const canvas = document.createElement('div');
+    canvas.className = 'legacy-tree-canvas';
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('class','legacy-lines');
+    svg.setAttribute('viewBox','0 0 1320 760');
+
+    legacySkills.forEach(skill => {
+      (skill.prereqs || []).forEach(parentId => {
+        const parent = legacySkills.find(s => s.id === parentId);
+        if (!parent) return;
+        const line = document.createElementNS(svgNS,'path');
+        const x1 = parent.x, y1 = parent.y + 46, x2 = skill.x, y2 = skill.y + 46;
+        const mid = (y1 + y2) / 2;
+        line.setAttribute('d', `M ${x1} ${y1} C ${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}`);
+        line.setAttribute('class','legacy-line' + (legacySkillsOwned.has(parent.id) && legacySkillsOwned.has(skill.id) ? ' active' : ''));
+        svg.appendChild(line);
       });
-      legacyTreeEl.appendChild(group);
     });
+    canvas.appendChild(svg);
+
+    const branchCenters = {};
+    legacySkills.forEach(s => {
+      if (s.branch === 'Mastery') return;
+      branchCenters[s.branch] = branchCenters[s.branch] || [];
+      branchCenters[s.branch].push(s.x);
+    });
+    Object.entries(branchCenters).forEach(([branch,xs]) => {
+      const label = document.createElement('div');
+      label.className = 'legacy-branch-label';
+      label.textContent = branch;
+      label.style.left = (xs.reduce((a,b)=>a+b,0)/xs.length) + 'px';
+      label.style.top = '50px';
+      canvas.appendChild(label);
+    });
+
+    legacySkills.forEach(skill => {
+      const bought = legacySkillsOwned.has(skill.id);
+      const prereqs = legacyPrereqsMet(skill);
+      const affordable = legacyTokensAvailable() >= skill.cost;
+      const node = document.createElement('div');
+      node.className = 'legacy-node' + (bought ? ' purchased' : ((!prereqs || !affordable) ? ' locked' : ''));
+      node.style.left = (skill.x - 90) + 'px';
+      node.style.top = skill.y + 'px';
+
+      const reqNames = (skill.prereqs || []).map(id => (legacySkills.find(s => s.id === id) || {}).name).filter(Boolean);
+      node.innerHTML =
+        '<div class="legacy-node-top"><div class="legacy-node-name">' + skill.name + '</div><div class="legacy-node-cost">' + (bought ? '✓ OWNED' : skill.cost + ' Legacy') + '</div></div>' +
+        '<div class="legacy-node-desc">' + skill.desc + '</div>' +
+        (reqNames.length ? '<div class="legacy-node-prereq">Requires: ' + reqNames.join(', ') + '</div>' : '');
+
+      if (!bought && prereqs && affordable) node.addEventListener('click', () => buyLegacySkill(skill));
+      canvas.appendChild(node);
+    });
+
+    legacyTreeEl.appendChild(canvas);
   }
 
 
@@ -1566,7 +1988,7 @@
   function applyMyCosmetics() {
     [profileChip, profileCard].forEach(el => {
       if (!el) return;
-      ['frame-orange','frame-berry','frame-gold','frame-cosmic','effect-sparkle','effect-rainbow','effect-royal'].forEach(c => el.classList.remove(c));
+      ['frame-orange','frame-berry','frame-gold','frame-cosmic','frame-obsidian','frame-emerald','frame-frost','effect-sparkle','effect-rainbow','effect-royal','effect-stardust','effect-ember','effect-snowfall'].forEach(c => el.classList.remove(c));
       if (equippedFrame) el.classList.add(cosmeticClass('frame', equippedFrame));
       if (equippedEffect) el.classList.add(cosmeticClass('effect', equippedEffect));
       if (isCreatorAccount) el.classList.add('frame-gold','effect-royal');
@@ -1574,7 +1996,9 @@
   }
 
   function buyOrEquipCosmetic(c) {
-    if (!cosmeticsOwned.has(c.id)) {
+    const serverOwned = c.serverItem ? serverItemOwned(c.serverItem) : false;
+    if (!cosmeticsOwned.has(c.id) && !serverOwned) {
+      if (c.secret) { showToast('This cosmetic is still secret.'); return; }
       if (score < c.cost) { showToast('Not enough Archies for ' + c.name); return; }
       score -= c.cost;
       cosmeticsOwned.add(c.id);
@@ -1598,23 +2022,33 @@
     if (!list) return;
     list.innerHTML = '';
     ['title','frame','effect'].forEach(kind => {
+      const visible = cosmetics.filter(c => c.kind === kind && (!c.secret || serverItemOwned(c.serverItem)));
       const h = document.createElement('div'); h.className = 'cosmetics-title'; h.style.marginTop='3px';
       h.textContent = kind === 'title' ? 'Titles' : kind === 'frame' ? 'Frames' : 'Effects';
       list.appendChild(h);
-      cosmetics.filter(c => c.kind === kind).forEach(c => {
-        const owned = cosmeticsOwned.has(c.id);
+
+      visible.forEach(c => {
+        const owned = cosmeticsOwned.has(c.id) || (c.serverItem && serverItemOwned(c.serverItem));
         const equipped = (kind === 'title' ? equippedTitle : kind === 'frame' ? equippedFrame : equippedEffect) === c.value;
         const row = document.createElement('div'); row.className='cosmetic-item'+(equipped?' equipped':'');
         const info=document.createElement('div'); info.className='cosmetic-info';
         const n=document.createElement('div'); n.className='cosmetic-name'; n.textContent=c.name;
-        const d=document.createElement('div'); d.className='cosmetic-desc'; d.textContent=c.desc+(owned?' · owned':' · '+fmt(c.cost)+' Archies');
+        if (c.secret) {
+          const badge=document.createElement('div'); badge.className='secret-label'; badge.textContent=(c.limited?'◆ Limited':'✦ Secret');
+          info.appendChild(badge);
+        }
+        const d=document.createElement('div'); d.className='cosmetic-desc';
+        d.textContent=c.desc+(owned?' · owned':' · '+fmt(c.cost)+' Archies');
         info.append(n,d);
         const b=document.createElement('button'); b.className='cosmetic-btn'; b.textContent=equipped?'Equipped':owned?'Equip':'Buy'; b.disabled=equipped;
         b.addEventListener('click',()=>buyOrEquipCosmetic(c));
         row.append(info,b); list.appendChild(row);
       });
-      const clear=document.createElement('button'); clear.className='cosmetic-btn secondary'; clear.textContent='Use default '+kind; clear.addEventListener('click',()=>unequipCosmetic(kind)); list.appendChild(clear);
+
+      const clear=document.createElement('button'); clear.className='cosmetic-btn secondary'; clear.textContent='Use default '+kind;
+      clear.addEventListener('click',()=>unequipCosmetic(kind)); list.appendChild(clear);
     });
+    renderTreasureVault();
   }
 
   function renderLiveEventState() {
@@ -1634,6 +2068,248 @@
     if(m===1&&day<=7) return '✨ New Year Archie Event';
     if(m===3||m===4) return '🌸 Spring Archie Event';
     return '';
+  }
+
+
+
+  function offlineRate() { return Math.min(1, 0.35 + legacySum('offlineRate')); }
+  function offlineHourCap() { return Math.max(1, 8 + legacySum('offlineHours')); }
+
+  function grantOfflineEarnings() {
+    if (!offlineSavedAt) return;
+    const now = Date.now();
+    const elapsedSeconds = Math.max(0, (now - offlineSavedAt) / 1000);
+    if (elapsedSeconds < 60 || effAuto() <= 0) { offlineSavedAt = now; return; }
+
+    const cappedSeconds = Math.min(elapsedSeconds, offlineHourCap() * 3600);
+    const earned = Math.floor(effAuto() * cappedSeconds * offlineRate());
+    offlineSavedAt = now;
+    if (earned < 1) return;
+
+    score += earned;
+    totalEarned += earned;
+    runEarned += earned;
+
+    const overlay = document.getElementById('offlineOverlay');
+    document.getElementById('offlineEarned').textContent = '+' + fmt(earned) + ' Archies';
+    const hours = cappedSeconds / 3600;
+    document.getElementById('offlineDetails').textContent =
+      'You were away for ' + (hours >= 1 ? hours.toFixed(1) + ' hours' : Math.round(cappedSeconds/60) + ' minutes') +
+      '. Offline production paid ' + Math.round(offlineRate()*100) + '% of your normal Archies/sec' +
+      (elapsedSeconds > cappedSeconds ? ' (offline cap reached).' : '.');
+    if (overlay) { overlay.classList.add('show'); overlay.setAttribute('aria-hidden','false'); }
+    render();
+    saveGame();
+  }
+
+  async function refreshServerItems(force=false) {
+    if (!leaderboardDb || !leaderboardUser || serverItemsBusy) return;
+    serverItemsBusy = true;
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_get_item_state');
+      if (error) throw error;
+      serverItems = new Map((data || []).map(row => [row.item_id, row]));
+      renderCosmetics();
+      renderTreasureVault();
+      render();
+    } catch (err) {
+      if (force) console.warn('Item state failed:', err && err.message ? err.message : err);
+    } finally {
+      serverItemsBusy = false;
+    }
+  }
+
+  function renderTreasureVault() {
+    const countEl = document.getElementById('treasureChestCount');
+    const openBtn = document.getElementById('openTreasureChestBtn');
+    const boostsEl = document.getElementById('activeBoosts');
+    const chests = Number((serverItems.get('chest_mystery') || {}).quantity || 0);
+    if (countEl) countEl.textContent = chests + ' Chest' + (chests === 1 ? '' : 's');
+    if (openBtn) openBtn.disabled = chests < 1 || !leaderboardDb;
+
+    if (boostsEl) {
+      boostsEl.innerHTML = '';
+      let shown = 0;
+      Object.entries(serverItemCatalog).forEach(([id,item]) => {
+        if (item.kind !== 'boost' || !serverItemActive(id)) return;
+        shown++;
+        const mins = Math.max(1, Math.ceil((new Date(serverItems.get(id).expires_at).getTime() - Date.now())/60000));
+        const pill = document.createElement('div');
+        pill.className='boost-pill';
+        pill.textContent=item.name+' · '+mins+'m';
+        boostsEl.appendChild(pill);
+      });
+      if (!shown) {
+        const none=document.createElement('div'); none.className='cosmetics-sub'; none.textContent='No timed boosts active.';
+        boostsEl.appendChild(none);
+      }
+    }
+  }
+
+  async function openTreasureChest() {
+    if (!leaderboardDb || Number((serverItems.get('chest_mystery') || {}).quantity || 0) < 1) return;
+    const overlay=document.getElementById('chestOverlay');
+    overlay.className='chest-overlay show shaking';
+    overlay.setAttribute('aria-hidden','false');
+    document.getElementById('chestRewardName').textContent='???';
+    document.getElementById('chestRewardDesc').textContent='';
+    document.getElementById('chestRewardRarity').textContent='Opening...';
+
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_open_chest');
+      if (error) throw error;
+      const reward = Array.isArray(data) ? data[0] : data;
+      setTimeout(() => {
+        overlay.classList.remove('shaking');
+        overlay.classList.add('reveal');
+        burstConfetti(window.innerWidth/2, window.innerHeight/2, 70);
+        setTimeout(() => {
+          document.getElementById('chestRewardRarity').textContent = reward.rarity || 'Reward';
+          document.getElementById('chestRewardName').textContent = reward.item_name || reward.item_id || 'Mystery Item';
+          const catalog = serverItemCatalog[reward.item_id] || {};
+          document.getElementById('chestRewardDesc').textContent = catalog.desc || 'A secret reward has been added to your account.';
+          overlay.classList.add('reward');
+        }, 520);
+      }, 900);
+      await refreshServerItems(true);
+    } catch (err) {
+      overlay.classList.remove('shaking');
+      overlay.classList.add('reward');
+      document.getElementById('chestRewardRarity').textContent='Chest Error';
+      document.getElementById('chestRewardName').textContent='Could not open';
+      document.getElementById('chestRewardDesc').textContent=err && err.message ? err.message : 'Try again.';
+    }
+  }
+
+  function closeTreasureChest() {
+    const overlay=document.getElementById('chestOverlay');
+    if (!overlay) return;
+    overlay.className='chest-overlay';
+    overlay.setAttribute('aria-hidden','true');
+    refreshServerItems();
+  }
+
+  function renderBossHud() {
+    const hud=document.getElementById('bossHud');
+    if (!hud) return;
+    const active=!!(bossState && bossState.active && bossState.ends_at && new Date(bossState.ends_at).getTime()>Date.now());
+    hud.classList.toggle('show',active);
+    if (!active) return;
+
+    const hp=Math.max(0,Number(bossState.current_hp)||0);
+    const max=Math.max(1,Number(bossState.max_hp)||1);
+    document.getElementById('bossName').textContent='👹 '+(bossState.name||'Boss Archie');
+    document.getElementById('bossFill').style.width=Math.max(0,Math.min(100,hp/max*100))+'%';
+    document.getElementById('bossHp').textContent=fmt(hp)+' / '+fmt(max)+' HP';
+    document.getElementById('bossMyHits').textContent='Your hits: '+fmt(Number(bossState.my_hits)||0);
+    const mins=Math.max(1,Math.ceil((new Date(bossState.ends_at).getTime()-Date.now())/60000));
+    document.getElementById('bossTime').textContent=mins+'m left · reward '+Number(bossState.reward_chests||1)+' chest';
+  }
+
+  async function refreshBossState(force=false) {
+    if (!leaderboardDb || !leaderboardUser || bossPollBusy) return;
+    bossPollBusy=true;
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_get_boss_state');
+      if (error) throw error;
+      const row=Array.isArray(data)?data[0]:data;
+      const wasActive=bossWasActive;
+      bossState=row||null;
+      bossWasActive=!!(row&&row.active);
+      renderBossHud();
+      if (wasActive && row && !row.active && Number(row.current_hp||0)<=0) {
+        showToast('Boss Archie defeated! Contributors received treasure chests.');
+        burstConfetti(window.innerWidth/2,window.innerHeight/2,90);
+        await refreshServerItems(true);
+      }
+    } catch(err) {
+      if(force) console.warn('Boss state failed:',err&&err.message?err.message:err);
+    } finally { bossPollBusy=false; }
+  }
+
+  async function flushBossHits() {
+    if (!leaderboardDb || !bossState || !bossState.active || bossPendingHits < 1) return;
+    const hits=Math.min(5,bossPendingHits);
+    bossPendingHits-=hits;
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_boss_hit',{p_hits:hits});
+      if (error) throw error;
+      const row=Array.isArray(data)?data[0]:data;
+      if(row) {
+        bossState={...bossState,...row,my_hits:(Number(bossState.my_hits)||0)+hits};
+        const hud=document.getElementById('bossHud');
+        if(hud){hud.classList.remove('hit');void hud.offsetWidth;hud.classList.add('hit');}
+        renderBossHud();
+      }
+    } catch(err) {
+      bossPendingHits=0;
+    }
+  }
+
+  function addFriendStreakToSummary(summary, streak) {
+    const n=Number(streak)||0;
+    if (!summary || n<1) return;
+    summary.insertAdjacentHTML('beforeend', statCard('Friend streak','🔥 '+n+' day'+(n===1?'':'s')));
+  }
+
+  async function loadAdminMetrics() {
+    if(!adminUnlocked||!leaderboardDb)return;
+    try{
+      const [{data:online},{data:loot}] = await Promise.all([
+        leaderboardDb.rpc('archie_admin_online_count'),
+        leaderboardDb.rpc('archie_admin_loot_summary')
+      ]);
+      const onlineRow=Array.isArray(online)?online[0]:online;
+      const lootRow=Array.isArray(loot)?loot[0]:loot;
+      const onlineEl=document.getElementById('adminOnlineCount');
+      const chestEl=document.getElementById('adminChestTotal');
+      if(onlineEl)onlineEl.textContent=Number((onlineRow||{}).online_count||0);
+      if(chestEl)chestEl.textContent=Number((lootRow||{}).chest_count||0);
+      const bossEl=document.getElementById('adminBossStatusMetric');
+      if(bossEl)bossEl.textContent=bossState&&bossState.active?'ON':'OFF';
+    }catch(e){}
+  }
+
+  async function adminStartBoss() {
+    const name=(document.getElementById('adminBossName').value||'Boss Archie').trim();
+    const hp=Math.floor(Number(document.getElementById('adminBossHp').value)||0);
+    const mins=Math.floor(Number(document.getElementById('adminBossMinutes').value)||0);
+    const reward=Math.floor(Number(document.getElementById('adminBossReward').value)||1);
+    const status=document.getElementById('adminBossStatus');
+    const ok=await adminCall('archie_admin_start_boss',{p_name:name,p_hp:hp,p_minutes:mins,p_reward_chests:reward},'Boss Archie started.');
+    if(ok){if(status)status.textContent='Boss is live for everyone.';await refreshBossState(true);loadAdminMetrics();}
+  }
+
+  async function adminStopBoss() {
+    const status=document.getElementById('adminBossStatus');
+    const ok=await adminCall('archie_admin_stop_boss',{},'Boss stopped.');
+    if(ok){if(status)status.textContent='Boss stopped.';await refreshBossState(true);loadAdminMetrics();}
+  }
+
+  async function adminGiftAllArchies() {
+    const n=Math.floor(Number(document.getElementById('adminGiftAllAmount').value)||0);
+    const lifetime=document.getElementById('adminGiftAllLifetime').checked;
+    const status=document.getElementById('adminGiftAllStatus');
+    if(n<1){status.textContent='Enter an Archie amount.';return;}
+    if(!confirm('Gift '+n.toLocaleString()+' Archies to EVERY registered player?'))return;
+    const ok=await adminCall('archie_admin_give_archies_all',{p_amount:n,p_count_lifetime:lifetime},'Global Archie gift queued.');
+    if(ok)status.textContent='Gift queued for every registered player.';
+  }
+
+  async function adminGiftAllChest() {
+    const status=document.getElementById('adminGiftAllStatus');
+    if(!confirm('Send one Mystery Treasure Chest to EVERY registered player?'))return;
+    const ok=await adminCall('archie_admin_grant_item_all',{p_item_id:'chest_mystery',p_quantity:1},'Chest sent to everyone.');
+    if(ok){status.textContent='One chest sent to every player.';loadAdminMetrics();}
+  }
+
+  async function adminGrantSelectedItem() {
+    const userId=document.getElementById('adminItemPlayer').value;
+    const itemId=document.getElementById('adminItemSelect').value;
+    const status=document.getElementById('adminItemStatus');
+    if(!userId||!itemId){status.textContent='Choose a player and item.';return;}
+    const ok=await adminCall('archie_admin_grant_item',{p_user_id:userId,p_item_id:itemId,p_quantity:1},'Item granted.');
+    if(ok){status.textContent='Granted '+(serverItemCatalog[itemId]?.name||itemId)+'.';loadAdminMetrics();if(userId===leaderboardUser?.id)refreshServerItems(true);}
   }
 
 
@@ -1867,7 +2543,7 @@
     let crit = false;
     if (Math.random() < effectiveCritChance()) {
       crit = true;
-      gain *= 10;
+      gain *= 10 * legacyProduct('critPower');
       critCount++;
     }
 
@@ -1876,6 +2552,7 @@
     totalEarned += gain;
     runEarned += gain;
     totalClicks += 1;
+    if (bossState && bossState.active) bossPendingHits = Math.min(30, bossPendingHits + 1);
 
     const rect = btn.getBoundingClientRect();
     const wrapRect = wrap.getBoundingClientRect();
@@ -2168,6 +2845,8 @@
       const { error } = await leaderboardDb.rpc('register_archie_player', { p_username: username });
       if (error) throw error;
       await loadLeaderboardProfile();
+      await refreshServerItems(true);
+      await refreshBossState(true);
       await refreshLeaderboard();
       showToast('Leaderboard joined as ' + username);
     } catch (err) {
@@ -2268,6 +2947,12 @@
     presence.className = 'presence-text';
     presence.innerHTML = '<span class="presence-dot' + (row.is_online ? ' online' : '') + '"></span>' + formatLastSeen(row.last_seen_at || row.updated_at, row.is_online);
     user.append(name, meta, presence);
+    if (kind === 'friend' && Number(row.friend_streak || 0) > 0) {
+      const streak=document.createElement('div');
+      streak.className='friend-streak';
+      streak.textContent='🔥 '+Number(row.friend_streak)+' day streak';
+      user.appendChild(streak);
+    }
     main.appendChild(user);
     card.appendChild(main);
 
@@ -2483,8 +3168,11 @@
       if (nameEl) nameEl.textContent = profile.username;
       if (rankEl2) rankEl2.textContent = profile.is_creator ? '★ Creator' : (profile.profile_title || profile.rank_title || 'Archie Nobody');
       const modal=document.querySelector('#playerProfileOverlay .social-modal');
-      if(modal){['frame-orange','frame-berry','frame-gold','frame-cosmic','effect-sparkle','effect-rainbow','effect-royal'].forEach(c=>modal.classList.remove(c));if(profile.profile_frame)modal.classList.add(cosmeticClass('frame',profile.profile_frame));if(profile.profile_effect)modal.classList.add(cosmeticClass('effect',profile.profile_effect));if(profile.is_creator)modal.classList.add('frame-gold','effect-royal');}
-      if (summary) summary.innerHTML = statCard('Lifetime Archies', fmt(Number(profile.archies) || 0)) + statCard('Status', formatLastSeen(profile.last_seen_at || profile.updated_at, profile.is_online)) + statCard('Relationship', relationshipText(profile.relationship) || (profile.relationship === 'self' ? 'This is you' : 'Not friends yet'));
+      if(modal){['frame-orange','frame-berry','frame-gold','frame-cosmic','frame-obsidian','frame-emerald','frame-frost','effect-sparkle','effect-rainbow','effect-royal','effect-stardust','effect-ember','effect-snowfall'].forEach(c=>modal.classList.remove(c));if(profile.profile_frame)modal.classList.add(cosmeticClass('frame',profile.profile_frame));if(profile.profile_effect)modal.classList.add(cosmeticClass('effect',profile.profile_effect));if(profile.is_creator)modal.classList.add('frame-gold','effect-royal');}
+      if (summary) {
+        summary.innerHTML = statCard('Lifetime Archies', fmt(Number(profile.archies) || 0)) + statCard('Status', formatLastSeen(profile.last_seen_at || profile.updated_at, profile.is_online)) + statCard('Relationship', relationshipText(profile.relationship) || (profile.relationship === 'self' ? 'This is you' : 'Not friends yet'));
+        if (Number(profile.friend_streak || 0) > 0) addFriendStreakToSummary(summary, profile.friend_streak);
+      }
 
       if (profile.relationship === 'none') {
         const add = document.createElement('button'); add.className='friends-btn'; add.textContent='Send Friend Request';
@@ -2604,6 +3292,8 @@
     if (overlay) { overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); }
     loadAdminPlayers();
     refreshAdminEventUi();
+    refreshBossState(true);
+    loadAdminMetrics();
   }
 
   function closeDeveloperAdmin() {
@@ -2658,6 +3348,17 @@
     const list = document.getElementById('adminPlayerList');
     if (!list) return;
     list.innerHTML = '';
+    const playerSelect=document.getElementById('adminItemPlayer');
+    if(playerSelect){
+      const previous=playerSelect.value;
+      playerSelect.innerHTML='';
+      (rows||[]).forEach(row=>{
+        const o=document.createElement('option');o.value=row.user_id;o.textContent=(row.username||'Guest')+' · '+fmt(Number(row.archies)||0);
+        playerSelect.appendChild(o);
+      });
+      if([...playerSelect.options].some(o=>o.value===previous))playerSelect.value=previous;
+      else if(leaderboardUser&&[...playerSelect.options].some(o=>o.value===leaderboardUser.id))playerSelect.value=leaderboardUser.id;
+    }
     (rows || []).forEach(row => {
       const card = document.createElement('div');
       card.className = 'admin-player' + ((Number(row.cheat_flags) || 0) > 0 ? ' flagged' : '') + (row.is_banned ? ' banned' : '');
@@ -2740,6 +3441,7 @@
       if (error) throw error;
       renderAdminPlayers(data || []);
       if (status) status.textContent = (data || []).length + ' registered player' + ((data || []).length === 1 ? '' : 's') + '.';
+      loadAdminMetrics();
     } catch (err) {
       if (status) status.textContent = 'Admin list error: ' + (err && err.message ? err.message : 'could not load');
     } finally {
@@ -2810,6 +3512,9 @@
   setInterval(syncLifetimeArchies, 3000);
   setInterval(syncSocialStats, 5000);
   setInterval(() => { const active = document.querySelector('.tab.active'); if (active && active.dataset.tab === 'friends') refreshFriends(); }, 10000);
+  setInterval(refreshServerItems, 10000);
+  setInterval(refreshBossState, 2000);
+  setInterval(flushBossHits, 300);
 
   function spawnBonus() {
     if (playerIsBanned) return;
@@ -2859,6 +3564,7 @@
   });
 
   loadGame();
+  grantOfflineEarnings();
   updateWorldProgression(true);
   renderWorldSelector();
   renderAchvList();
@@ -2914,6 +3620,20 @@
   document.getElementById('adminEvent3x30').addEventListener('click',()=>adminStartEvent('Archie Rush',3,30));
   document.getElementById('adminEventStop').addEventListener('click',adminStopEvent);
   document.getElementById('adminSeasonalToggle').addEventListener('click',adminToggleSeasonal);
+  document.getElementById('openTreasureChestBtn').addEventListener('click',openTreasureChest);
+  document.getElementById('chestCloseBtn').addEventListener('click',closeTreasureChest);
+  document.getElementById('offlineCollectBtn').addEventListener('click',()=>{const o=document.getElementById('offlineOverlay');o.classList.remove('show');o.setAttribute('aria-hidden','true');});
+  document.getElementById('legacyFullscreenClose').addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    const tab=document.querySelector('.tab[data-tab="shop"]'); if(tab)tab.classList.add('active');
+    const panel=document.getElementById('panel-shop'); if(panel)panel.classList.add('active');
+  });
+  document.getElementById('adminBossStart').addEventListener('click',adminStartBoss);
+  document.getElementById('adminBossStop').addEventListener('click',adminStopBoss);
+  document.getElementById('adminGiftAllArchies').addEventListener('click',adminGiftAllArchies);
+  document.getElementById('adminGiftAllChest').addEventListener('click',adminGiftAllChest);
+  document.getElementById('adminGrantItem').addEventListener('click',adminGrantSelectedItem);
 
   initLeaderboard();
 
