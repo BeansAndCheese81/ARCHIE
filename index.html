@@ -42,7 +42,7 @@
     grid-template-areas: "topbar topbar" "stage  sidebar";
   }
 
-  .topbar { grid-area: topbar; text-align: center; padding: 10px 16px 4px; }
+  .topbar { grid-area: topbar; text-align: center; padding: 10px 16px 4px; position: relative; min-height: 58px; }
 
   h1 {
     font-family: 'Baloo 2', 'Quicksand', sans-serif;
@@ -164,7 +164,7 @@
 
   .sidebar { grid-area: sidebar; padding: 10px 14px 10px 8px; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
 
-  .tabs { display: flex; gap: 5px; margin-bottom: 8px; flex-shrink: 0; }
+  .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 8px; flex-shrink: 0; }
   .tab {
     flex: 1; text-align: center; font-size: 0.68rem; letter-spacing: 0.5px; text-transform: uppercase;
     padding: 7px 3px; border-radius: 10px; border: 2px solid rgba(212, 113, 31, 0.3);
@@ -276,14 +276,167 @@
   .leaderboard-status { color:var(--muted); font-size:.68rem; min-height:1em; }
   .cps-note { font-size:.65rem; color:#a98a72; text-align:center; margin-top:-4px; }
 
+
+  /* ---------------- profile + friends ---------------- */
+  .profile-chip {
+    position:absolute; left:12px; top:10px; z-index:75; display:flex; align-items:center; gap:6px;
+    max-width:170px; border:2px solid rgba(212,113,31,.4); border-radius:999px; padding:6px 10px;
+    background:rgba(255,250,240,.94); color:var(--choc); box-shadow:0 3px 9px rgba(93,58,41,.15);
+    font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.74rem; cursor:pointer;
+  }
+  .profile-chip:hover { border-color:var(--orange); transform:translateY(-1px); }
+  .profile-chip-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .profile-card {
+    display:none; position:fixed; left:12px; top:54px; z-index:180; width:min(330px,calc(100vw - 24px)); max-height:calc(100vh - 70px);
+    overflow:auto; background:#fff8ec; border:3px solid var(--orange); border-radius:17px; padding:11px;
+    box-shadow:0 16px 50px rgba(61,35,24,.28); text-align:left;
+  }
+  .profile-card.open { display:block; }
+  .profile-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:8px; }
+  .profile-name { font-family:'Baloo 2',sans-serif; font-weight:800; color:var(--choc-deep); font-size:1.05rem; }
+  .profile-rank { color:var(--orange-deep); font-size:.68rem; font-weight:800; }
+  .profile-close { border:none; background:rgba(91,58,41,.08); color:var(--choc); border-radius:999px; width:28px; height:28px; cursor:pointer; font-weight:900; }
+  .profile-stats { display:flex; flex-direction:column; gap:6px; }
+  .profile-note { color:var(--muted); font-size:.64rem; line-height:1.35; margin-top:7px; font-weight:600; }
+
+  .friends-panel { display:flex; flex-direction:column; gap:8px; overflow-y:auto; min-height:0; padding-right:3px; }
+  .friends-card { background:var(--panel); border:2px solid rgba(212,113,31,.3); border-radius:14px; padding:9px; }
+  .friends-title { font-family:'Baloo 2',sans-serif; color:var(--choc); font-weight:800; font-size:.9rem; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .friends-subtitle { color:var(--muted); font-size:.64rem; line-height:1.35; font-weight:600; margin-top:1px; }
+  .friends-search { display:flex; gap:6px; margin-top:7px; }
+  .friends-search input { flex:1; min-width:0; border:2px solid rgba(212,113,31,.35); border-radius:999px; padding:8px 10px; font-family:'Quicksand',sans-serif; font-weight:700; outline:none; }
+  .friends-search input:focus { border-color:var(--orange); }
+  .friends-btn { border:none; border-radius:999px; background:var(--orange); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.7rem; padding:6px 10px; cursor:pointer; }
+  .friends-btn.secondary { background:#7c6b60; }
+  .friends-btn.good { background:#4f9a55; }
+  .friends-btn.danger { background:#b83c3c; }
+  .friends-btn:disabled { opacity:.45; cursor:not-allowed; }
+  .friends-status { color:var(--muted); font-size:.64rem; min-height:1em; margin-top:5px; font-weight:600; }
+  .friends-list { display:flex; flex-direction:column; gap:5px; margin-top:6px; }
+  .friend-row { background:rgba(255,255,255,.72); border:2px solid rgba(212,113,31,.17); border-radius:11px; padding:7px 8px; cursor:pointer; }
+  .friend-row:hover { border-color:var(--orange); background:#fff; }
+  .friend-row-main { display:flex; justify-content:space-between; gap:8px; align-items:center; }
+  .friend-user { min-width:0; }
+  .friend-name { font-family:'Baloo 2',sans-serif; color:var(--choc); font-weight:800; font-size:.79rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .friend-meta { color:var(--muted); font-size:.61rem; font-weight:600; }
+  .friend-actions { display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end; margin-top:5px; }
+  .friend-badge { background:var(--berry); color:#fff; min-width:20px; height:20px; padding:0 6px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; font-size:.6rem; }
+  .friend-empty { color:#a98a72; font-size:.64rem; padding:5px 2px; }
+
+  .social-overlay { display:none; position:fixed; inset:0; z-index:430; background:rgba(35,22,16,.66); align-items:center; justify-content:center; padding:16px; }
+  .social-overlay.open { display:flex; }
+  .social-modal { width:min(620px,95vw); max-height:90vh; overflow:auto; background:#fff8ec; border:3px solid var(--orange); border-radius:18px; padding:13px; box-shadow:0 18px 65px rgba(0,0,0,.4); }
+  .social-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; border-bottom:2px solid rgba(91,58,41,.12); padding-bottom:8px; }
+  .social-name { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.2rem; color:var(--choc-deep); }
+  .social-rank { color:var(--orange-deep); font-size:.68rem; font-weight:800; }
+  .social-summary { margin-top:9px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+  .social-summary .stat-card { padding:8px 9px; }
+  .social-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+  .compare-wrap { margin-top:10px; border-top:2px solid rgba(91,58,41,.12); padding-top:9px; }
+  .compare-title { font-family:'Baloo 2',sans-serif; font-weight:800; color:var(--berry); margin-bottom:5px; }
+  .compare-grid { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:1px; background:rgba(91,58,41,.12); border-radius:11px; overflow:hidden; }
+  .compare-cell { background:#fffaf0; padding:6px 7px; font-size:.66rem; font-weight:700; }
+  .compare-cell.head { font-family:'Baloo 2',sans-serif; color:var(--choc); font-weight:800; background:#fff0d8; }
+  .compare-cell.value { text-align:right; }
+  .social-muted { color:var(--muted); font-size:.65rem; line-height:1.4; font-weight:600; margin-top:7px; }
+
+  .leaderboard-row { cursor:pointer; }
+  .leaderboard-row:hover { border-color:var(--orange); background:#fff; }
+
+  @media (max-width:720px) {
+    .profile-chip { left:8px; top:8px; width:38px; height:34px; justify-content:center; padding:4px; }
+    .profile-chip-name { display:none; }
+    .profile-card { left:8px; top:50px; width:min(330px,calc(100vw - 16px)); }
+    .social-summary { grid-template-columns:1fr; }
+    .compare-grid { grid-template-columns:1.1fr 1fr 1fr; }
+  }
+
+  /* ---------------- global developer message ---------------- */
+  .global-message { display:none; max-width:min(760px,92vw); margin:6px auto 0; padding:7px 14px; border-radius:12px; background:#fff2c9; border:2px solid #e2ad3c; color:#6b4718; font-size:.76rem; font-weight:700; box-shadow:0 2px 8px rgba(93,58,41,.12); }
+  .global-message.show { display:block; }
+
+  /* ---------------- legacy skill tree ---------------- */
+  .legacy-panel { display:flex; flex-direction:column; gap:8px; overflow-y:auto; min-height:0; padding-right:3px; }
+  .legacy-summary { background:rgba(198,91,143,.1); border:2px solid var(--berry); border-radius:14px; padding:10px 12px; font-size:.75rem; color:#6b3552; font-weight:700; }
+  .legacy-summary b { font-family:'Baloo 2',sans-serif; font-size:.95rem; }
+  .legacy-tree { display:flex; flex-direction:column; gap:9px; }
+  .legacy-branch { background:rgba(255,255,255,.45); border:2px solid rgba(198,91,143,.18); border-radius:14px; padding:8px; }
+  .legacy-branch-title { font-family:'Baloo 2',sans-serif; font-weight:800; color:var(--berry); font-size:.86rem; margin:0 2px 5px; }
+  .legacy-node { background:var(--panel); border:2px solid rgba(198,91,143,.35); border-radius:12px; padding:8px 9px; margin-top:5px; cursor:pointer; transition:.12s ease; }
+  .legacy-node:hover:not(.locked):not(.purchased) { transform:translateY(-1px); border-color:var(--berry); background:#fff; }
+  .legacy-node.locked { opacity:.42; cursor:not-allowed; }
+  .legacy-node.purchased { border-color:var(--good); background:rgba(111,191,115,.12); cursor:default; }
+  .legacy-node-top { display:flex; justify-content:space-between; gap:8px; align-items:center; }
+  .legacy-node-name { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.83rem; color:var(--choc); }
+  .legacy-node-cost { white-space:nowrap; background:var(--berry); color:#fff; border-radius:999px; padding:3px 8px; font-size:.65rem; font-weight:800; }
+  .legacy-node.purchased .legacy-node-cost { background:var(--good); }
+  .legacy-node-desc { color:var(--muted); font-size:.66rem; line-height:1.3; font-weight:600; margin-top:2px; }
+  .legacy-node-prereq { color:#a98a72; font-size:.6rem; margin-top:2px; }
+
+  /* ---------------- secret developer console ---------------- */
+  .admin-overlay { display:none; position:fixed; inset:0; z-index:500; background:rgba(35,22,16,.72); padding:18px; align-items:center; justify-content:center; }
+  .admin-overlay.open { display:flex; }
+  .admin-modal { width:min(980px,96vw); max-height:92vh; overflow:auto; background:#fff8ec; border:3px solid var(--choc); border-radius:18px; box-shadow:0 18px 70px rgba(0,0,0,.45); padding:14px; }
+  .admin-modal.admin-small { width:min(430px,94vw); }
+  .admin-header { display:flex; align-items:center; justify-content:space-between; gap:12px; border-bottom:2px solid rgba(91,58,41,.14); padding-bottom:8px; margin-bottom:10px; }
+  .admin-title { font-family:'Baloo 2',sans-serif; font-size:1.15rem; font-weight:800; color:var(--choc-deep); }
+  .admin-muted { color:var(--muted); font-size:.68rem; line-height:1.4; font-weight:600; }
+  .admin-section { background:rgba(255,255,255,.65); border:2px solid rgba(91,58,41,.14); border-radius:14px; padding:10px; margin-top:9px; }
+  .admin-section-title { font-family:'Baloo 2',sans-serif; font-size:.9rem; font-weight:800; color:var(--choc); margin-bottom:5px; }
+  .admin-input, .admin-textarea { width:100%; border:2px solid rgba(91,58,41,.24); background:#fff; color:var(--ink); border-radius:10px; padding:8px 9px; font-family:'Quicksand',sans-serif; font-weight:700; outline:none; }
+  .admin-input:focus, .admin-textarea:focus { border-color:var(--orange); }
+  .admin-textarea { min-height:74px; resize:vertical; }
+  .admin-actions { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:7px; }
+  .admin-btn { border:none; border-radius:999px; padding:7px 11px; background:var(--orange); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; cursor:pointer; }
+  .admin-btn.secondary { background:#7c6b60; }
+  .admin-btn.danger { background:#b83c3c; }
+  .admin-btn.good { background:#4f9a55; }
+  .admin-btn:disabled { opacity:.45; cursor:not-allowed; }
+  .admin-status { min-height:1.1em; color:var(--muted); font-size:.68rem; font-weight:700; margin-top:6px; }
+  .admin-player-list { display:flex; flex-direction:column; gap:7px; margin-top:8px; }
+  .admin-player { border:2px solid rgba(91,58,41,.14); border-radius:12px; background:#fff; padding:8px; }
+  .admin-player.flagged { border-color:#d34c4c; background:#fff0ef; }
+  .admin-player.banned { opacity:.72; border-style:dashed; }
+  .admin-player-head { display:grid; grid-template-columns:minmax(120px,1.2fr) auto auto; gap:8px; align-items:center; }
+  .admin-player-name { font-family:'Baloo 2',sans-serif; font-weight:800; color:var(--choc); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .admin-player-score { font-size:.68rem; color:var(--muted); font-weight:700; white-space:nowrap; }
+  .admin-flag { font-size:.65rem; font-weight:800; color:#b83c3c; }
+  .admin-player-controls { display:grid; grid-template-columns:minmax(120px,1fr) auto; gap:6px; margin-top:7px; align-items:center; }
+  .admin-player-controls .admin-actions { margin-top:0; justify-content:flex-end; }
+  .admin-check { display:inline-flex; align-items:center; gap:4px; color:var(--muted); font-size:.62rem; font-weight:700; }
+
+  .ban-screen { display:none; position:fixed; inset:0; z-index:700; background:rgba(35,22,16,.96); color:#fff8ec; align-items:center; justify-content:center; text-align:center; padding:24px; }
+  .ban-screen.show { display:flex; }
+  .ban-card { max-width:520px; border:3px solid #d34c4c; border-radius:20px; padding:24px; background:#3d2318; box-shadow:0 18px 70px rgba(0,0,0,.5); }
+  .ban-card h2 { font-family:'Baloo 2',sans-serif; font-size:1.6rem; margin-bottom:6px; }
+
+  @media (max-width:720px) {
+    .admin-player-head { grid-template-columns:1fr auto; }
+    .admin-player-score { grid-column:1 / -1; }
+    .admin-player-controls { grid-template-columns:1fr; }
+    .admin-player-controls .admin-actions { justify-content:flex-start; }
+  }
+
 </style>
 </head>
 <body>
 
 <div class="layout" id="layoutRoot">
   <header class="topbar">
-    <h1>Archie Clicker</h1>
+    <button class="profile-chip" id="profileChip" type="button" aria-label="Open profile">
+      <span>👤</span><span class="profile-chip-name" id="profileChipName">Profile</span>
+    </button>
+    <div class="profile-card" id="profileCard">
+      <div class="profile-card-head">
+        <div><div class="profile-name" id="profileName">Your Profile</div><div class="profile-rank" id="profileRank">Archie Nobody</div></div>
+        <button class="profile-close" id="profileClose" type="button" aria-label="Close profile">×</button>
+      </div>
+      <div class="profile-stats" id="profileStats"></div>
+      <div class="profile-note" id="profileNote">Your game stats live here now.</div>
+    </div>
+    <h1 id="gameTitle">Archie Clicker</h1>
     <div class="subtitle">a modest enterprise</div>
+    <div class="global-message" id="globalMessageBanner"></div>
   </header>
 
   <main class="stage">
@@ -311,27 +464,60 @@
       <div class="tab active" data-tab="shop">Upgrades</div>
       <div class="tab" data-tab="boost">Boosts</div>
       <div class="tab" data-tab="achv">Achv</div>
-      <div class="tab" data-tab="stats">Stats</div>
-      <div class="tab" data-tab="leaderboard">Ranks</div>
+      <div class="tab" data-tab="friends">Friends</div>
+      <div class="tab" data-tab="legacy">Legacy</div>
+      <div class="tab" data-tab="leaderboard">Leaderboard</div>
     </div>
 
     <div class="panel active" id="panel-shop"><div class="shop" id="shop"></div></div>
     <div class="panel" id="panel-boost"><div class="boost-list" id="boostList"></div></div>
     <div class="panel" id="panel-achv"><div class="achv-list" id="achvList"></div></div>
-    <div class="panel" id="panel-stats">
-      <div class="stats-panel" id="statsPanel"></div>
-      <div class="prestige-box">
-        <div class="ptitle">Retire Archie</div>
-        <div id="prestigeInfo">Earn 1M Archies this run to retire for Legacy Points.</div>
-        <button class="prestige-btn" id="prestigeBtn">Retire for +0 Legacy</button>
+    <div class="panel" id="panel-friends">
+      <div class="friends-panel">
+        <div class="friends-card">
+          <div class="friends-title">Find Players <button class="friends-btn secondary" id="friendsRefreshBtn" type="button">Refresh</button></div>
+          <div class="friends-subtitle">Search a username, or click anyone on the Leaderboard.</div>
+          <div class="friends-search"><input id="friendSearchInput" maxlength="16" placeholder="Search username"><button class="friends-btn" id="friendSearchBtn" type="button">Search</button></div>
+          <div class="friends-status" id="friendsStatus"></div>
+          <div class="friends-list" id="friendSearchResults"></div>
+        </div>
+        <div class="friends-card">
+          <div class="friends-title">Friend Requests <span class="friend-badge" id="friendRequestCount" style="display:none">0</span></div>
+          <div class="friends-subtitle">Incoming requests</div>
+          <div class="friends-list" id="incomingFriendRequests"></div>
+          <div class="friends-subtitle" style="margin-top:8px">Sent requests</div>
+          <div class="friends-list" id="outgoingFriendRequests"></div>
+        </div>
+        <div class="friends-card">
+          <div class="friends-title">Your Friends</div>
+          <div class="friends-subtitle">Click a friend to compare your stats side by side.</div>
+          <div class="friends-list" id="friendsList"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="panel" id="panel-legacy">
+      <div class="legacy-panel">
+        <div class="legacy-summary">
+          <b>Legacy Skill Tree</b><br>
+          <span id="legacyTokenSummary">0 Legacy Tokens available</span><br>
+          <span style="font-size:.64rem">Skills are permanent and survive retirement. Legacy Points still keep their normal +2% each bonus.</span>
+        </div>
+        <div class="prestige-box" style="margin-top:0">
+          <div class="ptitle">Retire Archie</div>
+          <div id="prestigeInfo">Earn 1M Archies this run to retire for Legacy Points.</div>
+          <button class="prestige-btn" id="prestigeBtn">Retire for +0 Legacy</button>
+        </div>
+        <div class="legacy-tree" id="legacyTree"></div>
       </div>
     </div>
 
     <div class="panel" id="panel-leaderboard">
       <div class="leaderboard-panel">
         <div class="leaderboard-card">
-          <div class="leaderboard-title">Global Click Leaderboard</div>
-          <div class="leaderboard-muted">Verified clicks only. Local progress still saves exactly as before.</div>
+          <div class="leaderboard-title">Global Archie Leaderboard</div>
+          <div class="leaderboard-muted">Ranked by Lifetime Archies earned across the whole game.</div>
           <div id="leaderboardIdentity" class="leaderboard-status">Connecting...</div>
           <div class="leaderboard-name-row" id="leaderboardNameRow" style="display:none">
             <input id="leaderboardName" maxlength="16" autocomplete="nickname" placeholder="Choose a username">
@@ -351,6 +537,78 @@
   </aside>
 </div>
 
+<div class="social-overlay" id="playerProfileOverlay" aria-hidden="true">
+  <div class="social-modal">
+    <div class="social-head">
+      <div><div class="social-name" id="socialPlayerName">Player</div><div class="social-rank" id="socialPlayerRank"></div></div>
+      <button class="profile-close" id="socialPlayerClose" type="button" aria-label="Close player profile">×</button>
+    </div>
+    <div class="social-summary" id="socialPlayerSummary"></div>
+    <div class="social-actions" id="socialPlayerActions"></div>
+    <div class="social-muted" id="socialPlayerStatus"></div>
+    <div class="compare-wrap" id="socialCompareWrap" style="display:none">
+      <div class="compare-title">Friend Stats Comparison</div>
+      <div class="compare-grid" id="socialCompareGrid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="admin-overlay" id="developerPinOverlay" aria-hidden="true">
+  <div class="admin-modal admin-small">
+    <div class="admin-header">
+      <div class="admin-title">Developer Access</div>
+      <button class="admin-btn secondary" id="developerPinCancel">Close</button>
+    </div>
+    <div class="admin-muted">Enter the 4-digit developer code.</div>
+    <input class="admin-input" id="developerPinInput" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="4-digit code" style="margin-top:8px;text-align:center;font-size:1.2rem;letter-spacing:.35rem">
+    <div class="admin-status" id="developerPinStatus"></div>
+    <div class="admin-actions"><button class="admin-btn" id="developerPinSubmit">Unlock Developer Menu</button></div>
+    <div class="admin-muted" style="margin-top:10px">Your Player ID: <span id="developerUid">not connected yet</span></div>
+  </div>
+</div>
+
+<div class="admin-overlay" id="developerAdminOverlay" aria-hidden="true">
+  <div class="admin-modal">
+    <div class="admin-header">
+      <div>
+        <div class="admin-title">Archie Clicker Developer Console</div>
+        <div class="admin-muted">Server-protected controls for player moderation and live announcements.</div>
+      </div>
+      <button class="admin-btn secondary" id="developerAdminClose">Close</button>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Message everyone playing</div>
+      <textarea class="admin-textarea" id="adminGlobalMessage" maxlength="300" placeholder="Write a message that appears at the top of every connected player's game..."></textarea>
+      <div class="admin-actions">
+        <button class="admin-btn" id="adminPublishMessage">Publish Message</button>
+        <button class="admin-btn secondary" id="adminClearMessage">Clear Message</button>
+      </div>
+      <div class="admin-status" id="adminMessageStatus"></div>
+    </div>
+
+    <div class="admin-section">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
+        <div>
+          <div class="admin-section-title">Players</div>
+          <div class="admin-muted">Red rows have hit the 15 clicks/sec limit. Give Archies, reset progress, ban/unban, or clear flags.</div>
+        </div>
+        <button class="admin-btn" id="adminRefreshPlayers">Refresh</button>
+      </div>
+      <div class="admin-status" id="adminPlayersStatus"></div>
+      <div class="admin-player-list" id="adminPlayerList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="ban-screen" id="banScreen">
+  <div class="ban-card">
+    <h2>Account Banned</h2>
+    <div>This player has been banned from Archie Clicker by a developer.</div>
+    <div style="margin-top:8px;font-size:.75rem;opacity:.75">The game will automatically unlock again if the ban is removed.</div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   // ---------------- state ----------------
@@ -364,12 +622,17 @@
   let runEarned = 0;
   let totalClicks = 0;
   let critCount = 0;
+  let lastAdminResetVersion = 0;
+  let playerIsBanned = false;
+  let currentGlobalMessage = '';
+  let currentGlobalMessageStamp = '';
 
   // ---------------- fair-play click limiter ----------------
   // Rolling 1-second window. Clicks above this limit are ignored locally.
   const MAX_CLICKS_PER_SECOND = 15;
   const acceptedClickTimes = [];
   let lastLimitToastAt = 0;
+  let lastServerCheatFlagAt = 0;
 
   function acceptHumanClick(e) {
     // Blocks scripted element.click() / dispatchEvent() calls. Real mouse, touch,
@@ -381,6 +644,10 @@
       if (now - lastLimitToastAt > 1400) {
         showToast('15 clicks/sec limit reached');
         lastLimitToastAt = now;
+      }
+      if (now - lastServerCheatFlagAt > 5000) {
+        lastServerCheatFlagAt = now;
+        reportCheatLimitHit();
       }
       return false;
     }
@@ -398,23 +665,37 @@
   let leaderboardDb = null;
   let leaderboardUser = null;
   let leaderboardProfile = null;
-  let pendingVerifiedClicks = 0;
-  let leaderboardSubmitBusy = false;
+  let leaderboardSyncBusy = false;
   let leaderboardRefreshBusy = false;
+  let lastSyncedLifetimeArchies = -1;
+  let clientStatePollBusy = false;
+  let adminUnlocked = false;
+  let adminPlayersBusy = false;
+  let socialSyncBusy = false;
+  let friendsRefreshBusy = false;
+  let lastSocialSignature = '';
+  let activeSocialPlayerId = null;
 
   function leaderboardIsConfigured() {
     return /^https:\/\//.test(SUPABASE_URL) && !SUPABASE_URL.includes('PASTE_') &&
       SUPABASE_PUBLISHABLE_KEY.length > 20 && !SUPABASE_PUBLISHABLE_KEY.includes('PASTE_');
   }
 
-  function queueVerifiedClick() {
-    if (leaderboardProfile) pendingVerifiedClicks += 1;
-  }
-
 
   function legacyMultiplier() { return 1 + legacyPoints * 0.02; }
-  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier(); }
-  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier(); }
+  function legacyProduct(type) {
+    return legacySkills.reduce((v, s) => legacySkillsOwned.has(s.id) && s.type === type ? v * s.value : v, 1);
+  }
+  function legacySum(type) {
+    return legacySkills.reduce((v, s) => legacySkillsOwned.has(s.id) && s.type === type ? v + s.value : v, 0);
+  }
+  function legacyTokensSpent() {
+    return legacySkills.reduce((v, s) => legacySkillsOwned.has(s.id) ? v + s.cost : v, 0);
+  }
+  function legacyTokensAvailable() { return Math.max(0, legacyPoints - legacyTokensSpent()); }
+  function effectiveCritChance() { return Math.min(0.95, critChance + legacySum('critAdd')); }
+  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult'); }
+  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult'); }
 
   const upgrades = [
     { id: 'click2',   name: 'Firmer Tap',       desc: '+1 per click',        baseCost: 15,      type: 'click', amount: 1,     owned: 0 },
@@ -430,6 +711,12 @@
     { id: 'university',name:'Archie University',desc: '+2,200 Archies / sec',baseCost: 20000000,type: 'auto',  amount: 2200,  owned: 0 },
     { id: 'temple',   name: 'Archie Temple',    desc: '+9,000 Archies / sec',baseCost: 330000000,type: 'auto', amount: 9000,  owned: 0 },
     { id: 'mothership',name:'Archie Mothership',desc: '+40,000 Archies / sec',baseCost: 5100000000,type:'auto',amount: 40000, owned: 0 },
+    { id: 'quantumfist',name:'Quantum Fist',desc: '+1,500 per click',baseCost: 42000000000,type:'click',amount:1500,owned:0 },
+    { id: 'planet',name:'Archie Planet',desc: '+180,000 Archies / sec',baseCost: 85000000000,type:'auto',amount:180000,owned:0 },
+    { id: 'galaxy',name:'Archie Galaxy',desc: '+1,200,000 Archies / sec',baseCost: 900000000000,type:'auto',amount:1200000,owned:0 },
+    { id: 'omnifist',name:'Omni Fist',desc: '+25,000 per click',baseCost: 5000000000000,type:'click',amount:25000,owned:0 },
+    { id: 'dimension',name:'Archie Dimension',desc: '+8,000,000 Archies / sec',baseCost: 15000000000000,type:'auto',amount:8000000,owned:0 },
+    { id: 'multiverse',name:'Archie Multiverse',desc: '+75,000,000 Archies / sec',baseCost: 300000000000000,type:'auto',amount:75000000,owned:0 },
   ];
 
   const boosts = [
@@ -439,9 +726,31 @@
     { id: 'b4', name: 'Grand Automation', desc: 'x3 Archies/sec, permanently', cost: 2000000,  type: 'autoMult',  mult: 3, purchased: false },
     { id: 'b5', name: 'Lucky Streak',     desc: '+5% critical click chance',   cost: 8000,      type: 'crit',      mult: 0.05, purchased: false },
     { id: 'b6', name: 'Iron Will',        desc: 'x5 click power, permanently', cost: 50000000,  type: 'clickMult', mult: 5, purchased: false },
+    { id: 'b7', name: 'Titan Hands',      desc: 'x10 click power, permanently', cost: 20000000000, type: 'clickMult', mult: 10, purchased: false },
+    { id: 'b8', name: 'Singularity Automation', desc: 'x10 Archies/sec, permanently', cost: 200000000000, type: 'autoMult', mult: 10, purchased: false },
+    { id: 'b9', name: 'Critical Theory',  desc: '+10% critical click chance', cost: 50000000000, type: 'crit', mult: 0.10, purchased: false },
+    { id: 'b10', name: 'Archie Ascendant', desc: 'x25 click power, permanently', cost: 50000000000000, type: 'clickMult', mult: 25, purchased: false },
+    { id: 'b11', name: 'Infinite Workforce', desc: 'x25 Archies/sec, permanently', cost: 500000000000000, type: 'autoMult', mult: 25, purchased: false },
   ];
 
   let critChance = 0.03;
+
+  // ---------------- permanent legacy skill tree ----------------
+  // Existing saves remain compatible: old Legacy Points become immediately spendable.
+  const legacySkills = [
+    // The first nodes stay cheap so your first retirement can buy something immediately.
+    // Deeper nodes are deliberately expensive so Legacy remains a long-term system.
+    { id:'ls_click1', branch:'Click Power', name:'Old Habits', desc:'+25% click power forever.', cost:1, type:'clickMult', value:1.25, prereqs:[] },
+    { id:'ls_click2', branch:'Click Power', name:'Muscle Memory', desc:'x1.5 additional click power.', cost:5, type:'clickMult', value:1.5, prereqs:['ls_click1'] },
+    { id:'ls_click3', branch:'Click Power', name:'Golden Knuckles', desc:'+3% critical click chance.', cost:12, type:'critAdd', value:0.03, prereqs:['ls_click2'] },
+    { id:'ls_auto1', branch:'Automation', name:'Old Workforce', desc:'+25% Archies per second forever.', cost:1, type:'autoMult', value:1.25, prereqs:[] },
+    { id:'ls_auto2', branch:'Automation', name:'Assembly Wisdom', desc:'x1.5 additional Archies per second.', cost:5, type:'autoMult', value:1.5, prereqs:['ls_auto1'] },
+    { id:'ls_auto3', branch:'Automation', name:'Legacy Engine', desc:'x2 additional Archies per second.', cost:20, type:'autoMult', value:2, prereqs:['ls_auto2'] },
+    { id:'ls_bonus', branch:'Fortune', name:'Inheritance', desc:'x2 Archie bonus-event rewards.', cost:3, type:'bonusMult', value:2, prereqs:[] },
+    { id:'ls_prestige', branch:'Fortune', name:'Retirement Plan', desc:'+25% Legacy Points earned when retiring.', cost:20, type:'prestigeMult', value:1.25, prereqs:['ls_bonus'] },
+    { id:'ls_dynasty', branch:'Mastery', name:'Archie Dynasty', desc:'x2 ALL click and auto production forever.', cost:90, type:'globalMult', value:2, prereqs:['ls_click3','ls_auto3','ls_prestige'] },
+  ];
+  const legacySkillsOwned = new Set();
 
   const achievements = [
     { id: 'a1',  goal: 10,        name: 'First Steps',        desc: 'Earn 10 Archies total.' },
@@ -489,6 +798,8 @@
       upgrades: upgrades.map(u => u.owned),
       boosts: boosts.map(b => b.purchased),
       achievements: Array.from(unlocked),
+      legacySkills: Array.from(legacySkillsOwned),
+      lastAdminResetVersion,
       savedAt: Date.now()
     };
   }
@@ -518,6 +829,7 @@
     totalClicks = Number(data.totalClicks) || 0;
     critCount = Number(data.critCount) || 0;
     critChance = Number(data.critChance) || critChance;
+    lastAdminResetVersion = Math.max(0, Math.floor(Number(data.lastAdminResetVersion) || 0));
 
     if (Array.isArray(data.upgrades)) {
       upgrades.forEach((u, i) => {
@@ -529,6 +841,9 @@
     }
     if (Array.isArray(data.achievements)) {
       data.achievements.forEach(id => unlocked.add(id));
+    }
+    if (Array.isArray(data.legacySkills)) {
+      data.legacySkills.forEach(id => { if (legacySkills.some(s => s.id === id)) legacySkillsOwned.add(id); });
     }
   }
 
@@ -551,7 +866,6 @@
   const shopEl = document.getElementById('shop');
   const boostListEl = document.getElementById('boostList');
   const achvListEl = document.getElementById('achvList');
-  const statsPanelEl = document.getElementById('statsPanel');
   const prestigeInfo = document.getElementById('prestigeInfo');
   const prestigeBtn = document.getElementById('prestigeBtn');
   const btn = document.getElementById('archieBtn');
@@ -559,6 +873,18 @@
   const sparkleRing = document.getElementById('sparkleRing');
   const hatSlot = document.getElementById('hatSlot');
   const layoutRoot = document.getElementById('layoutRoot');
+  const gameTitle = document.getElementById('gameTitle');
+  const globalMessageBanner = document.getElementById('globalMessageBanner');
+  const legacyTreeEl = document.getElementById('legacyTree');
+  const legacyTokenSummary = document.getElementById('legacyTokenSummary');
+  const banScreen = document.getElementById('banScreen');
+  const profileChip = document.getElementById('profileChip');
+  const profileChipName = document.getElementById('profileChipName');
+  const profileCard = document.getElementById('profileCard');
+  const profileNameEl = document.getElementById('profileName');
+  const profileRankEl = document.getElementById('profileRank');
+  const profileStatsEl = document.getElementById('profileStats');
+  const profileNoteEl = document.getElementById('profileNote');
 
   function currentRank() {
     let r = ranks[0].title;
@@ -566,14 +892,40 @@
     return r;
   }
 
+  // Slower Legacy curve. Exact base rewards at the major milestones are:
+  // 1M=1, 10M=2, 100M=4, 1B=8, 10B=15, 100B=28,
+  // 1T=50, 10T=90, 100T=160, 1Q=280.
+  const prestigeCurve = [
+    [1e6, 1], [1e7, 2], [1e8, 4], [1e9, 8], [1e10, 15],
+    [1e11, 28], [1e12, 50], [1e13, 90], [1e14, 160], [1e15, 280]
+  ];
+
+  function basePrestigeGain(earned) {
+    if (earned < prestigeCurve[0][0]) return 0;
+
+    for (let i = 0; i < prestigeCurve.length - 1; i++) {
+      const [earnA, ptsA] = prestigeCurve[i];
+      const [earnB, ptsB] = prestigeCurve[i + 1];
+      if (earned <= earnB) {
+        // Interpolate by log earnings so rewards rise smoothly between each 10x milestone.
+        const t = Math.log10(earned / earnA) / Math.log10(earnB / earnA);
+        return Math.floor(ptsA + (ptsB - ptsA) * t);
+      }
+    }
+
+    // Beyond 1 quadrillion, continue with diminishing returns instead of exploding upward.
+    const [lastEarn, lastPts] = prestigeCurve[prestigeCurve.length - 1];
+    return Math.floor(lastPts * Math.pow(earned / lastEarn, Math.log10(1.75)));
+  }
+
   function prestigeGain() {
-    return Math.floor(Math.sqrt(runEarned / 1000000));
+    return Math.floor(basePrestigeGain(runEarned) * legacyProduct('prestigeMult'));
   }
 
   function render() {
     scoreEl.textContent = fmt(score) + ' Archies';
     rankEl.textContent = currentRank();
-    legacyDisplay.textContent = legacyPoints > 0 ? ('\u2726 ' + legacyPoints + ' Legacy (+' + Math.round((legacyMultiplier()-1)*100) + '%)') : '';
+    legacyDisplay.textContent = legacyPoints > 0 ? ('\u2726 ' + legacyTokensAvailable() + '/' + legacyPoints + ' Legacy (+' + Math.round((legacyMultiplier()-1)*100) + '% base)') : '';
     statsEl.textContent = '+' + fmt(effClick()) + ' per click \u00b7 +' + fmt(effAuto()) + ' per second';
     totallineEl.textContent = 'Lifetime: ' + fmt(totalEarned) + ' \u00b7 Total clicks: ' + fmt(totalClicks);
 
@@ -609,22 +961,105 @@
       ? 'This run has earned ' + fmt(runEarned) + '. Retiring resets your current run but keeps Legacy Points forever.'
       : 'Earn ' + fmt(1000000) + ' this run to retire for Legacy Points (currently ' + fmt(runEarned) + ').';
 
-    statsPanelEl.innerHTML =
-      statCard('Total lifetime Archies', fmt(totalEarned)) +
-      statCard('Total clicks', fmt(totalClicks)) +
-      statCard('Critical clicks', fmt(critCount)) +
-      statCard('Legacy Points', legacyPoints + ' (x' + legacyMultiplier().toFixed(2) + ')') +
-      statCard('Achievements', unlocked.size + ' / ' + achievements.length) +
-      statCard('Click multiplier', 'x' + clickMult) +
-      statCard('Auto multiplier', 'x' + autoMult);
+    renderProfilePanel();
 
     checkAchievements();
+    renderLegacyTree();
     renderOrbits();
     renderHat();
   }
 
+  function legacyPrereqsMet(skill) {
+    return (skill.prereqs || []).every(id => legacySkillsOwned.has(id));
+  }
+
+  function buyLegacySkill(skill) {
+    if (legacySkillsOwned.has(skill.id) || !legacyPrereqsMet(skill) || legacyTokensAvailable() < skill.cost) return;
+    legacySkillsOwned.add(skill.id);
+    showToast('Legacy skill unlocked: ' + skill.name);
+    burstConfetti(window.innerWidth / 2, window.innerHeight / 2, 34);
+    render();
+    saveGame();
+  }
+
+  function renderLegacyTree() {
+    if (!legacyTreeEl || !legacyTokenSummary) return;
+    legacyTokenSummary.textContent = legacyTokensAvailable() + ' available · ' + legacyPoints + ' total · ' + legacyTokensSpent() + ' spent';
+    legacyTreeEl.innerHTML = '';
+    const branches = [...new Set(legacySkills.map(s => s.branch))];
+    branches.forEach(branch => {
+      const group = document.createElement('div');
+      group.className = 'legacy-branch';
+      const title = document.createElement('div');
+      title.className = 'legacy-branch-title';
+      title.textContent = branch;
+      group.appendChild(title);
+      legacySkills.filter(s => s.branch === branch).forEach(skill => {
+        const bought = legacySkillsOwned.has(skill.id);
+        const prereqs = legacyPrereqsMet(skill);
+        const affordable = legacyTokensAvailable() >= skill.cost;
+        const node = document.createElement('div');
+        node.className = 'legacy-node' + (bought ? ' purchased' : ((!prereqs || !affordable) ? ' locked' : ''));
+        const reqNames = (skill.prereqs || []).map(id => (legacySkills.find(s => s.id === id) || {}).name).filter(Boolean);
+        node.innerHTML = '<div class="legacy-node-top"><div class="legacy-node-name">' + skill.name + '</div><div class="legacy-node-cost">' + (bought ? '✓ OWNED' : skill.cost + ' Legacy') + '</div></div>' +
+          '<div class="legacy-node-desc">' + skill.desc + '</div>' +
+          (reqNames.length ? '<div class="legacy-node-prereq">Requires: ' + reqNames.join(', ') + '</div>' : '');
+        if (!bought && prereqs && affordable) node.addEventListener('click', () => buyLegacySkill(skill));
+        group.appendChild(node);
+      });
+      legacyTreeEl.appendChild(group);
+    });
+  }
+
+  function hardResetGameProgress(resetVersion) {
+    score = 0;
+    bonusClickAdd = 0;
+    bonusAutoAdd = 0;
+    clickMult = 1;
+    autoMult = 1;
+    legacyPoints = 0;
+    totalEarned = 0;
+    runEarned = 0;
+    totalClicks = 0;
+    critCount = 0;
+    critChance = 0.03;
+    upgrades.forEach(u => u.owned = 0);
+    boosts.forEach(b => b.purchased = false);
+    unlocked.clear();
+    legacySkillsOwned.clear();
+    lastAdminResetVersion = Math.max(lastAdminResetVersion, Math.floor(Number(resetVersion) || 0));
+    lastSyncedLifetimeArchies = 0;
+    if (leaderboardProfile) leaderboardProfile.archies = 0;
+    renderAchvList();
+    render();
+    saveGame();
+  }
+
   function statCard(label, val) {
     return '<div class="stat-card"><span>' + label + '</span><b>' + val + '</b></div>';
+  }
+
+
+  function renderProfilePanel() {
+    if (!profileStatsEl) return;
+    const username = leaderboardProfile && leaderboardProfile.username ? leaderboardProfile.username : 'Your Profile';
+    if (profileChipName) profileChipName.textContent = leaderboardProfile && leaderboardProfile.username ? leaderboardProfile.username : 'Profile';
+    if (profileNameEl) profileNameEl.textContent = username;
+    if (profileRankEl) profileRankEl.textContent = currentRank();
+    profileStatsEl.innerHTML =
+      statCard('Lifetime Archies', fmt(totalEarned)) +
+      statCard('Current Archies', fmt(score)) +
+      statCard('Total clicks', fmt(totalClicks)) +
+      statCard('Critical clicks', fmt(critCount)) +
+      statCard('Legacy Points', legacyPoints + ' total · ' + legacyTokensAvailable() + ' available') +
+      statCard('Legacy base bonus', 'x' + legacyMultiplier().toFixed(2)) +
+      statCard('Click power', fmt(effClick())) +
+      statCard('Archies / sec', fmt(effAuto())) +
+      statCard('Crit chance', Math.round(effectiveCritChance() * 100) + '%') +
+      statCard('Achievements', unlocked.size + ' / ' + achievements.length);
+    if (profileNoteEl) profileNoteEl.textContent = leaderboardProfile
+      ? 'Signed in as ' + leaderboardProfile.username + '. Friends can compare these stats with you.'
+      : 'Choose a username in Leaderboard to use Friends and online profiles.';
   }
 
   function renderAchvList() {
@@ -739,11 +1174,12 @@
   }
 
   btn.addEventListener('click', (e) => {
+    if (playerIsBanned) return;
     if (!acceptHumanClick(e)) return;
 
     let gain = effClick();
     let crit = false;
-    if (Math.random() < critChance) {
+    if (Math.random() < effectiveCritChance()) {
       crit = true;
       gain *= 10;
       critCount++;
@@ -753,7 +1189,6 @@
     totalEarned += gain;
     runEarned += gain;
     totalClicks += 1;
-    queueVerifiedClick();
 
     const rect = btn.getBoundingClientRect();
     const wrapRect = wrap.getBoundingClientRect();
@@ -777,6 +1212,7 @@
   });
 
   setInterval(() => {
+    if (playerIsBanned) { saveGame(); return; }
     const gain = effAuto();
     if (gain > 0) {
       score += gain;
@@ -870,7 +1306,7 @@
     if (!rows || rows.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'leaderboard-status';
-      empty.textContent = 'No verified players yet. Be the first!';
+      empty.textContent = 'No players yet. Be the first!';
       list.appendChild(empty);
       return;
     }
@@ -883,39 +1319,38 @@
       const name = document.createElement('div');
       name.className = 'leaderboard-user';
       name.textContent = row.username;
-      const clicks = document.createElement('div');
-      clicks.className = 'leaderboard-clicks';
-      clicks.textContent = fmt(Number(row.clicks) || 0) + ' clicks';
-      item.append(pos, name, clicks);
+      const archies = document.createElement('div');
+      archies.className = 'leaderboard-clicks';
+      archies.textContent = fmt(Number(row.archies) || 0) + ' Archies';
+      item.append(pos, name, archies);
+      item.title = 'View profile';
+      item.tabIndex = 0;
+      item.addEventListener('click', () => openPlayerProfile(row.user_id));
+      item.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPlayerProfile(row.user_id); } });
       list.appendChild(item);
     });
   }
 
   async function refreshLeaderboard() {
     if (!leaderboardDb || leaderboardRefreshBusy) return;
+    await syncLifetimeArchies();
     leaderboardRefreshBusy = true;
     const refreshBtn = document.getElementById('leaderboardRefreshBtn');
     if (refreshBtn) refreshBtn.disabled = true;
     try {
-      const { data, error } = await leaderboardDb
-        .from('archie_leaderboard')
-        .select('user_id,username,clicks,updated_at')
-        .order('clicks', { ascending: false })
-        .order('updated_at', { ascending: true })
-        .limit(100);
+      const { data, error } = await leaderboardDb.rpc('archie_get_top_players', { p_limit: 100 });
       if (error) throw error;
       renderLeaderboardRows(data || []);
 
       if (leaderboardProfile && leaderboardUser) {
-        const { count, error: rankError } = await leaderboardDb
-          .from('archie_leaderboard')
-          .select('user_id', { count: 'exact', head: true })
-          .gt('clicks', leaderboardProfile.clicks || 0);
-        if (!rankError) {
-          setLeaderboardStatus('Your rank: #' + ((count || 0) + 1) + ' · ' + fmt(leaderboardProfile.clicks || 0) + ' verified clicks');
+        const { data: rankData, error: rankError } = await leaderboardDb.rpc('archie_get_my_rank');
+        const rankRow = Array.isArray(rankData) ? rankData[0] : rankData;
+        if (!rankError && rankRow) {
+          leaderboardProfile.archies = Number(rankRow.archies) || leaderboardProfile.archies || 0;
+          setLeaderboardStatus('Your rank: #' + Number(rankRow.rank_pos || 1) + ' · ' + fmt(leaderboardProfile.archies || 0) + ' Lifetime Archies');
         }
       } else {
-        setLeaderboardStatus('Choose a username to start recording verified clicks.');
+        setLeaderboardStatus('Choose a username to put your Lifetime Archies on the leaderboard.');
       }
     } catch (err) {
       setLeaderboardStatus('Leaderboard error: ' + (err && err.message ? err.message : 'could not load'));
@@ -929,7 +1364,7 @@
     if (!leaderboardDb || !leaderboardUser) return;
     const { data, error } = await leaderboardDb
       .from('archie_leaderboard')
-      .select('user_id,username,clicks')
+      .select('user_id,username,archies')
       .eq('user_id', leaderboardUser.id)
       .maybeSingle();
     if (error) throw error;
@@ -937,7 +1372,10 @@
     const nameRow = document.getElementById('leaderboardNameRow');
     if (leaderboardProfile) {
       if (nameRow) nameRow.style.display = 'none';
-      setLeaderboardIdentity('Playing as ' + leaderboardProfile.username + ' · verified clicks start from this online leaderboard update.');
+      lastSyncedLifetimeArchies = Number(leaderboardProfile.archies) || 0;
+      setLeaderboardIdentity('Playing as ' + leaderboardProfile.username + ' · ranked by Lifetime Archies.');
+      await syncLifetimeArchies(true);
+      await syncSocialStats(true);
     } else {
       if (nameRow) nameRow.style.display = 'flex';
       setLeaderboardIdentity('Connected. Choose a 3–16 character username.');
@@ -968,23 +1406,570 @@
     }
   }
 
-  async function flushVerifiedClicks() {
-    if (!leaderboardDb || !leaderboardProfile || pendingVerifiedClicks < 1 || leaderboardSubmitBusy) return;
-    leaderboardSubmitBusy = true;
-    const amount = Math.min(MAX_CLICKS_PER_SECOND, pendingVerifiedClicks);
+  async function syncLifetimeArchies(force = false) {
+    if (!leaderboardDb || !leaderboardProfile || leaderboardSyncBusy || playerIsBanned) return;
+    const lifetime = Math.max(0, Math.floor(Number(totalEarned) || 0));
+    if (!force && lifetime <= lastSyncedLifetimeArchies) return;
+
+    leaderboardSyncBusy = true;
     try {
-      const { data, error } = await leaderboardDb.rpc('submit_archie_clicks', { p_count: amount });
+      const { data, error } = await leaderboardDb.rpc('sync_archie_lifetime', { p_total_archies: lifetime, p_reset_version: lastAdminResetVersion });
       if (error) throw error;
-      pendingVerifiedClicks -= amount;
-      leaderboardProfile.clicks = Number(data) || (leaderboardProfile.clicks + amount);
-      setLeaderboardStatus('Verified clicks: ' + fmt(leaderboardProfile.clicks) + (pendingVerifiedClicks ? ' · syncing ' + pendingVerifiedClicks : ''));
+      const serverLifetime = Number(data);
+      leaderboardProfile.archies = Number.isFinite(serverLifetime) ? serverLifetime : lifetime;
+      lastSyncedLifetimeArchies = leaderboardProfile.archies;
+      setLeaderboardStatus('Leaderboard synced: ' + fmt(leaderboardProfile.archies) + ' Lifetime Archies');
     } catch (err) {
-      // Rate-limit errors are expected if a tab resumes after being paused. Keep
-      // the queued clicks and try again on the next interval.
-      const msg = err && err.message ? err.message : '';
-      if (!/rate|fast|token/i.test(msg)) setLeaderboardStatus('Sync paused: ' + (msg || 'connection problem'));
+      const msg = err && err.message ? err.message : 'connection problem';
+      setLeaderboardStatus('Lifetime Archie sync paused: ' + msg);
     } finally {
-      leaderboardSubmitBusy = false;
+      leaderboardSyncBusy = false;
+    }
+  }
+
+
+  async function syncSocialStats(force = false) {
+    if (!leaderboardDb || !leaderboardProfile || socialSyncBusy || playerIsBanned) return;
+    const payload = {
+      p_total_clicks: Math.max(0, Math.floor(Number(totalClicks) || 0)),
+      p_crit_count: Math.max(0, Math.floor(Number(critCount) || 0)),
+      p_legacy_points: Math.max(0, Math.floor(Number(legacyPoints) || 0)),
+      p_achievements_count: Math.max(0, unlocked.size),
+      p_current_archies: Math.max(0, Math.floor(Number(score) || 0)),
+      p_click_power: Math.max(0, Number(effClick()) || 0),
+      p_auto_power: Math.max(0, Number(effAuto()) || 0),
+      p_rank_title: currentRank(),
+      p_reset_version: lastAdminResetVersion
+    };
+    const signature = JSON.stringify(payload);
+    if (!force && signature === lastSocialSignature) return;
+    socialSyncBusy = true;
+    try {
+      const { error } = await leaderboardDb.rpc('sync_archie_social_stats', payload);
+      if (error) throw error;
+      lastSocialSignature = signature;
+    } catch (err) {
+      // Friends SQL may not be installed yet; do not interrupt the game.
+    } finally {
+      socialSyncBusy = false;
+    }
+  }
+
+  function setFriendsStatus(msg) {
+    const el = document.getElementById('friendsStatus');
+    if (el) el.textContent = msg || '';
+  }
+
+  function emptyFriendList(el, text) {
+    if (!el) return;
+    el.innerHTML = '';
+    const d = document.createElement('div');
+    d.className = 'friend-empty';
+    d.textContent = text;
+    el.appendChild(d);
+  }
+
+  function relationshipText(rel) {
+    if (rel === 'friends') return 'Friend';
+    if (rel === 'incoming') return 'Requested you';
+    if (rel === 'outgoing') return 'Request sent';
+    return '';
+  }
+
+  function makeFriendRow(row, kind) {
+    const card = document.createElement('div');
+    card.className = 'friend-row';
+    const main = document.createElement('div');
+    main.className = 'friend-row-main';
+    const user = document.createElement('div');
+    user.className = 'friend-user';
+    const name = document.createElement('div');
+    name.className = 'friend-name';
+    name.textContent = row.username || 'Player';
+    const meta = document.createElement('div');
+    meta.className = 'friend-meta';
+    meta.textContent = (row.rank_title || 'Archie Nobody') + ' · ' + fmt(Number(row.archies) || 0) + ' Lifetime';
+    user.append(name, meta);
+    main.appendChild(user);
+    card.appendChild(main);
+
+    const actions = document.createElement('div');
+    actions.className = 'friend-actions';
+    if (kind === 'incoming') {
+      const accept = document.createElement('button');
+      accept.className = 'friends-btn good'; accept.textContent = 'Accept';
+      accept.addEventListener('click', (e) => { e.stopPropagation(); respondFriendRequest(row.request_id, true, row.username); });
+      const decline = document.createElement('button');
+      decline.className = 'friends-btn secondary'; decline.textContent = 'Decline';
+      decline.addEventListener('click', (e) => { e.stopPropagation(); respondFriendRequest(row.request_id, false, row.username); });
+      actions.append(accept, decline);
+    } else if (kind === 'outgoing') {
+      const cancel = document.createElement('button');
+      cancel.className = 'friends-btn secondary'; cancel.textContent = 'Cancel';
+      cancel.addEventListener('click', (e) => { e.stopPropagation(); removeFriendship(row.user_id, row.username, false); });
+      actions.appendChild(cancel);
+    } else if (kind === 'friend') {
+      const compare = document.createElement('button');
+      compare.className = 'friends-btn'; compare.textContent = 'Compare';
+      compare.addEventListener('click', (e) => { e.stopPropagation(); openPlayerProfile(row.user_id); });
+      actions.appendChild(compare);
+    } else if (kind === 'search') {
+      const rel = row.relationship || 'none';
+      if (rel === 'none') {
+        const add = document.createElement('button');
+        add.className = 'friends-btn'; add.textContent = 'Add Friend';
+        add.addEventListener('click', (e) => { e.stopPropagation(); sendFriendRequest(row.user_id, row.username); });
+        actions.appendChild(add);
+      } else {
+        const badge = document.createElement('span');
+        badge.className = 'friend-meta'; badge.textContent = relationshipText(rel);
+        actions.appendChild(badge);
+      }
+    }
+    if (actions.childNodes.length) card.appendChild(actions);
+    card.addEventListener('click', () => openPlayerProfile(row.user_id));
+    return card;
+  }
+
+  async function searchFriends() {
+    const input = document.getElementById('friendSearchInput');
+    const list = document.getElementById('friendSearchResults');
+    const query = (input ? input.value : '').trim();
+    if (!leaderboardDb || !leaderboardProfile) {
+      setFriendsStatus('Choose a username in Leaderboard first.');
+      return;
+    }
+    if (!query) { emptyFriendList(list, 'Type a username to search.'); return; }
+    setFriendsStatus('Searching...');
+    try {
+      await syncSocialStats(true);
+      const { data, error } = await leaderboardDb.rpc('archie_search_players', { p_query: query, p_limit: 20 });
+      if (error) throw error;
+      list.innerHTML = '';
+      (data || []).forEach(row => list.appendChild(makeFriendRow(row, 'search')));
+      if (!data || !data.length) emptyFriendList(list, 'No matching players.');
+      setFriendsStatus((data || []).length + ' result' + ((data || []).length === 1 ? '' : 's') + '.');
+    } catch (err) {
+      setFriendsStatus('Friends error: ' + (err && err.message ? err.message : 'could not search'));
+    }
+  }
+
+  async function refreshFriends() {
+    if (!leaderboardDb || friendsRefreshBusy) return;
+    const friendsList = document.getElementById('friendsList');
+    const incomingList = document.getElementById('incomingFriendRequests');
+    const outgoingList = document.getElementById('outgoingFriendRequests');
+    const badge = document.getElementById('friendRequestCount');
+    if (!leaderboardProfile) {
+      emptyFriendList(friendsList, 'Choose a username in Leaderboard to add friends.');
+      emptyFriendList(incomingList, 'No requests.');
+      emptyFriendList(outgoingList, 'No sent requests.');
+      if (badge) badge.style.display = 'none';
+      return;
+    }
+    friendsRefreshBusy = true;
+    setFriendsStatus('Updating friends...');
+    try {
+      await syncSocialStats(true);
+      const [friendsRes, incomingRes, outgoingRes] = await Promise.all([
+        leaderboardDb.rpc('archie_get_friends'),
+        leaderboardDb.rpc('archie_get_incoming_requests'),
+        leaderboardDb.rpc('archie_get_outgoing_requests')
+      ]);
+      if (friendsRes.error) throw friendsRes.error;
+      if (incomingRes.error) throw incomingRes.error;
+      if (outgoingRes.error) throw outgoingRes.error;
+
+      friendsList.innerHTML = '';
+      (friendsRes.data || []).forEach(row => friendsList.appendChild(makeFriendRow(row, 'friend')));
+      if (!friendsRes.data || !friendsRes.data.length) emptyFriendList(friendsList, 'No friends yet. Search above or click a leaderboard player.');
+
+      incomingList.innerHTML = '';
+      (incomingRes.data || []).forEach(row => incomingList.appendChild(makeFriendRow(row, 'incoming')));
+      if (!incomingRes.data || !incomingRes.data.length) emptyFriendList(incomingList, 'No incoming requests.');
+
+      outgoingList.innerHTML = '';
+      (outgoingRes.data || []).forEach(row => outgoingList.appendChild(makeFriendRow(row, 'outgoing')));
+      if (!outgoingRes.data || !outgoingRes.data.length) emptyFriendList(outgoingList, 'No sent requests.');
+
+      const incomingCount = (incomingRes.data || []).length;
+      if (badge) { badge.textContent = String(incomingCount); badge.style.display = incomingCount ? 'inline-flex' : 'none'; }
+      setFriendsStatus((friendsRes.data || []).length + ' friend' + ((friendsRes.data || []).length === 1 ? '' : 's') + '.');
+    } catch (err) {
+      setFriendsStatus('Friends error: ' + (err && err.message ? err.message : 'run the Friends/Profile SQL update'));
+    } finally {
+      friendsRefreshBusy = false;
+    }
+  }
+
+  async function sendFriendRequest(userId, username) {
+    if (!leaderboardDb || !leaderboardProfile) { setFriendsStatus('Choose a username in Leaderboard first.'); return; }
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_send_friend_request', { p_target_user: userId });
+      if (error) throw error;
+      const result = String(data || 'sent');
+      if (result === 'accepted') showToast('You and ' + username + ' are now friends!');
+      else if (result === 'friends') showToast(username + ' is already your friend.');
+      else if (result === 'pending') showToast('Friend request already sent.');
+      else showToast('Friend request sent to ' + username + '.');
+      await refreshFriends();
+      if (activeSocialPlayerId === userId) await openPlayerProfile(userId);
+    } catch (err) {
+      showToast('Friend request failed: ' + (err && err.message ? err.message : 'try again'));
+    }
+  }
+
+  async function respondFriendRequest(requestId, accept, username) {
+    try {
+      const { error } = await leaderboardDb.rpc('archie_respond_friend_request', { p_request_id: requestId, p_accept: !!accept });
+      if (error) throw error;
+      showToast(accept ? ('You and ' + username + ' are now friends!') : ('Request from ' + username + ' declined.'));
+      await refreshFriends();
+    } catch (err) {
+      showToast('Could not update request.');
+    }
+  }
+
+  async function removeFriendship(userId, username, ask = true) {
+    if (ask && !confirm('Remove ' + username + ' from your friends?')) return;
+    try {
+      const { error } = await leaderboardDb.rpc('archie_remove_friendship', { p_target_user: userId });
+      if (error) throw error;
+      showToast(ask ? (username + ' removed from friends.') : 'Friend request cancelled.');
+      await refreshFriends();
+      if (activeSocialPlayerId === userId) await openPlayerProfile(userId);
+    } catch (err) {
+      showToast('Could not update friends.');
+    }
+  }
+
+  function compareValue(v, kind) {
+    if (kind === 'number') return fmt(Number(v) || 0);
+    if (kind === 'percent') return Math.round((Number(v) || 0) * 100) + '%';
+    return String(v == null ? '—' : v);
+  }
+
+  function renderComparison(profile) {
+    const wrap = document.getElementById('socialCompareWrap');
+    const grid = document.getElementById('socialCompareGrid');
+    if (!wrap || !grid) return;
+    if (profile.relationship !== 'friends' || profile.total_clicks == null) {
+      wrap.style.display = 'none';
+      grid.innerHTML = '';
+      return;
+    }
+    const rows = [
+      ['Lifetime Archies', totalEarned, profile.archies, 'number'],
+      ['Current Archies', score, profile.current_archies, 'number'],
+      ['Total Clicks', totalClicks, profile.total_clicks, 'number'],
+      ['Critical Clicks', critCount, profile.crit_count, 'number'],
+      ['Legacy Points', legacyPoints, profile.legacy_points, 'number'],
+      ['Achievements', unlocked.size + '/' + achievements.length, profile.achievements_count + '/' + achievements.length, 'text'],
+      ['Click Power', effClick(), profile.click_power, 'number'],
+      ['Archies / sec', effAuto(), profile.auto_power, 'number']
+    ];
+    grid.innerHTML = '';
+    [['Stat','head'],['You','head'],[profile.username,'head']].forEach(([text, cls]) => {
+      const d=document.createElement('div'); d.className='compare-cell '+cls; d.textContent=text; grid.appendChild(d);
+    });
+    rows.forEach(([label, you, them, kind]) => {
+      const a=document.createElement('div'); a.className='compare-cell'; a.textContent=label;
+      const b=document.createElement('div'); b.className='compare-cell value'; b.textContent=compareValue(you,kind);
+      const c=document.createElement('div'); c.className='compare-cell value'; c.textContent=compareValue(them,kind);
+      grid.append(a,b,c);
+    });
+    wrap.style.display = 'block';
+  }
+
+  async function openPlayerProfile(userId) {
+    if (!leaderboardDb || !leaderboardUser || !userId) return;
+    activeSocialPlayerId = userId;
+    const overlay = document.getElementById('playerProfileOverlay');
+    const nameEl = document.getElementById('socialPlayerName');
+    const rankEl2 = document.getElementById('socialPlayerRank');
+    const summary = document.getElementById('socialPlayerSummary');
+    const actions = document.getElementById('socialPlayerActions');
+    const status = document.getElementById('socialPlayerStatus');
+    if (overlay) { overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); }
+    if (nameEl) nameEl.textContent = 'Loading player...';
+    if (rankEl2) rankEl2.textContent = '';
+    if (summary) summary.innerHTML = '';
+    if (actions) actions.innerHTML = '';
+    if (status) status.textContent = '';
+    try {
+      await syncSocialStats(true);
+      const { data, error } = await leaderboardDb.rpc('archie_get_player_profile', { p_target_user: userId });
+      if (error) throw error;
+      const profile = Array.isArray(data) ? data[0] : data;
+      if (!profile) throw new Error('Player not found.');
+      if (nameEl) nameEl.textContent = profile.username;
+      if (rankEl2) rankEl2.textContent = profile.rank_title || 'Archie Nobody';
+      if (summary) summary.innerHTML = statCard('Lifetime Archies', fmt(Number(profile.archies) || 0)) + statCard('Relationship', relationshipText(profile.relationship) || (profile.relationship === 'self' ? 'This is you' : 'Not friends yet'));
+
+      if (profile.relationship === 'none') {
+        const add = document.createElement('button'); add.className='friends-btn'; add.textContent='Send Friend Request';
+        add.addEventListener('click', () => sendFriendRequest(profile.user_id, profile.username)); actions.appendChild(add);
+        if (status) status.textContent = 'Become friends to unlock full side-by-side stats.';
+      } else if (profile.relationship === 'outgoing') {
+        const pending = document.createElement('button'); pending.className='friends-btn'; pending.disabled=true; pending.textContent='Request Sent'; actions.appendChild(pending);
+        const cancel = document.createElement('button'); cancel.className='friends-btn secondary'; cancel.textContent='Cancel Request'; cancel.addEventListener('click',()=>removeFriendship(profile.user_id, profile.username, false)); actions.appendChild(cancel);
+        if (status) status.textContent = 'Waiting for ' + profile.username + ' to accept.';
+      } else if (profile.relationship === 'incoming') {
+        const accept = document.createElement('button'); accept.className='friends-btn good'; accept.textContent='Accept Friend Request'; accept.addEventListener('click',()=>sendFriendRequest(profile.user_id, profile.username)); actions.appendChild(accept);
+        if (status) status.textContent = profile.username + ' has sent you a friend request.';
+      } else if (profile.relationship === 'friends') {
+        const remove = document.createElement('button'); remove.className='friends-btn danger'; remove.textContent='Remove Friend'; remove.addEventListener('click',()=>removeFriendship(profile.user_id, profile.username, true)); actions.appendChild(remove);
+        if (status) status.textContent = 'Friends · stats are synced from each player’s latest game session.';
+      } else if (profile.relationship === 'self') {
+        if (status) status.textContent = 'This is your public Archie profile.';
+      }
+      renderComparison(profile);
+    } catch (err) {
+      if (nameEl) nameEl.textContent = 'Player Profile';
+      if (status) status.textContent = 'Could not load profile: ' + (err && err.message ? err.message : 'try again');
+    }
+  }
+
+  function closePlayerProfile() {
+    activeSocialPlayerId = null;
+    const overlay = document.getElementById('playerProfileOverlay');
+    if (overlay) { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); }
+  }
+
+  function setPlayerBanned(banned) {
+    playerIsBanned = !!banned;
+    if (banScreen) banScreen.classList.toggle('show', playerIsBanned);
+  }
+
+  function applyGlobalMessage(message, stamp) {
+    currentGlobalMessage = String(message || '');
+    currentGlobalMessageStamp = String(stamp || '');
+    if (!globalMessageBanner) return;
+    globalMessageBanner.textContent = currentGlobalMessage;
+    globalMessageBanner.classList.toggle('show', currentGlobalMessage.trim().length > 0);
+  }
+
+  async function pollClientState(force = false) {
+    if (!leaderboardDb || !leaderboardUser || clientStatePollBusy) return;
+    clientStatePollBusy = true;
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_get_client_state');
+      if (error) throw error;
+      const row = Array.isArray(data) ? data[0] : data;
+      if (!row) return;
+      setPlayerBanned(row.is_banned);
+      const resetVersion = Math.max(0, Math.floor(Number(row.reset_version) || 0));
+      if (resetVersion > lastAdminResetVersion) {
+        hardResetGameProgress(resetVersion);
+        showToast('Your progress was reset by a developer.');
+      }
+      const scoreGrant = Math.max(0, Number(row.score_grant) || 0);
+      const lifetimeGrant = Math.max(0, Number(row.lifetime_grant) || 0);
+      if (scoreGrant > 0 || lifetimeGrant > 0) {
+        score += scoreGrant;
+        if (lifetimeGrant > 0) {
+          totalEarned += lifetimeGrant;
+          runEarned += lifetimeGrant;
+        }
+        render();
+        saveGame();
+        showToast('Developer gift: +' + fmt(scoreGrant) + ' Archies' + (lifetimeGrant > 0 ? ' (counts toward Lifetime)' : ''));
+        await syncLifetimeArchies(true);
+      }
+      applyGlobalMessage(row.global_message, row.global_message_updated_at);
+    } catch (err) {
+      if (force) console.warn('Archie client-state check failed:', err && err.message ? err.message : err);
+    } finally {
+      clientStatePollBusy = false;
+    }
+  }
+
+  async function reportCheatLimitHit() {
+    if (!leaderboardDb || !leaderboardUser) return;
+    try { await leaderboardDb.rpc('archie_report_click_limit'); } catch (e) { /* reporting is best effort */ }
+  }
+
+  // Secret sequence: hold G and click the Archie Clicker title eight times.
+  let developerGHeld = false;
+  let developerTitleClicks = 0;
+  let developerTitleWindowStart = 0;
+
+  function openDeveloperPin() {
+    const overlay = document.getElementById('developerPinOverlay');
+    const input = document.getElementById('developerPinInput');
+    const status = document.getElementById('developerPinStatus');
+    const uid = document.getElementById('developerUid');
+    if (uid) uid.textContent = leaderboardUser ? leaderboardUser.id : 'waiting for Supabase connection';
+    if (status) status.textContent = '';
+    if (input) input.value = '';
+    if (overlay) { overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); }
+    setTimeout(() => input && input.focus(), 50);
+  }
+
+  function closeDeveloperPin() {
+    const overlay = document.getElementById('developerPinOverlay');
+    if (overlay) { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); }
+  }
+
+  function openDeveloperAdmin() {
+    const overlay = document.getElementById('developerAdminOverlay');
+    const message = document.getElementById('adminGlobalMessage');
+    if (message) message.value = currentGlobalMessage;
+    if (overlay) { overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); }
+    loadAdminPlayers();
+  }
+
+  function closeDeveloperAdmin() {
+    const overlay = document.getElementById('developerAdminOverlay');
+    if (overlay) { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); }
+  }
+
+  async function submitDeveloperPin() {
+    const input = document.getElementById('developerPinInput');
+    const status = document.getElementById('developerPinStatus');
+    const pin = (input ? input.value : '').trim();
+    if (!/^\d{4}$/.test(pin)) { if (status) status.textContent = 'Enter exactly 4 digits.'; return; }
+    if (!leaderboardDb || !leaderboardUser) { if (status) status.textContent = 'Supabase is not connected yet.'; return; }
+    if (status) status.textContent = 'Checking developer access...';
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_verify_admin_pin', { p_pin: pin });
+      if (error) throw error;
+      if (data !== true) { if (status) status.textContent = 'Incorrect developer code.'; return; }
+      adminUnlocked = true;
+      closeDeveloperPin();
+      openDeveloperAdmin();
+    } catch (err) {
+      const msg = err && err.message ? err.message : 'Developer access failed.';
+      if (status) status.textContent = msg.toLowerCase().includes('not authorized')
+        ? 'This Player ID is not registered as an admin in Supabase yet. Copy the Player ID below and add it to archie_admins.'
+        : msg;
+    }
+  }
+
+  async function adminCall(fn, args, successMessage) {
+    if (!adminUnlocked || !leaderboardDb) return false;
+    try {
+      const { error } = await leaderboardDb.rpc(fn, args || {});
+      if (error) throw error;
+      if (successMessage) showToast(successMessage);
+      return true;
+    } catch (err) {
+      showToast('Admin error: ' + (err && err.message ? err.message : 'request failed'));
+      return false;
+    }
+  }
+
+  function makeAdminButton(label, cls, handler) {
+    const b = document.createElement('button');
+    b.className = 'admin-btn' + (cls ? ' ' + cls : '');
+    b.textContent = label;
+    b.addEventListener('click', handler);
+    return b;
+  }
+
+  function renderAdminPlayers(rows) {
+    const list = document.getElementById('adminPlayerList');
+    if (!list) return;
+    list.innerHTML = '';
+    (rows || []).forEach(row => {
+      const card = document.createElement('div');
+      card.className = 'admin-player' + ((Number(row.cheat_flags) || 0) > 0 ? ' flagged' : '') + (row.is_banned ? ' banned' : '');
+
+      const head = document.createElement('div');
+      head.className = 'admin-player-head';
+      const name = document.createElement('div');
+      name.className = 'admin-player-name';
+      name.textContent = row.username || '(no username)';
+      name.title = row.user_id;
+      const scoreInfo = document.createElement('div');
+      scoreInfo.className = 'admin-player-score';
+      scoreInfo.textContent = fmt(Number(row.archies) || 0) + ' Lifetime';
+      const flag = document.createElement('div');
+      flag.className = 'admin-flag';
+      flag.textContent = (Number(row.cheat_flags) || 0) > 0 ? ('⚑ ' + Number(row.cheat_flags) + ' limit flag' + (Number(row.cheat_flags) === 1 ? '' : 's')) : (row.is_banned ? 'BANNED' : 'clean');
+      head.append(name, scoreInfo, flag);
+      card.appendChild(head);
+
+      const controls = document.createElement('div');
+      controls.className = 'admin-player-controls';
+      const amountWrap = document.createElement('div');
+      const amount = document.createElement('input');
+      amount.className = 'admin-input';
+      amount.type = 'number';
+      amount.min = '1';
+      amount.step = '1';
+      amount.placeholder = 'Archies to give';
+      const lifetimeLabel = document.createElement('label');
+      lifetimeLabel.className = 'admin-check';
+      const lifetimeCheck = document.createElement('input');
+      lifetimeCheck.type = 'checkbox';
+      lifetimeCheck.checked = true;
+      lifetimeLabel.append(lifetimeCheck, document.createTextNode(' count toward Lifetime'));
+      amountWrap.append(amount, lifetimeLabel);
+
+      const actions = document.createElement('div');
+      actions.className = 'admin-actions';
+      actions.appendChild(makeAdminButton('Give', 'good', async () => {
+        const n = Math.floor(Number(amount.value));
+        if (!Number.isFinite(n) || n < 1) { showToast('Enter an Archie amount first.'); return; }
+        const ok = await adminCall('archie_admin_give_archies', { p_user_id: row.user_id, p_amount: n, p_count_lifetime: lifetimeCheck.checked }, 'Gift queued for ' + row.username);
+        if (ok) { amount.value = ''; loadAdminPlayers(); }
+      }));
+      actions.appendChild(makeAdminButton(row.is_banned ? 'Unban' : 'Ban', row.is_banned ? 'good' : 'danger', async () => {
+        if (!row.is_banned && !confirm('Ban ' + row.username + '?')) return;
+        const ok = await adminCall('archie_admin_set_banned', { p_user_id: row.user_id, p_banned: !row.is_banned }, (row.is_banned ? 'Unbanned ' : 'Banned ') + row.username);
+        if (ok) loadAdminPlayers();
+      }));
+      actions.appendChild(makeAdminButton('Reset', 'danger', async () => {
+        if (!confirm('FULL RESET ' + row.username + '? This wipes Archies, Lifetime, upgrades, boosts, achievements and Legacy progress.')) return;
+        const ok = await adminCall('archie_admin_reset_player', { p_user_id: row.user_id }, 'Reset queued for ' + row.username);
+        if (ok) loadAdminPlayers();
+      }));
+      if ((Number(row.cheat_flags) || 0) > 0) {
+        actions.appendChild(makeAdminButton('Clear Flag', 'secondary', async () => {
+          const ok = await adminCall('archie_admin_clear_flags', { p_user_id: row.user_id }, 'Flags cleared for ' + row.username);
+          if (ok) loadAdminPlayers();
+        }));
+      }
+      controls.append(amountWrap, actions);
+      card.appendChild(controls);
+      list.appendChild(card);
+    });
+    if (!rows || rows.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'admin-muted';
+      empty.textContent = 'No registered leaderboard players yet.';
+      list.appendChild(empty);
+    }
+  }
+
+  async function loadAdminPlayers() {
+    if (!adminUnlocked || !leaderboardDb || adminPlayersBusy) return;
+    const status = document.getElementById('adminPlayersStatus');
+    adminPlayersBusy = true;
+    if (status) status.textContent = 'Loading players...';
+    try {
+      const { data, error } = await leaderboardDb.rpc('archie_admin_list_players');
+      if (error) throw error;
+      renderAdminPlayers(data || []);
+      if (status) status.textContent = (data || []).length + ' registered player' + ((data || []).length === 1 ? '' : 's') + '.';
+    } catch (err) {
+      if (status) status.textContent = 'Admin list error: ' + (err && err.message ? err.message : 'could not load');
+    } finally {
+      adminPlayersBusy = false;
+    }
+  }
+
+  async function publishAdminMessage(clear = false) {
+    const box = document.getElementById('adminGlobalMessage');
+    const status = document.getElementById('adminMessageStatus');
+    const message = clear ? '' : (box ? box.value.trim() : '');
+    if (message.length > 300) { if (status) status.textContent = 'Message is too long.'; return; }
+    const ok = await adminCall('archie_admin_set_message', { p_message: message }, clear ? 'Global message cleared.' : 'Global message published.');
+    if (ok) {
+      if (box) box.value = message;
+      if (status) status.textContent = clear ? 'Message cleared.' : 'Message published to all connected players.';
+      await pollClientState(true);
     }
   }
 
@@ -995,7 +1980,7 @@
       if (nameRow) nameRow.style.display = 'none';
       if (refreshBtn) refreshBtn.disabled = true;
       setLeaderboardIdentity('Leaderboard setup required: paste your Supabase Project URL and publishable key into index.html.');
-      setLeaderboardStatus('The 15 clicks/sec anti-autoclicker is already active. Run supabase_setup.sql to turn on the shared leaderboard.');
+      setLeaderboardStatus('The 15 clicks/sec anti-autoclicker is already active. Run the Lifetime Archies SQL update to enable this leaderboard.');
       return;
     }
     try {
@@ -1011,18 +1996,25 @@
         leaderboardUser = sessionData.session.user;
       }
       if (!leaderboardUser) throw new Error('Anonymous sign-in did not return a user.');
+      const devUidEl = document.getElementById('developerUid');
+      if (devUidEl) devUidEl.textContent = leaderboardUser.id;
+      await pollClientState(true);
       await loadLeaderboardProfile();
       await refreshLeaderboard();
       setInterval(refreshLeaderboard, 5000);
+      setInterval(pollClientState, 4000);
     } catch (err) {
       setLeaderboardIdentity('Leaderboard connection failed.');
       setLeaderboardStatus((err && err.message) ? err.message : 'Check Supabase settings.');
     }
   }
 
-  setInterval(flushVerifiedClicks, 1000);
+  setInterval(syncLifetimeArchies, 3000);
+  setInterval(syncSocialStats, 5000);
+  setInterval(() => { const active = document.querySelector('.tab.active'); if (active && active.dataset.tab === 'friends') refreshFriends(); }, 10000);
 
   function spawnBonus() {
+    if (playerIsBanned) return;
     const type = bonusTypes[Math.floor(Math.random() * bonusTypes.length)];
     const el = document.createElement('div');
     el.className = 'bonus';
@@ -1036,7 +2028,7 @@
     el.addEventListener('click', () => {
       if (clicked) return;
       clicked = true;
-      const reward = type.reward();
+      const reward = Math.max(1, Math.round(type.reward() * legacyProduct('bonusMult')));
       score += reward;
       totalEarned += reward;
       runEarned += reward;
@@ -1063,18 +2055,58 @@
       tab.classList.add('active');
       document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
       if (tab.dataset.tab === 'leaderboard') refreshLeaderboard();
+      if (tab.dataset.tab === 'friends') refreshFriends();
     });
   });
 
   loadGame();
   renderAchvList();
   render();
+  emptyFriendList(document.getElementById('friendSearchResults'), 'Search for a player above.');
+  emptyFriendList(document.getElementById('incomingFriendRequests'), 'No incoming requests.');
+  emptyFriendList(document.getElementById('outgoingFriendRequests'), 'No sent requests.');
+  emptyFriendList(document.getElementById('friendsList'), 'Choose a username in Leaderboard to add friends.');
 
   document.getElementById('leaderboardJoinBtn').addEventListener('click', joinLeaderboard);
   document.getElementById('leaderboardName').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') joinLeaderboard();
   });
   document.getElementById('leaderboardRefreshBtn').addEventListener('click', refreshLeaderboard);
+
+  if (profileChip) profileChip.addEventListener('click', (e) => { e.stopPropagation(); if (profileCard) profileCard.classList.toggle('open'); renderProfilePanel(); });
+  document.getElementById('profileClose').addEventListener('click', () => { if (profileCard) profileCard.classList.remove('open'); });
+  document.addEventListener('click', (e) => { if (profileCard && profileCard.classList.contains('open') && !profileCard.contains(e.target) && e.target !== profileChip) profileCard.classList.remove('open'); });
+  document.getElementById('friendSearchBtn').addEventListener('click', searchFriends);
+  document.getElementById('friendSearchInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') searchFriends(); });
+  document.getElementById('friendsRefreshBtn').addEventListener('click', refreshFriends);
+  document.getElementById('socialPlayerClose').addEventListener('click', closePlayerProfile);
+  document.getElementById('playerProfileOverlay').addEventListener('click', (e) => { if (e.target && e.target.id === 'playerProfileOverlay') closePlayerProfile(); });
+
+  document.addEventListener('keydown', (e) => { if (e.key && e.key.toLowerCase() === 'g') developerGHeld = true; });
+  document.addEventListener('keyup', (e) => { if (e.key && e.key.toLowerCase() === 'g') developerGHeld = false; });
+  window.addEventListener('blur', () => { developerGHeld = false; developerTitleClicks = 0; });
+  if (gameTitle) gameTitle.addEventListener('click', () => {
+    if (!developerGHeld) { developerTitleClicks = 0; return; }
+    const now = Date.now();
+    if (!developerTitleWindowStart || now - developerTitleWindowStart > 12000) {
+      developerTitleWindowStart = now;
+      developerTitleClicks = 0;
+    }
+    developerTitleClicks++;
+    if (developerTitleClicks >= 8) {
+      developerTitleClicks = 0;
+      developerTitleWindowStart = 0;
+      openDeveloperPin();
+    }
+  });
+  document.getElementById('developerPinCancel').addEventListener('click', closeDeveloperPin);
+  document.getElementById('developerPinSubmit').addEventListener('click', submitDeveloperPin);
+  document.getElementById('developerPinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') submitDeveloperPin(); });
+  document.getElementById('developerAdminClose').addEventListener('click', closeDeveloperAdmin);
+  document.getElementById('adminRefreshPlayers').addEventListener('click', loadAdminPlayers);
+  document.getElementById('adminPublishMessage').addEventListener('click', () => publishAdminMessage(false));
+  document.getElementById('adminClearMessage').addEventListener('click', () => publishAdminMessage(true));
+
   initLeaderboard();
 
   // Safety-net saves: browsers can kill a tab without firing normal handlers,
