@@ -2377,6 +2377,398 @@
     #panel-empire .empire-panel { height:auto!important; max-height:100%!important; }
   }
 
+
+  /* =========================================================
+     LARGE ARCHIE NUMBER FIT FIX
+     Keeps the full current Archie total visible on narrow screens.
+     ========================================================= */
+  #score.score {
+    max-width:calc(100% - 12px)!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+    white-space:nowrap!important;
+    text-align:center!important;
+    line-height:1.12!important;
+    flex:0 0 auto!important;
+  }
+
+  @media(max-width:1100px) {
+    #score.score { padding-left:14px!important; padding-right:14px!important; }
+  }
+
+  @media(max-width:720px) {
+    #score.score {
+      max-width:calc(100vw - 24px)!important;
+      padding-left:12px!important;
+      padding-right:12px!important;
+    }
+  }
+
+
+  /* =========================================================
+     NEXT VISUAL PASS
+     Dynamic score glow · boss entrance · richer seasonal themes
+     ========================================================= */
+
+  .score.dynamic-score-glow {
+    animation:
+      scoreGlowPulse var(--score-glow-speed,4.8s) ease-in-out infinite,
+      scoreShine 7s ease-in-out infinite;
+    will-change: box-shadow, transform, filter;
+  }
+  .score.dynamic-score-glow::before {
+    content:'';
+    position:absolute; inset:-18%;
+    border-radius:inherit; pointer-events:none;
+    background:
+      radial-gradient(circle at 50% 50%,
+        color-mix(in srgb,var(--score-glow-soft,rgba(255,215,130,.15)) 100%,transparent) 0 18%,
+        transparent 64%);
+    opacity:.9;
+    filter:blur(12px);
+    animation:scoreHaloFloat calc(var(--score-glow-speed,4.8s) * 1.15) ease-in-out infinite;
+  }
+  @keyframes scoreGlowPulse {
+    0%,100% { transform:translateY(0) scale(1); filter:saturate(.98) brightness(.99); }
+    50% { transform:translateY(-1px) scale(1.018); filter:saturate(1.08) brightness(1.04); }
+  }
+  @keyframes scoreHaloFloat {
+    0%,100% { opacity:.62; transform:scale(.96); }
+    50% { opacity:1; transform:scale(1.06); }
+  }
+
+  .boss-entrance-overlay {
+    display:none; position:fixed; inset:0; z-index:9600; pointer-events:none;
+    align-items:center; justify-content:center; padding:22px;
+    background:
+      radial-gradient(circle at 50% 38%,rgba(255,91,117,.18),transparent 28%),
+      radial-gradient(circle at 50% 74%,rgba(136,42,174,.16),transparent 38%),
+      rgba(14,7,18,.78);
+    backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
+  }
+  .boss-entrance-overlay.show { display:flex; animation:bossEntranceFade .24s ease-out; }
+  .boss-entrance-card {
+    width:min(740px,94vw);
+    border-radius:28px;
+    padding:20px 22px 24px;
+    border:3px solid rgba(255,106,130,.72);
+    background:
+      linear-gradient(145deg,rgba(47,12,43,.96),rgba(99,17,51,.95) 52%,rgba(31,10,38,.96));
+    box-shadow:0 32px 110px rgba(0,0,0,.58),0 0 55px rgba(255,65,101,.28);
+    text-align:center;
+    color:#fff3f6;
+    transform:scale(.93) translateY(12px);
+    animation:bossEntranceCard .42s cubic-bezier(.2,.85,.2,1.15) forwards;
+    overflow:hidden;
+    position:relative;
+  }
+  .boss-entrance-card::before {
+    content:''; position:absolute; inset:-30% -10%;
+    background:
+      linear-gradient(115deg,transparent 35%,rgba(255,255,255,.17) 50%,transparent 65%);
+    transform:translateX(-40%);
+    animation:bossEntranceSweep 1.5s ease-out 1;
+  }
+  .boss-entrance-alert {
+    display:inline-flex; align-items:center; gap:7px;
+    padding:6px 12px; border-radius:999px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    font-size:.72rem; font-weight:900; letter-spacing:.14em; text-transform:uppercase;
+    color:#ffd0d8;
+  }
+  .boss-entrance-name {
+    margin-top:10px;
+    font-family:'Baloo 2',sans-serif; font-size:2.2rem; font-weight:900;
+    line-height:1; color:#fff;
+    text-shadow:0 0 18px rgba(255,91,117,.55),0 6px 18px rgba(0,0,0,.44);
+  }
+  .boss-entrance-copy {
+    margin-top:8px; font-size:.8rem; line-height:1.45; color:#ffd8df; font-weight:760;
+  }
+  .boss-entrance-meta {
+    margin-top:12px;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
+  }
+  .boss-entrance-pill {
+    padding:7px 12px; border-radius:999px;
+    background:rgba(255,255,255,.11);
+    border:1px solid rgba(255,255,255,.18);
+    font-size:.68rem; font-weight:900; color:#fff0f4;
+  }
+  .boss-entrance-pulse {
+    position:absolute; inset:50% auto auto 50%;
+    width:min(42vw,360px); height:min(42vw,360px); border-radius:50%;
+    border:2px solid rgba(255,120,144,.34);
+    transform:translate(-50%,-50%) scale(.2);
+    animation:bossEntrancePulse 1.2s ease-out infinite;
+    opacity:0;
+  }
+  .boss-entrance-pulse.p2 { animation-delay:.26s; }
+  .boss-entrance-pulse.p3 { animation-delay:.52s; }
+  @keyframes bossEntranceFade { from{opacity:0} to{opacity:1} }
+  @keyframes bossEntranceCard { to{transform:none} }
+  @keyframes bossEntranceSweep { from{transform:translateX(-65%)} to{transform:translateX(65%)} }
+  @keyframes bossEntrancePulse {
+    0% { opacity:0; transform:translate(-50%,-50%) scale(.25); }
+    20% { opacity:1; }
+    100% { opacity:0; transform:translate(-50%,-50%) scale(1.08); }
+  }
+
+  /* Richer seasonal overlay shell */
+  .season-theme-overlay {
+    overflow:hidden;
+  }
+  .season-shell {
+    position:absolute; inset:0;
+  }
+  .season-rail {
+    position:absolute; left:0; right:0; height:48px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; font-weight:900; letter-spacing:.2rem;
+    text-shadow:0 2px 5px rgba(0,0,0,.18);
+    opacity:.98;
+  }
+  .season-rail.top { top:0; }
+  .season-rail.bottom { bottom:0; }
+  .season-corner {
+    position:absolute; width:88px; height:88px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2rem; filter:drop-shadow(0 4px 8px rgba(0,0,0,.22));
+    opacity:.96;
+  }
+  .season-corner.left { left:12px; top:62px; }
+  .season-corner.right { right:12px; top:62px; }
+  .season-side-ribbon {
+    position:absolute; top:112px; bottom:18px; width:18px; opacity:.62;
+    border-radius:999px;
+  }
+  .season-side-ribbon.left { left:0; }
+  .season-side-ribbon.right { right:0; }
+  .season-float-field {
+    position:absolute; inset:0;
+  }
+  .season-float {
+    position:absolute; top:-12%;
+    left:var(--x,50%);
+    font-size:var(--size,1rem);
+    opacity:var(--alpha,.82);
+    transform:translateX(-50%);
+    animation:seasonFloatFall var(--dur,12s) linear infinite;
+    animation-delay:var(--delay,0s);
+    filter:drop-shadow(0 3px 5px rgba(0,0,0,.18));
+    will-change:transform,opacity;
+  }
+  .season-float.spark {
+    animation-name:seasonFloatSpark;
+  }
+  .season-center-wash {
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 40%,var(--season-center-glow,rgba(255,255,255,.08)),transparent 36%);
+    mix-blend-mode:screen;
+  }
+  @keyframes seasonFloatFall {
+    0% { transform:translate(-50%,-8%) rotate(0deg); opacity:0; }
+    10% { opacity:var(--alpha,.82); }
+    100% { transform:translate(calc(-50% + var(--drift,8px)),116vh) rotate(360deg); opacity:0; }
+  }
+  @keyframes seasonFloatSpark {
+    0% { transform:translate(-50%,-5%) scale(.75); opacity:0; }
+    12% { opacity:var(--alpha,.88); }
+    50% { transform:translate(calc(-50% + var(--drift,10px)),44vh) scale(1.08); }
+    100% { transform:translate(calc(-50% - var(--drift,10px)),102vh) scale(.72); opacity:0; }
+  }
+
+  /* Theme-specific richness */
+  body.theme-christmas .season-shell {
+    --season-center-glow:rgba(255,255,255,.16);
+    background:
+      radial-gradient(circle at 50% 0%,rgba(255,255,255,.10),transparent 32%);
+  }
+  body.theme-christmas .season-rail.top {
+    background:
+      linear-gradient(180deg,rgba(21,88,40,.86),rgba(29,118,55,.42)),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 24px,transparent 24px 48px);
+    color:#fff6df;
+    box-shadow:0 8px 22px rgba(23,95,44,.22);
+  }
+  body.theme-christmas .season-rail.bottom {
+    background:linear-gradient(0deg,rgba(176,36,55,.78),rgba(176,36,55,.18));
+    color:#fff7ea;
+  }
+  body.theme-christmas .season-side-ribbon {
+    background:repeating-linear-gradient(180deg,#cc2d42 0 14px,#fff8ef 14px 28px);
+  }
+  body.theme-christmas .season-corner { color:#fff6ea; }
+  body.theme-christmas .topbar { box-shadow:0 8px 24px rgba(178,37,60,.12); }
+  body.theme-christmas .global-message { border-color:#2ca255!important; }
+  body.theme-christmas #archieBtn { box-shadow:0 12px 28px rgba(184,43,63,.18),0 0 0 4px rgba(45,166,93,.14)!important; }
+
+  body.theme-halloween .season-shell {
+    --season-center-glow:rgba(255,137,48,.14);
+    background:
+      radial-gradient(circle at 50% 0%,rgba(255,151,58,.10),transparent 34%),
+      radial-gradient(circle at 50% 100%,rgba(115,43,170,.12),transparent 28%);
+  }
+  body.theme-halloween .season-rail.top {
+    background:linear-gradient(180deg,rgba(57,18,81,.92),rgba(57,18,81,.38));
+    color:#ffb55b;
+    box-shadow:0 8px 22px rgba(78,28,116,.28);
+  }
+  body.theme-halloween .season-rail.bottom {
+    background:linear-gradient(0deg,rgba(255,114,24,.85),rgba(255,114,24,.18));
+    color:#2f1738;
+  }
+  body.theme-halloween .season-side-ribbon {
+    background:linear-gradient(180deg,rgba(255,117,30,.85),rgba(91,28,127,.55));
+  }
+  body.theme-halloween .season-corner { color:#ffc16d; }
+  body.theme-halloween #archieBtn { box-shadow:0 12px 28px rgba(111,40,170,.22),0 0 0 4px rgba(255,117,30,.16)!important; }
+
+  body.theme-easter .season-shell {
+    --season-center-glow:rgba(248,174,214,.14);
+    background:radial-gradient(circle at 50% 0%,rgba(250,223,241,.14),transparent 30%);
+  }
+  body.theme-easter .season-rail.top {
+    background:linear-gradient(180deg,rgba(255,244,250,.95),rgba(245,220,238,.46));
+    color:#b46a92;
+    box-shadow:0 8px 20px rgba(203,120,168,.14);
+  }
+  body.theme-easter .season-rail.bottom {
+    background:linear-gradient(0deg,rgba(171,142,236,.42),rgba(255,255,255,.18));
+    color:#8a69b4;
+  }
+  body.theme-easter .season-side-ribbon {
+    background:repeating-linear-gradient(180deg,#f6c0da 0 16px,#bba7f4 16px 32px,#fff6ad 32px 48px);
+  }
+  body.theme-easter .season-corner { color:#d87eae; }
+  body.theme-easter #archieBtn { box-shadow:0 12px 28px rgba(216,126,174,.18),0 0 0 4px rgba(169,141,232,.14)!important; }
+
+  body.theme-valentine .season-shell {
+    --season-center-glow:rgba(255,143,186,.14);
+  }
+  body.theme-valentine .season-rail.top {
+    background:linear-gradient(180deg,rgba(242,95,145,.90),rgba(242,95,145,.38));
+    color:#fff4f8;
+  }
+  body.theme-valentine .season-rail.bottom {
+    background:linear-gradient(0deg,rgba(255,192,214,.86),rgba(255,192,214,.22));
+    color:#9e3466;
+  }
+  body.theme-valentine .season-side-ribbon {
+    background:linear-gradient(180deg,rgba(236,106,160,.74),rgba(255,214,230,.52));
+  }
+  body.theme-valentine .season-corner { color:#ff79af; }
+
+  body.theme-newyear .season-shell {
+    --season-center-glow:rgba(255,226,120,.16);
+    background:
+      radial-gradient(circle at 50% 0%,rgba(255,230,112,.12),transparent 30%);
+  }
+  body.theme-newyear .season-rail.top {
+    background:linear-gradient(180deg,rgba(25,27,42,.92),rgba(25,27,42,.38));
+    color:#ffe885;
+  }
+  body.theme-newyear .season-rail.bottom {
+    background:linear-gradient(0deg,rgba(255,217,95,.72),rgba(255,217,95,.14));
+    color:#2a203b;
+  }
+  body.theme-newyear .season-side-ribbon {
+    background:linear-gradient(180deg,rgba(255,215,105,.85),rgba(125,89,204,.45));
+  }
+  body.theme-newyear .season-corner { color:#ffe784; }
+
+  body.theme-summer .season-shell {
+    --season-center-glow:rgba(125,238,255,.14);
+    background:radial-gradient(circle at 50% 0%,rgba(125,238,255,.12),transparent 30%);
+  }
+  body.theme-summer .season-rail.top {
+    background:linear-gradient(180deg,rgba(36,182,192,.88),rgba(36,182,192,.32));
+    color:#fffef4;
+  }
+  body.theme-summer .season-rail.bottom {
+    background:linear-gradient(0deg,rgba(255,201,108,.86),rgba(255,201,108,.18));
+    color:#7d5718;
+  }
+  body.theme-summer .season-side-ribbon {
+    background:linear-gradient(180deg,rgba(54,195,205,.8),rgba(255,206,111,.48));
+  }
+  body.theme-summer .season-corner { color:#fff2af; }
+
+  @media(max-width:720px){
+    .boss-entrance-card { padding:16px 14px 18px; border-radius:22px; }
+    .boss-entrance-name { font-size:1.55rem; }
+    .boss-entrance-copy { font-size:.72rem; }
+    .boss-entrance-pill { font-size:.6rem; padding:6px 9px; }
+    .season-rail { height:38px; font-size:.88rem; letter-spacing:.11rem; }
+    .season-corner { width:62px; height:62px; font-size:1.45rem; }
+    .season-corner.left,.season-corner.right { top:54px; }
+    .season-side-ribbon { width:12px; top:100px; }
+  }
+
+
+  /* =========================================================
+     COSMETIC TRY-BEFORE-YOU-BUY PREVIEW
+     ========================================================= */
+  .cosmetic-preview-wrap {
+    margin:8px 0 10px;
+    padding:9px;
+    border:2px solid rgba(198,91,143,.20);
+    border-radius:14px;
+    background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,244,250,.78));
+  }
+  .cosmetic-preview-label {
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    margin-bottom:7px;
+    color:#7d5870; font-size:.56rem; font-weight:900; text-transform:uppercase; letter-spacing:.06em;
+  }
+  .cosmetic-preview-safe {
+    color:#3d8c53; background:rgba(95,184,112,.11); border:1px solid rgba(95,184,112,.28);
+    border-radius:999px; padding:2px 6px; font-size:.48rem; letter-spacing:0; text-transform:none;
+  }
+  .cosmetic-preview-card {
+    position:relative;
+    display:grid;
+    grid-template-columns:52px minmax(0,1fr);
+    align-items:center;
+    gap:9px;
+    min-height:68px;
+    padding:9px 11px;
+    border-radius:13px;
+    background:linear-gradient(145deg,#fffaf1,#fff1dc);
+    border:2px solid rgba(212,113,31,.18);
+    overflow:visible;
+    transition:box-shadow .2s ease,filter .2s ease,transform .2s ease;
+  }
+  .cosmetic-preview-avatar {
+    width:50px;height:50px;border-radius:14px;overflow:hidden;
+    border:2px solid #fff;outline:1px solid rgba(212,113,31,.45);
+    box-shadow:0 4px 10px rgba(50,28,18,.15);
+  }
+  .cosmetic-preview-avatar img { width:100%;height:100%;object-fit:cover;object-position:36% 34%;display:block; }
+  .cosmetic-preview-copy { min-width:0; }
+  .cosmetic-preview-name {
+    font-family:'Baloo 2',sans-serif;font-size:.82rem;font-weight:900;color:var(--choc);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .cosmetic-preview-title {
+    margin-top:1px;color:var(--berry);font-size:.62rem;font-weight:900;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .cosmetic-preview-desc { margin-top:3px;color:var(--muted);font-size:.54rem;line-height:1.3;font-weight:650; }
+  .cosmetic-preview-actions { display:flex;justify-content:flex-end;margin-top:7px; }
+  .cosmetic-actions { display:flex;align-items:center;gap:5px;flex:0 0 auto; }
+  .cosmetic-btn.preview { background:#8465a5; }
+  .cosmetic-btn.preview:hover { filter:brightness(1.08); }
+
+  @media(max-width:430px){
+    .cosmetic-item { align-items:flex-start; }
+    .cosmetic-actions { flex-direction:column;align-items:stretch; }
+    .cosmetic-actions .cosmetic-btn { padding:5px 7px;font-size:.58rem; }
+    .cosmetic-preview-card { grid-template-columns:44px minmax(0,1fr);padding:8px; }
+    .cosmetic-preview-avatar { width:42px;height:42px;border-radius:12px; }
+  }
+
 </style>
 </head>
 <body>
@@ -2384,6 +2776,21 @@
 <div class="world-bg world-0" id="worldBg" aria-hidden="true"></div>
 <div class="season-theme-overlay" id="seasonThemeOverlay" aria-hidden="true"></div>
 <div class="boss-atmosphere" id="bossAtmosphere" aria-hidden="true"></div>
+<div class="boss-entrance-overlay" id="bossEntranceOverlay" aria-hidden="true">
+  <div class="boss-entrance-pulse p1"></div>
+  <div class="boss-entrance-pulse p2"></div>
+  <div class="boss-entrance-pulse p3"></div>
+  <div class="boss-entrance-card">
+    <div class="boss-entrance-alert">⚠ Boss Event Started ⚠</div>
+    <div class="boss-entrance-name" id="bossEntranceName">Boss Archie</div>
+    <div class="boss-entrance-copy">The whole server can attack this boss. Every accepted click on Archie deals shared damage while the fight lasts.</div>
+    <div class="boss-entrance-meta">
+      <div class="boss-entrance-pill" id="bossEntranceReward">Reward: 1 chest</div>
+      <div class="boss-entrance-pill" id="bossEntranceDuration">Time limit active</div>
+      <div class="boss-entrance-pill">Click Archie to attack</div>
+    </div>
+  </div>
+</div>
 <div class="world-transition" id="worldTransition" aria-hidden="true"></div>
 <div class="era-unlock" id="eraUnlock" aria-live="polite">
   <div class="era-unlock-icon" id="eraUnlockIcon">🏠</div>
@@ -2559,6 +2966,18 @@
         <div class="cosmetics-card">
           <div class="cosmetics-title">Profile Customisation</div>
           <div class="cosmetics-sub">Buy cosmetic titles, frames and effects with your current Archies. Cosmetics never affect production.</div>
+          <div class="cosmetic-preview-wrap" id="cosmeticPreviewWrap">
+            <div class="cosmetic-preview-label"><span>👀 Cosmetic Preview</span><span class="cosmetic-preview-safe">No purchase · no equip</span></div>
+            <div class="cosmetic-preview-card" id="cosmeticPreviewCard">
+              <div class="cosmetic-preview-avatar"><img id="cosmeticPreviewAvatar" alt="Archie cosmetic preview"></div>
+              <div class="cosmetic-preview-copy">
+                <div class="cosmetic-preview-name" id="cosmeticPreviewName">Your Profile</div>
+                <div class="cosmetic-preview-title" id="cosmeticPreviewTitle">Current look</div>
+                <div class="cosmetic-preview-desc" id="cosmeticPreviewDesc">Press Preview on any cosmetic below to try it here before buying.</div>
+              </div>
+            </div>
+            <div class="cosmetic-preview-actions"><button class="cosmetic-btn secondary" id="cosmeticPreviewReset" type="button">Show Current Look</button></div>
+          </div>
           <div id="cosmeticsList" class="cosmetic-grid"></div>
         </div>
         <div class="cosmetics-card">
@@ -3042,6 +3461,9 @@
   let bossPendingHits = 0;
   let bossPollBusy = false;
   let bossWasActive = false;
+  let bossEntranceTimeout = null;
+  let renderedSeasonTheme = '__init__';
+  let cosmeticPreviewId = '';
   let empireInfluence = 0;
   let ascensionStars = 0;
   let ascensionCount = 0;
@@ -3655,6 +4077,237 @@
   }
 
   const scoreEl = document.getElementById('score');
+
+  function fitMainScoreText() {
+    if (!scoreEl) return;
+
+    // Let CSS choose the normal size first, then only shrink if the pill would
+    // be wider than the available game stage.
+    scoreEl.style.fontSize = '';
+    const stage = scoreEl.closest('.stage');
+    if (!stage) return;
+
+    const stageStyle = getComputedStyle(stage);
+    const available = Math.max(
+      120,
+      stage.clientWidth
+        - (parseFloat(stageStyle.paddingLeft) || 0)
+        - (parseFloat(stageStyle.paddingRight) || 0)
+        - 12
+    );
+
+    scoreEl.style.maxWidth = available + 'px';
+
+    // Because the element normally sizes to its content, use its scroll width
+    // to determine whether the text needs shrinking.
+    const naturalWidth = scoreEl.scrollWidth;
+    if (naturalWidth <= available) return;
+
+    const normalPx = parseFloat(getComputedStyle(scoreEl).fontSize) || 28;
+    const ratio = available / Math.max(1, naturalWidth);
+    const fittedPx = Math.max(11, Math.floor(normalPx * ratio * 0.96));
+    scoreEl.style.fontSize = fittedPx + 'px';
+
+    // One final small correction for browser/font rounding (especially Safari).
+    if (scoreEl.scrollWidth > available) {
+      const secondRatio = available / Math.max(1, scoreEl.scrollWidth);
+      scoreEl.style.fontSize = Math.max(10, Math.floor(fittedPx * secondRatio * 0.97)) + 'px';
+    }
+  }
+
+
+  function scoreGlowProfile(n) {
+    const value = Math.max(0, Number(n) || 0);
+    const bossActive = document.body.classList.contains('boss-mode');
+    const season = String(activeSeasonTheme || 'none').toLowerCase();
+
+    if (bossActive) {
+      return {
+        name:'Boss Surge',
+        border:'#ff6a81',
+        glow1:'rgba(255,78,110,.38)',
+        glow2:'rgba(149,62,216,.34)',
+        text:'rgba(255,228,235,.92)',
+        speed:'1.9s',
+        lift:5
+      };
+    }
+
+    let profile = {name:'Warm', border:'#f2a34f', glow1:'rgba(242,163,79,.20)', glow2:'rgba(255,222,173,.10)', text:'rgba(255,248,238,.90)', speed:'5.5s', lift:1};
+    if (value >= 1e6)  profile = {name:'Fresh', border:'#68b775', glow1:'rgba(104,183,117,.24)', glow2:'rgba(176,236,183,.14)', text:'rgba(244,255,245,.92)', speed:'5.0s', lift:2};
+    if (value >= 1e12) profile = {name:'Electric', border:'#59b8e8', glow1:'rgba(89,184,232,.28)', glow2:'rgba(178,232,255,.16)', text:'rgba(241,251,255,.92)', speed:'4.6s', lift:3};
+    if (value >= 1e24) profile = {name:'Mythic', border:'#ad89ff', glow1:'rgba(173,137,255,.32)', glow2:'rgba(241,214,255,.18)', text:'rgba(251,244,255,.94)', speed:'4.2s', lift:4};
+    if (value >= 1e36) profile = {name:'Empire', border:'#ffd15b', glow1:'rgba(255,209,91,.36)', glow2:'rgba(255,239,168,.20)', text:'rgba(255,252,238,.96)', speed:'3.8s', lift:5};
+    if (value >= 1e48) profile = {name:'Celestial', border:'#ff86d6', glow1:'rgba(255,134,214,.40)', glow2:'rgba(255,217,241,.22)', text:'rgba(255,244,252,.96)', speed:'3.4s', lift:6};
+    if (value >= 1e60) profile = {name:'Transcendent', border:'#9df2ff', glow1:'rgba(157,242,255,.44)', glow2:'rgba(255,255,255,.20)', text:'rgba(242,255,255,.98)', speed:'3.0s', lift:7};
+
+    const seasonTint = {
+      christmas:{ border:'#2fa65d', glow1:'rgba(47,166,93,.28)', glow2:'rgba(205,45,66,.15)' },
+      halloween:{ border:'#ff8c31', glow1:'rgba(255,140,49,.30)', glow2:'rgba(114,55,177,.20)' },
+      easter:{ border:'#d684b7', glow1:'rgba(214,132,183,.28)', glow2:'rgba(171,142,236,.18)' },
+      valentine:{ border:'#ec6aa0', glow1:'rgba(236,106,160,.28)', glow2:'rgba(255,205,225,.18)' },
+      newyear:{ border:'#f0d15e', glow1:'rgba(240,209,94,.30)', glow2:'rgba(122,95,205,.18)' },
+      summer:{ border:'#33c2d0', glow1:'rgba(51,194,208,.28)', glow2:'rgba(255,206,111,.16)' }
+    }[season];
+
+    if (seasonTint) {
+      profile = { ...profile, border:seasonTint.border, glow1:seasonTint.glow1, glow2:seasonTint.glow2 };
+    }
+
+    return profile;
+  }
+
+  function updateDynamicScoreGlow() {
+    if (!scoreEl) return;
+    const p = scoreGlowProfile(score);
+    scoreEl.classList.add('dynamic-score-glow');
+    scoreEl.dataset.scoreMood = p.name;
+    scoreEl.title = p.name + ' Archie energy';
+    scoreEl.style.setProperty('--score-glow-speed', p.speed);
+    scoreEl.style.setProperty('--score-glow-soft', p.glow1);
+    scoreEl.style.setProperty('border-color', p.border, 'important');
+    scoreEl.style.setProperty('box-shadow',
+      '0 5px 0 rgba(212,113,31,.24), 0 10px 28px rgba(35,20,10,.16), 0 0 ' + (18 + p.lift * 5) + 'px ' + p.glow1 + ', 0 0 ' + (34 + p.lift * 9) + 'px ' + p.glow2,
+      'important'
+    );
+    scoreEl.style.setProperty('text-shadow',
+      '0 0 ' + (8 + p.lift * 2) + 'px ' + p.text + ', 0 1px 0 rgba(255,255,255,.16)',
+      'important'
+    );
+  }
+
+  function hideBossEntranceSequence() {
+    const overlay = document.getElementById('bossEntranceOverlay');
+    if (!overlay) return;
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  function showBossEntranceSequence() {
+    const overlay = document.getElementById('bossEntranceOverlay');
+    if (!overlay || !bossState || !bossState.active) return;
+
+    const nameEl = document.getElementById('bossEntranceName');
+    const rewardEl = document.getElementById('bossEntranceReward');
+    const durEl = document.getElementById('bossEntranceDuration');
+    const bossName = bossState.name || 'Boss Archie';
+    const chests = Math.max(1, Number(bossState.reward_chests) || 1);
+    const endsAt = bossState.ends_at ? new Date(bossState.ends_at).getTime() : Date.now();
+    const secsLeft = Math.max(1, Math.round((endsAt - Date.now()) / 1000));
+
+    if (nameEl) nameEl.textContent = '👹 ' + bossName;
+    if (rewardEl) rewardEl.textContent = 'Reward: ' + chests + ' chest' + (chests === 1 ? '' : 's');
+    if (durEl) durEl.textContent = 'Time left: ' + secsLeft + 's';
+
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden', 'false');
+
+    clearTimeout(bossEntranceTimeout);
+    bossEntranceTimeout = setTimeout(hideBossEntranceSequence, 2300);
+
+    playUISound('danger');
+    setTimeout(() => playUISound('danger'), 150);
+  }
+
+  function renderSeasonOverlay(force = false) {
+    const overlay = document.getElementById('seasonThemeOverlay');
+    if (!overlay) return;
+    const theme = String(activeSeasonTheme || 'none').toLowerCase();
+
+    if (!force && renderedSeasonTheme === theme) return;
+    renderedSeasonTheme = theme;
+
+    if (theme === 'none') {
+      overlay.innerHTML = '';
+      return;
+    }
+
+    const defs = {
+      christmas: {
+        top:'🎄 ✦ ❄ 🎁 ✦ 🔔 ✦ ❄ ✦ 🎄',
+        bottom:'❄ ✦ ❄ ✦ 🎀 ✦ ❄ ✦ ❄',
+        left:'🎅',
+        right:'🦌',
+        icons:['❄','❄','✨','🔔','🎁','🎄','🎀','⭐'],
+        kind:'spark'
+      },
+      halloween: {
+        top:'🎃 ✦ 🕸️ ✦ 🦇 ✦ 👻 ✦ 🎃',
+        bottom:'🦇 ✦ 🎃 ✦ 🕯️ ✦ 🕸️',
+        left:'👻',
+        right:'🎃',
+        icons:['🦇','🎃','✨','🕸️','🍬','👻','🕯️'],
+        kind:'fall'
+      },
+      easter: {
+        top:'🐣 ✦ 🌸 ✦ 🥚 ✦ 🌼 ✦ 🐰',
+        bottom:'🌷 ✦ 🥚 ✦ 🌼 ✦ 🐣',
+        left:'🐰',
+        right:'🥚',
+        icons:['🥚','🌸','🌼','✨','🐣','🌷','💛'],
+        kind:'spark'
+      },
+      valentine: {
+        top:'💗 ✦ 💕 ✦ 🌹 ✦ 💖 ✦ 💗',
+        bottom:'💘 ✦ 💕 ✦ 💗 ✦ 💖',
+        left:'💝',
+        right:'🌹',
+        icons:['💗','💕','💖','✨','🌹','💘'],
+        kind:'spark'
+      },
+      newyear: {
+        top:'🎆 ✦ 🎉 ✦ ✨ ✦ 🥂 ✦ 🎊',
+        bottom:'✨ ✦ 🎊 ✦ 🎆 ✦ ✨',
+        left:'🥂',
+        right:'🎉',
+        icons:['✨','🎆','🎇','🎊','🥂','⭐'],
+        kind:'spark'
+      },
+      summer: {
+        top:'☀️ ✦ 🏖️ ✦ 🌊 ✦ 🕶️ ✦ 🍉',
+        bottom:'🌊 ✦ ☀️ ✦ 🍍 ✦ 🌴',
+        left:'🕶️',
+        right:'🏖️',
+        icons:['☀️','✨','🌊','🍉','🌴','🕶️','🍍'],
+        kind:'fall'
+      }
+    };
+
+    const d = defs[theme];
+    if (!d) {
+      overlay.innerHTML = '';
+      return;
+    }
+
+    const count = theme === 'christmas' ? 36 : (theme === 'halloween' ? 26 : 24);
+    const floats = [];
+    for (let i = 0; i < count; i++) {
+      const icon = d.icons[i % d.icons.length];
+      const x = (3 + (i * 97) % 94);
+      const size = (0.78 + ((i * 17) % 11) / 10).toFixed(2) + 'rem';
+      const dur = (theme === 'christmas' ? 8.5 : 10) + ((i * 13) % 9);
+      const delay = -((i * 0.63) % dur);
+      const drift = (((i % 2) ? 1 : -1) * (8 + (i * 5) % 26)) + 'px';
+      const alpha = theme === 'christmas' ? (icon === '❄' ? 0.82 : 0.75) : 0.78;
+      const cls = (d.kind === 'spark' || icon === '✨' || icon === '⭐') ? 'season-float spark' : 'season-float';
+      floats.push(
+        '<span class="' + cls + '" style="--x:' + x + '%;--size:' + size + ';--dur:' + dur + 's;--delay:' + delay + 's;--drift:' + drift + ';--alpha:' + alpha + ';">' + icon + '</span>'
+      );
+    }
+
+    overlay.innerHTML =
+      '<div class="season-shell">' +
+        '<div class="season-center-wash"></div>' +
+        '<div class="season-rail top">' + d.top + '</div>' +
+        '<div class="season-rail bottom">' + d.bottom + '</div>' +
+        '<div class="season-corner left">' + d.left + '</div>' +
+        '<div class="season-corner right">' + d.right + '</div>' +
+        '<div class="season-side-ribbon left"></div>' +
+        '<div class="season-side-ribbon right"></div>' +
+        '<div class="season-float-field">' + floats.join('') + '</div>' +
+      '</div>';
+  }
+
   const rankEl = document.getElementById('rank');
   const legacyDisplay = document.getElementById('legacyDisplay');
   const statsEl = document.getElementById('stats');
@@ -3978,6 +4631,8 @@
 
   function render() {
     scoreEl.textContent = fmt(score) + ' Archies';
+    fitMainScoreText();
+    updateDynamicScoreGlow();
     rankEl.textContent = isCreatorAccount ? '★ Creator' : currentRank();
     legacyDisplay.textContent = legacyPoints > 0 ? ('\u2726 ' + legacyTokensAvailable() + '/' + legacyPoints + ' Legacy (+' + Math.round((legacyMultiplier()-1)*100) + '% base)') : '';
     statsEl.textContent = '+' + fmt(effClick()) + ' per click \u00b7 +' + fmt(effAuto()) + ' per second';
@@ -4115,6 +4770,62 @@
     return kind === 'frame' ? 'frame-' + value : kind === 'effect' ? 'effect-' + value : '';
   }
 
+
+  const COSMETIC_VISUAL_CLASSES = [
+    'frame-orange','frame-berry','frame-gold','frame-cosmic','frame-obsidian','frame-emerald','frame-frost',
+    'effect-sparkle','effect-rainbow','effect-royal','effect-stardust','effect-ember','effect-snowfall'
+  ];
+
+  function previewCosmeticById(id) {
+    cosmeticPreviewId = String(id || '');
+    renderCosmeticPreview();
+    const wrap = document.getElementById('cosmeticPreviewWrap');
+    if (wrap) wrap.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  function resetCosmeticPreview() {
+    cosmeticPreviewId = '';
+    renderCosmeticPreview();
+  }
+
+  function renderCosmeticPreview() {
+    const card = document.getElementById('cosmeticPreviewCard');
+    const avatar = document.getElementById('cosmeticPreviewAvatar');
+    const name = document.getElementById('cosmeticPreviewName');
+    const title = document.getElementById('cosmeticPreviewTitle');
+    const desc = document.getElementById('cosmeticPreviewDesc');
+    if (!card || !avatar || !name || !title || !desc) return;
+
+    COSMETIC_VISUAL_CLASSES.forEach(cls => card.classList.remove(cls));
+
+    const chosen = cosmeticPreviewId ? cosmetics.find(c => c.id === cosmeticPreviewId) : null;
+    let previewFrame = equippedFrame || '';
+    let previewEffect = equippedEffect || '';
+    let previewTitle = equippedTitle || currentRank();
+
+    if (chosen) {
+      if (chosen.kind === 'frame') previewFrame = chosen.value;
+      if (chosen.kind === 'effect') previewEffect = chosen.value;
+      if (chosen.kind === 'title') previewTitle = chosen.value;
+    }
+
+    if (previewFrame) card.classList.add(cosmeticClass('frame', previewFrame));
+    if (previewEffect) card.classList.add(cosmeticClass('effect', previewEffect));
+
+    const sourceAvatar = document.querySelector('#profileCard .profile-avatar img') || document.querySelector('.profile-chip-avatar');
+    if (sourceAvatar && sourceAvatar.src && avatar.src !== sourceAvatar.src) avatar.src = sourceAvatar.src;
+
+    name.textContent = (leaderboardProfile && leaderboardProfile.username) ? leaderboardProfile.username : 'Your Profile';
+    title.textContent = previewTitle || currentRank();
+
+    if (chosen) {
+      const owned = cosmeticsOwned.has(chosen.id) || (chosen.serverItem && serverItemOwned(chosen.serverItem));
+      desc.textContent = 'Previewing: ' + chosen.name + ' · ' + chosen.desc + (owned ? ' · already owned' : ' · costs ' + fmt(chosen.cost) + ' Archies');
+    } else {
+      desc.textContent = 'This is your currently equipped cosmetic look. Previewing never spends Archies or changes your equipped items.';
+    }
+  }
+
   function applyMyCosmetics() {
     [profileChip, profileCard].forEach(el => {
       if (!el) return;
@@ -4170,15 +4881,20 @@
         const d=document.createElement('div'); d.className='cosmetic-desc';
         d.textContent=c.desc+(owned?' · owned':' · '+fmt(c.cost)+' Archies');
         info.append(n,d);
-        const b=document.createElement('button'); b.className='cosmetic-btn'; b.textContent=equipped?'Equipped':owned?'Equip':'Buy'; b.disabled=equipped;
-        b.addEventListener('click',()=>buyOrEquipCosmetic(c));
-        row.append(info,b); list.appendChild(row);
+        const actions=document.createElement('div'); actions.className='cosmetic-actions';
+        const preview=document.createElement('button'); preview.className='cosmetic-btn preview'; preview.type='button'; preview.textContent='Preview';
+        preview.addEventListener('click',(e)=>{e.stopPropagation();previewCosmeticById(c.id);});
+        const b=document.createElement('button'); b.className='cosmetic-btn'; b.type='button'; b.textContent=equipped?'Equipped':owned?'Equip':'Buy & Equip'; b.disabled=equipped;
+        b.addEventListener('click',(e)=>{e.stopPropagation();buyOrEquipCosmetic(c);});
+        actions.append(preview,b);
+        row.append(info,actions); list.appendChild(row);
       });
 
       const clear=document.createElement('button'); clear.className='cosmetic-btn secondary'; clear.textContent='Use default '+kind;
       clear.addEventListener('click',()=>unequipCosmetic(kind)); list.appendChild(clear);
     });
     renderTreasureVault();
+    renderCosmeticPreview();
   }
 
   function renderLiveEventState() {
@@ -4198,7 +4914,9 @@
     const season=currentSeasonLabel();
     if(seasonal){ seasonal.textContent=season?('✦ '+season):''; seasonal.classList.toggle('show',!!season); }
     document.body.classList.toggle('seasonal-active',!!season);
+    renderSeasonOverlay();
     updateArchieDecoration();
+    updateDynamicScoreGlow();
   }
 
   function updateArchieDecoration() {
@@ -4431,9 +5149,12 @@
     hud.classList.toggle('show',active);
     document.body.classList.toggle('boss-mode',active);
     if(atmosphere) atmosphere.classList.toggle('show',active);
+    if(!active) hideBossEntranceSequence();
     updateArchieDecoration();
+    updateDynamicScoreGlow();
     if (active && !wasVisualBoss) {
       showToast('⚠ BOSS FIGHT ACTIVE — click Archie to attack!');
+      showBossEntranceSequence();
       playUISound('danger');
     }
     if (!active) return;
@@ -5221,7 +5942,11 @@
   function totalAutoOwned() { return upgrades.filter(u => u.type === 'auto').reduce((s, u) => s + u.owned, 0); }
 
   function renderOrbits() {
-    const desired = Math.min(Math.ceil(totalAutoOwned() * 1.6), 72);
+    // Performance cap: the old build could spawn up to 72 animated Archie images.
+    // Keep the visual progression, but use far fewer orbiters so rich saves stay smooth.
+    const width = window.innerWidth || 1200;
+    const maxOrbiters = width <= 720 ? 8 : (width <= 1100 ? 12 : 18);
+    const desired = Math.min(Math.ceil(totalAutoOwned() * 0.45), maxOrbiters);
     sparkleRing.classList.toggle('on', desired > 0);
     while (orbiters.length < desired) {
       const el = document.createElement('div');
@@ -5240,14 +5965,18 @@
   let lastTs = null;
   function orbitTick(ts) {
     if (lastTs === null) lastTs = ts;
-    const dt = (ts - lastTs) / 1000;
+    const dt = Math.min(0.05, (ts - lastTs) / 1000);
     lastTs = ts;
-    orbiters.forEach(o => {
-      o.angle += o.speed * dt * o.dir;
-      const x = Math.cos(o.angle) * o.radius;
-      const y = Math.sin(o.angle) * o.radius;
-      o.el.style.transform = 'translate(calc(-50% + ' + x + 'px), calc(-50% + ' + y + 'px))';
-    });
+
+    // Don't spend CPU/GPU updating invisible orbiters in a background tab.
+    if (!document.hidden) {
+      orbiters.forEach(o => {
+        o.angle += o.speed * dt * o.dir;
+        const x = Math.cos(o.angle) * o.radius;
+        const y = Math.sin(o.angle) * o.radius;
+        o.el.style.transform = 'translate(calc(-50% + ' + x + 'px), calc(-50% + ' + y + 'px))';
+      });
+    }
     requestAnimationFrame(orbitTick);
   }
   requestAnimationFrame(orbitTick);
@@ -6909,7 +7638,11 @@
   document.getElementById('empireBurn25').addEventListener('click',()=>burnEmpireWealth(.25));
   document.getElementById('empireBurn50').addEventListener('click',()=>burnEmpireWealth(.50));
   document.getElementById('ascendArchieBtn').addEventListener('click',ascendArchie);
+  document.getElementById('cosmeticPreviewReset').addEventListener('click',resetCosmeticPreview);
+  window.addEventListener('resize',()=>requestAnimationFrame(()=>{ fitMainScoreText(); updateDynamicScoreGlow(); }),{passive:true});
+  window.addEventListener('orientationchange',()=>setTimeout(()=>{ fitMainScoreText(); updateDynamicScoreGlow(); },120),{passive:true});
 
+  renderSeasonOverlay(true);
   initLeaderboard();
 
   // Safety-net saves: browsers can kill a tab without firing normal handlers,
