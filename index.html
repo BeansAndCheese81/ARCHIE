@@ -2839,6 +2839,77 @@
   .creator-vault-item .admin-btn:disabled { opacity:.55;cursor:default; }
   @media(max-width:620px){ .creator-vault-grid{grid-template-columns:1fr;} }
 
+
+/* ================= WORLD 2: ARCHIE BEYOND ================= */
+body.beyond-world-open{overflow:hidden!important}
+.beyond-portal-quick{display:none;border:2px solid rgba(117,112,255,.42);background:linear-gradient(135deg,#20194e,#67388a);color:#f5f1ff;border-radius:999px;padding:7px 13px;font-family:'Baloo 2',sans-serif;font-size:.67rem;font-weight:900;cursor:pointer;box-shadow:0 8px 20px rgba(48,36,110,.2)}
+.beyond-portal-quick.show{display:inline-flex;align-items:center;gap:6px}.beyond-portal-quick:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.beyond-unlock-card{position:relative;overflow:hidden;border-color:rgba(113,105,232,.32)!important;background:radial-gradient(circle at 88% 16%,rgba(119,107,246,.14),transparent 27%),linear-gradient(145deg,#fffdf8,#f4f0ff)!important}
+.beyond-unlock-title{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:900;color:#51417b}.beyond-unlock-sub{margin-top:2px;font-size:.58rem;line-height:1.42;color:#786d91;font-weight:700}
+.beyond-unlock-meter{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px}.beyond-unlock-stat{padding:7px 8px;border-radius:11px;background:rgba(109,95,207,.08);border:1px solid rgba(109,95,207,.15);font-size:.54rem;color:#6f638a;font-weight:750}.beyond-unlock-stat b{display:block;margin-top:1px;color:#4e3f78;font-size:.68rem;font-family:'Baloo 2',sans-serif}
+.beyond-unlock-action{width:100%;margin-top:8px;border:none;border-radius:999px;padding:8px 11px;cursor:pointer;background:linear-gradient(90deg,#665be5,#9a57c8);color:#fff;font-family:'Baloo 2',sans-serif;font-size:.66rem;font-weight:900;box-shadow:0 5px 0 rgba(66,42,132,.35)}.beyond-unlock-action:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}
+
+.beyond-world{display:none;position:fixed;inset:0;z-index:7200;color:#edf5ff;overflow:hidden;background:radial-gradient(circle at 50% 38%,rgba(80,89,222,.2),transparent 29%),radial-gradient(circle at 82% 22%,rgba(178,77,224,.14),transparent 25%),linear-gradient(145deg,#050b20,#0a1231 45%,#120d2e 77%,#050a1c)}
+.beyond-world.show{display:flex;flex-direction:column;animation:beyondIn .35s ease-out}.beyond-world:before{content:'';position:absolute;inset:-12%;pointer-events:none;opacity:.58;background:radial-gradient(circle,rgba(255,255,255,.92) 0 1px,transparent 1.7px) 0 0/57px 57px,radial-gradient(circle,rgba(116,193,255,.75) 0 1px,transparent 1.8px) 18px 24px/83px 83px,radial-gradient(circle,rgba(213,153,255,.57) 0 1.2px,transparent 2px) 4px 14px/119px 119px;animation:beyondStars 38s linear infinite}
+@keyframes beyondIn{from{opacity:0;transform:scale(1.008)}to{opacity:1;transform:none}}@keyframes beyondStars{to{transform:translate3d(90px,-70px,0)}}
+
+.beyond-topbar{position:relative;z-index:4;min-height:68px;display:grid;grid-template-columns:minmax(180px,1fr) auto minmax(260px,1fr);align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid rgba(166,183,255,.15);background:linear-gradient(180deg,rgba(5,10,27,.94),rgba(5,10,27,.65));backdrop-filter:blur(10px)}
+.beyond-return{justify-self:start;border:1px solid rgba(213,225,255,.24);background:rgba(255,255,255,.06);color:#edf5ff;border-radius:999px;padding:8px 12px;font-family:'Baloo 2',sans-serif;font-size:.65rem;font-weight:900;cursor:pointer}.beyond-return:hover{background:rgba(255,255,255,.11)}
+.beyond-titleblock{text-align:center;min-width:220px}.beyond-kicker{font-size:.48rem;text-transform:uppercase;letter-spacing:.24em;color:#8ecbff;font-weight:900}.beyond-title{font-family:'Baloo 2',sans-serif;font-size:1.45rem;font-weight:900;line-height:1;background:linear-gradient(90deg,#c2efff,#b5a9ff 48%,#f1b8ff);-webkit-background-clip:text;background-clip:text;color:transparent}.beyond-subtitle{margin-top:1px;font-size:.55rem;color:#9fafd6;font-weight:750;letter-spacing:.06em}
+.beyond-topstats{justify-self:end;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;min-width:min(440px,38vw)}.beyond-topstat{padding:7px 8px;border-radius:11px;background:rgba(255,255,255,.055);border:1px solid rgba(170,184,255,.15);text-align:center;min-width:0}.beyond-topstat b{display:block;font-family:'Baloo 2',sans-serif;font-size:.72rem;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.beyond-topstat span{display:block;margin-top:1px;font-size:.43rem;color:#91a3cb;text-transform:uppercase;letter-spacing:.06em;font-weight:900}
+
+.beyond-layout{position:relative;z-index:3;flex:1;min-height:0;display:grid;grid-template-columns:minmax(225px,290px) minmax(330px,1fr) minmax(290px,390px);gap:10px;padding:10px}
+.beyond-card{border:1px solid rgba(160,179,255,.17);border-radius:17px;background:linear-gradient(145deg,rgba(12,22,52,.84),rgba(18,16,48,.8));box-shadow:0 14px 34px rgba(0,0,0,.2);backdrop-filter:blur(8px)}
+.beyond-left{min-height:0;display:flex;flex-direction:column;gap:8px;overflow-y:auto;padding-right:2px}.beyond-left-card{padding:11px;flex:0 0 auto}.beyond-card-kicker{font-size:.45rem;text-transform:uppercase;letter-spacing:.13em;color:#7abde7;font-weight:900}.beyond-card-title{margin-top:1px;font-family:'Baloo 2',sans-serif;font-size:.87rem;font-weight:900;color:#eef6ff}.beyond-power-number{margin-top:4px;font-family:'Baloo 2',sans-serif;font-size:1.5rem;font-weight:900;color:#cbb8ff;text-shadow:0 0 16px rgba(172,134,255,.25)}.beyond-power-sub{margin-top:-2px;font-size:.6rem;color:#a3b5d5;font-weight:760}.beyond-statline{margin-top:7px;display:flex;justify-content:space-between;gap:8px;font-size:.56rem;color:#93a5ca;font-weight:800}.beyond-statline b{color:#edf5ff}
+.beyond-resonance-track{height:14px;margin-top:7px;border-radius:999px;overflow:hidden;background:#070d24;border:1px solid rgba(174,184,255,.17)}.beyond-resonance-fill{height:100%;width:0;background:linear-gradient(90deg,#4ed4ff,#7b78ff 52%,#da70ff);box-shadow:0 0 18px rgba(106,111,255,.46);transition:width .15s ease}.beyond-overdrive-live{display:none;margin-top:7px;border-radius:10px;padding:6px 8px;text-align:center;background:linear-gradient(90deg,rgba(63,203,244,.16),rgba(201,94,244,.16));border:1px solid rgba(149,134,255,.22);color:#dff7ff;font-size:.55rem;font-weight:900}.beyond-overdrive-live.show{display:block;animation:beyondOverdrivePulse .8s ease-in-out infinite alternate}@keyframes beyondOverdrivePulse{to{filter:brightness(1.22);box-shadow:0 0 15px rgba(115,120,255,.24)}}
+.beyond-ascend-btn{width:100%;margin-top:8px;border:none;border-radius:999px;padding:8px 10px;font-family:'Baloo 2',sans-serif;font-size:.64rem;font-weight:900;color:#fff;background:linear-gradient(90deg,#665ee8,#b057cb);cursor:pointer;box-shadow:0 5px 0 rgba(48,34,120,.38)}.beyond-ascend-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.beyond-world-stats{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}.beyond-world-stat{padding:6px 7px;border-radius:9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.055)}.beyond-world-stat span{display:block;color:#7d90b4;font-size:.44rem;font-weight:850;text-transform:uppercase}.beyond-world-stat b{display:block;margin-top:1px;color:#edf5ff;font-family:'Baloo 2',sans-serif;font-size:.61rem}
+
+.beyond-center{position:relative;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border-radius:24px}.beyond-center:before{content:'';position:absolute;left:50%;top:50%;width:min(68vh,630px);height:min(68vh,630px);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(86,150,255,.18) 0 25%,rgba(119,77,224,.12) 42%,transparent 68%);box-shadow:0 0 90px rgba(78,111,255,.14);animation:beyondCenterPulse 4.5s ease-in-out infinite}@keyframes beyondCenterPulse{50%{transform:translate(-50%,-50%) scale(1.04);opacity:1}}
+.beyond-rank-pill{position:relative;z-index:3;margin-bottom:7px;padding:5px 11px;border-radius:999px;background:rgba(12,19,51,.78);border:1px solid rgba(168,180,255,.19);color:#a9baf0;font-size:.53rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+.beyond-archie-ring{position:relative;z-index:3;width:min(43vw,50vh,410px);height:min(43vw,50vh,410px);border-radius:50%;padding:9px;background:conic-gradient(from 0deg,#62d9ff,#796fff,#d065ef,#796fff,#62d9ff);box-shadow:0 0 0 3px rgba(195,216,255,.1),0 0 35px rgba(99,111,255,.3),0 0 75px rgba(143,82,225,.18)}
+.beyond-archie-ring:before{content:'';position:absolute;inset:-23px;border-radius:50%;border:1px dashed rgba(166,197,255,.3);animation:beyondRingSpin 22s linear infinite;pointer-events:none}@keyframes beyondRingSpin{to{transform:rotate(360deg)}}
+.beyond-archie-ring.overdrive{animation:beyondRingSurge .65s ease-in-out infinite alternate}@keyframes beyondRingSurge{to{box-shadow:0 0 0 5px rgba(223,244,255,.22),0 0 60px rgba(80,210,255,.65),0 0 115px rgba(211,85,255,.38)}}
+.beyond-archie-btn{width:100%;height:100%;display:block;overflow:hidden;border:none;padding:0;border-radius:50%;background:#0a112d;cursor:pointer;box-shadow:inset 0 0 0 5px rgba(5,10,28,.78),0 12px 34px rgba(0,0,0,.32)}.beyond-archie-btn img{width:100%;height:100%;object-fit:cover;object-position:center 43%;display:block;transform:scale(1.02);transition:transform .11s ease,filter .16s ease}.beyond-archie-btn:hover img{transform:scale(1.055);filter:brightness(1.05) saturate(1.06)}.beyond-archie-btn:active img{transform:scale(.985)}
+.beyond-click-value{position:relative;z-index:3;margin-top:12px;font-family:'Baloo 2',sans-serif;font-size:1.4rem;font-weight:900;color:#d7c5ff;text-shadow:0 0 18px rgba(167,132,255,.35)}.beyond-click-label{position:relative;z-index:3;margin-top:-3px;color:#8fa5cb;font-size:.55rem;font-weight:850}.beyond-center-hint{position:relative;z-index:3;margin-top:7px;color:#768bb3;font-size:.49rem;font-weight:750}
+.beyond-float-number{position:fixed;z-index:7300;pointer-events:none;transform:translate(-50%,-50%);font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:900;color:#d9f7ff;text-shadow:0 0 9px #6e84ff,0 2px 4px #000;animation:beyondFloat .62s ease-out forwards}.beyond-float-number.crit{color:#ffe691;font-size:1rem;text-shadow:0 0 10px #ffcf4f,0 2px 4px #000}@keyframes beyondFloat{to{opacity:0;transform:translate(-50%,-145%) scale(1.18)}}
+.beyond-particle{position:fixed;z-index:7299;pointer-events:none;width:6px;height:6px;border-radius:50%;background:#8cdfff;box-shadow:0 0 9px #775fff;animation:beyondParticle .52s ease-out forwards}@keyframes beyondParticle{to{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.1)}}
+
+.beyond-right{min-height:0;display:flex;flex-direction:column;overflow:hidden}.beyond-right-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:7px}.beyond-tab{border:1px solid rgba(168,180,255,.15);background:rgba(255,255,255,.045);color:#9cafd2;border-radius:10px;padding:7px 5px;cursor:pointer;font-family:'Baloo 2',sans-serif;font-size:.54rem;font-weight:900}.beyond-tab.active{background:linear-gradient(135deg,rgba(87,95,224,.34),rgba(170,75,197,.28));color:#f4f3ff;border-color:rgba(162,157,255,.35)}
+.beyond-right-content{flex:1;min-height:0;overflow-y:auto;padding:4px 8px 10px}.beyond-panel{display:none}.beyond-panel.active{display:block}.beyond-panel-title{margin:3px 2px 7px;font-family:'Baloo 2',sans-serif;font-size:.8rem;color:#eaf3ff;font-weight:900}.beyond-panel-sub{margin:-5px 2px 8px;color:#8399bf;font-size:.51rem;line-height:1.4;font-weight:700}
+.beyond-upgrade-list,.beyond-mastery-list,.beyond-milestone-list{display:flex;flex-direction:column;gap:6px}.beyond-upgrade,.beyond-mastery,.beyond-milestone{border:1px solid rgba(156,173,255,.14);border-radius:12px;background:rgba(255,255,255,.038);padding:8px}.beyond-upgrade.affordable,.beyond-mastery.affordable{border-color:rgba(106,215,255,.3);background:rgba(95,112,255,.07)}.beyond-mastery.owned,.beyond-milestone.earned{border-color:rgba(79,214,183,.27);background:rgba(79,214,183,.06)}
+.beyond-upgrade-head,.beyond-mastery-head,.beyond-milestone-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.beyond-upgrade-name,.beyond-mastery-name,.beyond-milestone-name{font-family:'Baloo 2',sans-serif;font-size:.66rem;font-weight:900;color:#e9f2ff}.beyond-upgrade-level,.beyond-mastery-cost,.beyond-milestone-state{flex:0 0 auto;border-radius:999px;padding:2px 6px;background:rgba(255,255,255,.06);color:#9cb0d4;font-size:.45rem;font-weight:900}.beyond-upgrade-desc,.beyond-mastery-desc,.beyond-milestone-desc{margin-top:2px;font-size:.49rem;line-height:1.34;color:#8096ba;font-weight:700}
+.beyond-buy{width:100%;margin-top:6px;border:none;border-radius:999px;padding:6px 8px;background:linear-gradient(90deg,#5967d9,#8e58c4);color:#fff;font-family:'Baloo 2',sans-serif;font-size:.52rem;font-weight:900;cursor:pointer}.beyond-buy:disabled{opacity:.36;cursor:not-allowed}
+
+@media(max-width:1050px){.beyond-layout{grid-template-columns:220px minmax(290px,1fr) 310px;gap:7px;padding:7px}.beyond-topstats{min-width:310px}}
+@media(max-width:820px){.beyond-world{overflow-y:auto}.beyond-topbar{position:sticky;top:0;grid-template-columns:auto 1fr;z-index:9}.beyond-titleblock{text-align:left;min-width:0}.beyond-topstats{grid-column:1/-1;justify-self:stretch;min-width:0;width:100%}.beyond-layout{display:flex;flex-direction:column;overflow:visible;min-height:auto}.beyond-left{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.beyond-center{min-height:520px}.beyond-right{min-height:500px;overflow:visible}.beyond-right-content{overflow:visible}.beyond-archie-ring{width:min(78vw,390px);height:min(78vw,390px)}}
+@media(max-width:520px){.beyond-left{grid-template-columns:1fr}.beyond-center{min-height:440px}.beyond-title{font-size:1.12rem}.beyond-archie-ring{width:min(82vw,330px);height:min(82vw,330px)}}
+
+
+  /* =========================================================
+     DEV SELF FUNDING PRESETS
+     ========================================================= */
+  .admin-self-fund {
+    border-color:rgba(83,150,255,.34)!important;
+    background:linear-gradient(145deg,rgba(239,247,255,.82),rgba(246,240,255,.82))!important;
+  }
+  .admin-self-fund-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:7px;
+    margin-top:8px;
+  }
+  .admin-self-fund-note {
+    margin-top:6px;
+    font-size:.55rem;
+    line-height:1.4;
+    color:#746886;
+    font-weight:700;
+  }
+  @media(max-width:560px){
+    .admin-self-fund-grid{grid-template-columns:1fr;}
+  }
+
 </style>
 </head>
 <body>
@@ -2963,6 +3034,7 @@
       <div class="next-interesting-track"><div class="next-interesting-fill" id="nextInterestingFill"></div></div>
     </div>
 
+    <button class="beyond-portal-quick" id="beyondQuickEnter" type="button">🌌 Enter Archie Beyond</button>
     <div class="cps-note">Click Archie or press <b>SPACE</b> · maximum 15 accepted clicks per second</div>
   </main>
 
@@ -3125,6 +3197,17 @@
           <div class="empire-vault-note" id="empireVaultNote">The bigger the sacrifice, the more Influence it can create. This permanently removes those current Archies.</div>
         </div>
 
+        <div class="empire-card beyond-unlock-card">
+          <div class="beyond-unlock-title">🌌 World 2 · Archie Beyond</div>
+          <div class="beyond-unlock-sub">A completely separate late-game world with a new Archie, new currency, new upgrades, Resonance, Prime Ascension and a permanent Constellation. Your original world remains intact and you can return at any time.</div>
+          <div class="beyond-unlock-meter">
+            <div class="beyond-unlock-stat">Verified Lifetime required<b id="beyondLifetimeRequirement">10,000Dc</b></div>
+            <div class="beyond-unlock-stat">Portal cost from current Archies<b id="beyondUnlockCost">5,000Dc</b></div>
+          </div>
+          <button class="beyond-unlock-action" id="beyondUnlockBtn" type="button">Checking portal requirements…</button>
+          <div class="empire-vault-note" id="beyondUnlockNote">Your Lifetime requirement is verified against the server leaderboard before the portal can be opened.</div>
+        </div>
+
         <div class="ascension-card">
           <div class="ascension-title">✦ Archie Ascension</div>
           <div class="ascension-sub"><b>OPTIONAL — this is the only reset in the Empire section.</b><br>Ascension wipes current Archies, normal upgrade levels, one-time Boost purchases and current-run earnings. It <b>keeps Lifetime Archies, Legacy Points/skills, cosmetics, friends, chests, Empire Influence, Empire Projects and previous Ascension Stars</b>. In return you receive permanent Ascension Stars.</div>
@@ -3162,6 +3245,40 @@
       </div>
     </div>
   </aside>
+</div>
+
+
+<div class="beyond-world" id="beyondWorld" aria-hidden="true">
+  <div class="beyond-topbar">
+    <button class="beyond-return" id="beyondReturnBtn" type="button">← Return to Archie's World</button>
+    <div class="beyond-titleblock"><div class="beyond-kicker">World 2 · Late Game</div><div class="beyond-title">Archie Beyond</div><div class="beyond-subtitle">THE PRIME REALM</div></div>
+    <div class="beyond-topstats">
+      <div class="beyond-topstat"><b id="beyondEssenceTop">0</b><span>Beyond Essence</span></div>
+      <div class="beyond-topstat"><b id="beyondCoresTop">0</b><span>Prime Cores</span></div>
+      <div class="beyond-topstat"><b id="beyondAscensionsTop">0</b><span>Prime Ascensions</span></div>
+    </div>
+  </div>
+  <div class="beyond-layout">
+    <div class="beyond-left">
+      <div class="beyond-card beyond-left-card"><div class="beyond-card-kicker">Prime Power</div><div class="beyond-card-title">Current Realm Output</div><div class="beyond-power-number" id="beyondPowerNumber">0 Essence</div><div class="beyond-power-sub" id="beyondPowerClick">+1 per click</div><div class="beyond-statline"><span>Idle gain</span><b id="beyondPowerAuto">0 / sec</b></div><div class="beyond-statline"><span>Global multiplier</span><b id="beyondGlobalMult">x1.00</b></div><div class="beyond-statline"><span>Critical chance</span><b id="beyondCritChance">5%</b></div></div>
+      <div class="beyond-card beyond-left-card"><div class="beyond-card-kicker">Active Play</div><div class="beyond-card-title">⚡ Resonance</div><div class="beyond-panel-sub" style="margin:2px 0 0">Every real click charges Resonance. Fill the meter to trigger a temporary production surge.</div><div class="beyond-resonance-track"><div class="beyond-resonance-fill" id="beyondResonanceFill"></div></div><div class="beyond-statline"><span id="beyondResonanceText">0 / 100</span><b id="beyondResonanceGain">+4 / click</b></div><div class="beyond-overdrive-live" id="beyondOverdriveLive">⚡ PRIME OVERDRIVE ACTIVE</div></div>
+      <div class="beyond-card beyond-left-card"><div class="beyond-card-kicker">World 2 Prestige</div><div class="beyond-card-title">✦ Prime Ascension</div><div class="beyond-panel-sub" id="beyondAscendDesc" style="margin:3px 0 0">Earn 100M Beyond Essence in this run to Ascend.</div><button class="beyond-ascend-btn" id="beyondAscendBtn" type="button" disabled>Ascend for 0 Prime Cores</button></div>
+      <div class="beyond-card beyond-left-card"><div class="beyond-card-kicker">Realm Stats</div><div class="beyond-card-title">World 2 Record</div><div class="beyond-world-stats"><div class="beyond-world-stat"><span>Lifetime Essence</span><b id="beyondLifetimeStat">0</b></div><div class="beyond-world-stat"><span>Clicks</span><b id="beyondClicksStat">0</b></div><div class="beyond-world-stat"><span>This Run</span><b id="beyondRunStat">0</b></div><div class="beyond-world-stat"><span>Rank</span><b id="beyondRankStat">Prime Initiate</b></div></div></div>
+    </div>
+    <div class="beyond-center">
+      <div class="beyond-rank-pill" id="beyondRankPill">PRIME INITIATE</div>
+      <div class="beyond-archie-ring" id="beyondArchieRing"><button class="beyond-archie-btn" id="beyondArchieBtn" type="button" aria-label="Click Archie Beyond"><img src="data:image/webp;base64,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" alt="Archie Beyond"></button></div>
+      <div class="beyond-click-value" id="beyondClickValue">+1 Essence</div><div class="beyond-click-label">PER CLICK</div><div class="beyond-center-hint">Click Archie or press SPACE · same 15 clicks/sec fair-play limit</div>
+    </div>
+    <div class="beyond-card beyond-right">
+      <div class="beyond-right-tabs"><button class="beyond-tab active" data-beyond-tab="upgrades" type="button">⚙️ Upgrades</button><button class="beyond-tab" data-beyond-tab="mastery" type="button">✦ Constellation</button><button class="beyond-tab" data-beyond-tab="milestones" type="button">🏆 Milestones</button></div>
+      <div class="beyond-right-content">
+        <div class="beyond-panel active" id="beyondPanel-upgrades"><div class="beyond-panel-title">Prime Upgrades</div><div class="beyond-panel-sub">These use Beyond Essence and reset when you Prime Ascend.</div><div class="beyond-upgrade-list" id="beyondUpgradeList"></div></div>
+        <div class="beyond-panel" id="beyondPanel-mastery"><div class="beyond-panel-title">Prime Constellation</div><div class="beyond-panel-sub">Spend Prime Cores on permanent mastery nodes. These survive every Prime Ascension.</div><div class="beyond-mastery-list" id="beyondMasteryList"></div></div>
+        <div class="beyond-panel" id="beyondPanel-milestones"><div class="beyond-panel-title">Realm Milestones</div><div class="beyond-panel-sub">Lifetime Beyond Essence automatically unlocks permanent production multipliers.</div><div class="beyond-milestone-list" id="beyondMilestoneList"></div></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="social-overlay" id="playerProfileOverlay" aria-hidden="true">
@@ -3405,6 +3522,31 @@
       <div class="admin-status" id="adminEventStatus"></div>
     </div>
 
+    <div class="admin-section admin-self-fund">
+      <div class="admin-section-title">💰 Self Funding</div>
+      <div class="admin-muted">Give large test amounts to your own signed-in admin account. This cannot target another player.</div>
+      <div class="admin-self-fund-grid">
+        <select class="admin-select" id="adminSelfGrantAmount">
+          <option value="1000000000000">1T</option>
+          <option value="1000000000000000">1Qa</option>
+          <option value="1000000000000000000">1Qi</option>
+          <option value="1000000000000000000000000">1Sp</option>
+          <option value="1000000000000000000000000000000">1No</option>
+          <option value="1000000000000000000000000000000000">1Dc</option>
+          <option value="100000000000000000000000000000000000">100Dc</option>
+          <option value="1000000000000000000000000000000000000">1,000Dc</option>
+          <option value="10000000000000000000000000000000000000">10,000Dc · World 2 testing</option>
+        </select>
+        <button class="admin-btn good" id="adminSelfGrantBtn" type="button">Give to Myself</button>
+      </div>
+      <label class="admin-check" style="margin-top:7px">
+        <input type="checkbox" id="adminSelfGrantLifetime" checked>
+        also add the same amount to Lifetime Archies
+      </label>
+      <div class="admin-self-fund-note">Server-protected: the RPC always targets <b>your own auth UID</b> and still requires the server-side admin allow-list.</div>
+      <div class="admin-status" id="adminSelfGrantStatus"></div>
+    </div>
+
     <div class="admin-section">
       <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
         <div>
@@ -3557,6 +3699,23 @@
   let ascensionCount = 0;
   let empireProjectLevels = {};
   let economyVersion = 2;
+
+  // World 2 — Archie Beyond
+  const BEYOND_UNLOCK_LIFETIME = 1e37; // 10,000Dc verified Lifetime Archies
+  const BEYOND_UNLOCK_COST = 5e36;     // 5,000Dc current Archies
+  let beyondUnlocked = false;
+  let beyondActive = false;
+  let beyondEssence = 0;
+  let beyondLifetime = 0;
+  let beyondRunEssence = 0;
+  let beyondClicks = 0;
+  let beyondCores = 0;
+  let beyondAscensions = 0;
+  let beyondResonance = 0;
+  let beyondOverdriveEndsAt = 0;
+  let beyondUpgradeLevels = {};
+  const beyondMasteriesOwned = new Set();
+
   let aflState = { active:false, eventId:'', name:'AFL Archie Shootout', endsAt:0 };
   let aflUi = { open:false, eventId:'', goals:0, shots:0, chestRewards:0, marker:0.5, dir:1, raf:0, lastTs:0, locked:false, endedToastShown:false };
 
@@ -3917,6 +4076,71 @@
   function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult') * empireProductionMultiplier() * liveEventMultiplier() * timedClickMultiplier(); }
   function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult') * empireProductionMultiplier() * liveEventMultiplier() * timedAutoMultiplier(); }
 
+  const BEYOND_UPGRADES = [
+    {id:'prime_touch',icon:'☝️',name:'Prime Touch',desc:'+1 Essence per click',type:'click',amount:1,base:10,growth:1.17},
+    {id:'echo_clone',icon:'👤',name:'Echo Clone',desc:'+1 Essence / sec',type:'auto',amount:1,base:25,growth:1.18},
+    {id:'rift_knuckle',icon:'💠',name:'Rift Knuckle',desc:'+8 Essence per click',type:'click',amount:8,base:160,growth:1.19},
+    {id:'essence_drone',icon:'🛸',name:'Essence Drone',desc:'+7 Essence / sec',type:'auto',amount:7,base:320,growth:1.20},
+    {id:'phase_palm',icon:'🖐️',name:'Phase Palm',desc:'+70 Essence per click',type:'click',amount:70,base:3200,growth:1.21},
+    {id:'rift_mine',icon:'⛏️',name:'Rift Mine',desc:'+65 Essence / sec',type:'auto',amount:65,base:6500,growth:1.22},
+    {id:'quantum_finger',icon:'⚛️',name:'Quantum Finger',desc:'+900 Essence per click',type:'click',amount:900,base:90000,growth:1.23},
+    {id:'realm_engine',icon:'⚙️',name:'Realm Engine',desc:'+1,100 Essence / sec',type:'auto',amount:1100,base:210000,growth:1.24},
+    {id:'cosmic_palm',icon:'🌌',name:'Cosmic Palm',desc:'+14,000 Essence per click',type:'click',amount:14000,base:5200000,growth:1.25},
+    {id:'star_foundry',icon:'⭐',name:'Star Foundry',desc:'+18,000 Essence / sec',type:'auto',amount:18000,base:14000000,growth:1.26},
+    {id:'infinite_touch',icon:'♾️',name:'Infinite Touch',desc:'+220,000 Essence per click',type:'click',amount:220000,base:2400000000,growth:1.28},
+    {id:'prime_reactor',icon:'🔷',name:'Prime Reactor',desc:'+300,000 Essence / sec',type:'auto',amount:300000,base:7200000000,growth:1.29}
+  ];
+
+  const BEYOND_MASTERIES = [
+    {id:'bm_click',icon:'☝️',name:'Echoing Finger',desc:'x2 all World 2 click power forever.',cost:1,type:'clickMult',value:2,prereq:[]},
+    {id:'bm_auto',icon:'🛸',name:'Drone Network',desc:'x2 all World 2 idle production forever.',cost:1,type:'autoMult',value:2,prereq:[]},
+    {id:'bm_memory',icon:'🧠',name:'Prime Memory',desc:'Start every Prime Ascension run with 10,000 Essence.',cost:2,type:'start',value:10000,prereq:['bm_click']},
+    {id:'bm_resonance',icon:'⚡',name:'Resonant Hands',desc:'+2 Resonance per accepted click.',cost:3,type:'resonanceAdd',value:2,prereq:['bm_click','bm_auto']},
+    {id:'bm_all1',icon:'💎',name:'Stable Realm',desc:'x1.5 ALL World 2 production forever.',cost:4,type:'allMult',value:1.5,prereq:['bm_click','bm_auto']},
+    {id:'bm_crit',icon:'✨',name:'Critical Rift',desc:'+5% World 2 critical-click chance.',cost:5,type:'critAdd',value:0.05,prereq:['bm_all1']},
+    {id:'bm_overdrive',icon:'🚀',name:'Overdrive Reactor',desc:'Prime Overdrive becomes x8 instead of x5.',cost:7,type:'overdrive',value:8,prereq:['bm_resonance','bm_all1']},
+    {id:'bm_offline',icon:'🌙',name:'Sleeping Dimension',desc:'World 2 offline rate rises from 25% to 50%.',cost:8,type:'offlineRate',value:0.5,prereq:['bm_all1']},
+    {id:'bm_all2',icon:'👑',name:'Beyond Sovereignty',desc:'x2.5 ALL World 2 production forever.',cost:12,type:'allMult',value:2.5,prereq:['bm_crit','bm_overdrive','bm_offline']}
+  ];
+
+  const BEYOND_MILESTONES = [
+    {goal:1e3,name:'First Rift',desc:'Reach 1K Lifetime Essence.',mult:1.05},
+    {goal:1e6,name:'Realm Walker',desc:'Reach 1M Lifetime Essence.',mult:1.10},
+    {goal:1e9,name:'Prime Industrialist',desc:'Reach 1B Lifetime Essence.',mult:1.20},
+    {goal:1e12,name:'Beyond Tycoon',desc:'Reach 1T Lifetime Essence.',mult:1.35},
+    {goal:1e15,name:'Celestial Magnate',desc:'Reach 1Qa Lifetime Essence.',mult:1.50},
+    {goal:1e18,name:'Reality Sovereign',desc:'Reach 1Qi Lifetime Essence.',mult:1.75},
+    {goal:1e24,name:'Infinite Archie',desc:'Reach 1Sp Lifetime Essence.',mult:2.00}
+  ];
+
+  function beyondUpgradeLevel(id){ return Math.max(0,Math.floor(Number(beyondUpgradeLevels[id])||0)); }
+  function beyondUpgradeCost(u){ return Math.floor(u.base*Math.pow(u.growth,beyondUpgradeLevel(u.id))); }
+  function beyondMasteryOwned(id){ return beyondMasteriesOwned.has(id); }
+  function beyondMasteryProduct(type){ return BEYOND_MASTERIES.reduce((v,m)=>beyondMasteryOwned(m.id)&&m.type===type?v*m.value:v,1); }
+  function beyondMasterySum(type){ return BEYOND_MASTERIES.reduce((v,m)=>beyondMasteryOwned(m.id)&&m.type===type?v+m.value:v,0); }
+  function beyondStartEssence(){ return BEYOND_MASTERIES.reduce((v,m)=>beyondMasteryOwned(m.id)&&m.type==='start'?Math.max(v,m.value):v,0); }
+  function beyondMilestoneMultiplier(){ return BEYOND_MILESTONES.reduce((v,m)=>beyondLifetime>=m.goal?v*m.mult:v,1); }
+  function beyondAscensionMultiplier(){ return 1+beyondAscensions*.35; }
+  function beyondOverdriveActive(){ return beyondOverdriveEndsAt>Date.now(); }
+  function beyondOverdriveMultiplier(){ return beyondOverdriveActive()?(beyondMasteryOwned('bm_overdrive')?8:5):1; }
+  function beyondGlobalMultiplier(){ return beyondMilestoneMultiplier()*beyondAscensionMultiplier()*beyondMasteryProduct('allMult')*beyondOverdriveMultiplier(); }
+  function beyondBaseClick(){ return 1+BEYOND_UPGRADES.filter(u=>u.type==='click').reduce((v,u)=>v+u.amount*beyondUpgradeLevel(u.id),0); }
+  function beyondBaseAuto(){ return BEYOND_UPGRADES.filter(u=>u.type==='auto').reduce((v,u)=>v+u.amount*beyondUpgradeLevel(u.id),0); }
+  function effBeyondClick(){ return beyondBaseClick()*beyondMasteryProduct('clickMult')*beyondGlobalMultiplier(); }
+  function effBeyondAuto(){ return beyondBaseAuto()*beyondMasteryProduct('autoMult')*beyondGlobalMultiplier(); }
+  function beyondCritChance(){ return Math.min(.45,.05+beyondMasterySum('critAdd')); }
+  function beyondResonancePerClick(){ return 4+beyondMasterySum('resonanceAdd'); }
+  function beyondOfflineRate(){ return beyondMasteryOwned('bm_offline')?.5:.25; }
+  function beyondAscensionGain(){ return beyondRunEssence<1e8?0:Math.max(1,Math.min(50,Math.floor(Math.pow(beyondRunEssence/1e8,.38)))); }
+  function beyondRank(){
+    const ranks=[[0,'Prime Initiate'],[1e5,'Rift Explorer'],[1e8,'Realm Builder'],[1e12,'Beyond Industrialist'],[1e16,'Celestial Executive'],[1e21,'Reality Baron'],[1e27,'Prime Sovereign'],[1e33,'Infinite Archie']];
+    let name=ranks[0][1]; for(const [min,n] of ranks)if(beyondLifetime>=min)name=n; return name;
+  }
+  function beyondVerifiedLifetime(){
+    const n=leaderboardProfile?Number(leaderboardProfile.archies):NaN;
+    return Number.isFinite(n)&&n>=0?n:0;
+  }
+
   const upgrades = [
     { id: 'click2',   name: 'Firmer Tap',       desc: '+1 per click',        baseCost: 15,      type: 'click', amount: 1,     owned: 0 },
     { id: 'friend',   name: 'A Friend Helps',   desc: '+1 Archie / sec',     baseCost: 25,      type: 'auto',  amount: 1,     owned: 0 },
@@ -4086,6 +4310,9 @@
       lastAdminResetVersion,
       starterJourneyStep, starterJourneyCompleted,
       empireInfluence, ascensionStars, ascensionCount, empireProjectLevels, economyVersion,
+      beyondUnlocked, beyondEssence, beyondLifetime, beyondRunEssence, beyondClicks,
+      beyondCores, beyondAscensions, beyondResonance, beyondOverdriveEndsAt,
+      beyondUpgradeLevels, beyondMasteries: Array.from(beyondMasteriesOwned),
       savedAt: Date.now()
     };
   }
@@ -4130,6 +4357,17 @@
     ascensionCount = Math.max(0,Math.floor(Number(data.ascensionCount)||0));
     empireProjectLevels = data.empireProjectLevels && typeof data.empireProjectLevels === 'object' ? {...data.empireProjectLevels} : {};
     economyVersion = Math.max(0,Math.floor(Number(data.economyVersion)||0));
+    beyondUnlocked = data.beyondUnlocked === true;
+    beyondEssence = Math.max(0,Number(data.beyondEssence)||0);
+    beyondLifetime = Math.max(0,Number(data.beyondLifetime)||0);
+    beyondRunEssence = Math.max(0,Number(data.beyondRunEssence)||0);
+    beyondClicks = Math.max(0,Math.floor(Number(data.beyondClicks)||0));
+    beyondCores = Math.max(0,Math.floor(Number(data.beyondCores)||0));
+    beyondAscensions = Math.max(0,Math.floor(Number(data.beyondAscensions)||0));
+    beyondResonance = Math.max(0,Math.min(100,Number(data.beyondResonance)||0));
+    beyondOverdriveEndsAt = Math.max(0,Number(data.beyondOverdriveEndsAt)||0);
+    beyondUpgradeLevels = data.beyondUpgradeLevels && typeof data.beyondUpgradeLevels==='object' ? {...data.beyondUpgradeLevels} : {};
+    if(Array.isArray(data.beyondMasteries)) data.beyondMasteries.forEach(id=>{if(BEYOND_MASTERIES.some(m=>m.id===id))beyondMasteriesOwned.add(id);});
     if (Number.isFinite(Number(data.starterJourneyStep))) {
       starterJourneyStep = Math.max(0, Math.min(6, Math.floor(Number(data.starterJourneyStep))));
       starterJourneyCompleted = data.starterJourneyCompleted === true || starterJourneyStep >= 6;
@@ -4691,6 +4929,8 @@
       if(b) b.disabled=score<1e15;
     });
 
+    renderBeyondPortal();
+
     const gain=ascensionGain();
     const gainText=document.getElementById('ascensionGainText');
     const button=document.getElementById('ascendArchieBtn');
@@ -4760,6 +5000,274 @@
     render();
   }
 
+
+  function renderBeyondPortal(){
+    const btn=document.getElementById('beyondUnlockBtn');
+    const note=document.getElementById('beyondUnlockNote');
+    const quick=document.getElementById('beyondQuickEnter');
+    const lifeEl=document.getElementById('beyondLifetimeRequirement');
+    const costEl=document.getElementById('beyondUnlockCost');
+    if(lifeEl)lifeEl.textContent=fmt(BEYOND_UNLOCK_LIFETIME);
+    if(costEl)costEl.textContent=fmt(BEYOND_UNLOCK_COST);
+    if(quick)quick.classList.toggle('show',beyondUnlocked);
+    if(!btn)return;
+
+    if(beyondUnlocked){
+      btn.disabled=false;
+      btn.textContent='🌌 Enter Archie Beyond';
+      if(note)note.textContent='Portal permanently unlocked. World 2 has separate progression, and your original Archie world stays exactly where you left it.';
+      return;
+    }
+
+    const verified=beyondVerifiedLifetime();
+    const connected=!!leaderboardProfile;
+    const lifeOk=verified>=BEYOND_UNLOCK_LIFETIME;
+    const cashOk=score>=BEYOND_UNLOCK_COST;
+    btn.disabled=!(connected&&lifeOk&&cashOk);
+
+    if(!connected)btn.textContent='Connect to leaderboard to verify Lifetime';
+    else if(!lifeOk)btn.textContent='Need '+fmt(BEYOND_UNLOCK_LIFETIME-verified)+' more verified Lifetime';
+    else if(!cashOk)btn.textContent='Need '+fmt(BEYOND_UNLOCK_COST-score)+' more current Archies';
+    else btn.textContent='Unlock World 2 for '+fmt(BEYOND_UNLOCK_COST)+' Archies';
+
+    if(note)note.textContent='Verified Lifetime: '+fmt(verified)+' / '+fmt(BEYOND_UNLOCK_LIFETIME)+' · Current Archies: '+fmt(score)+' / '+fmt(BEYOND_UNLOCK_COST)+'. The portal cost reduces current Archies only — not Lifetime.';
+  }
+
+  function unlockOrEnterBeyond(){
+    if(beyondUnlocked){enterBeyondWorld();return;}
+    const verified=beyondVerifiedLifetime();
+    if(!leaderboardProfile){showToast('Connect to the leaderboard first so Lifetime Archies can be verified.');return;}
+    if(verified<BEYOND_UNLOCK_LIFETIME){showToast('World 2 requires '+fmt(BEYOND_UNLOCK_LIFETIME)+' verified Lifetime Archies.');return;}
+    if(score<BEYOND_UNLOCK_COST){showToast('You need '+fmt(BEYOND_UNLOCK_COST)+' current Archies to open the portal.');return;}
+
+    if(!confirm('OPEN WORLD 2?\n\nThis costs '+fmt(BEYOND_UNLOCK_COST)+' CURRENT Archies.\nYour Lifetime Archies, Legacy, Empire, cosmetics and original-world progress are kept.\n\nWorld 2 becomes permanently unlocked.'))return;
+
+    score-=BEYOND_UNLOCK_COST;
+    beyondUnlocked=true;
+    beyondEssence=Math.max(beyondEssence,beyondStartEssence());
+    showToast('🌌 Archie Beyond unlocked!');
+    burstConfetti(window.innerWidth/2,window.innerHeight/2,95);
+    playUISound('confirm');
+    saveGame();
+    render();
+    enterBeyondWorld();
+  }
+
+  function enterBeyondWorld(){
+    if(!beyondUnlocked||playerIsBanned)return;
+    beyondActive=true;
+    document.body.classList.add('beyond-world-open');
+    const world=document.getElementById('beyondWorld');
+    if(world){world.classList.add('show');world.setAttribute('aria-hidden','false');}
+    renderBeyondWorld();
+  }
+
+  function exitBeyondWorld(){
+    beyondActive=false;
+    document.body.classList.remove('beyond-world-open');
+    const world=document.getElementById('beyondWorld');
+    if(world){world.classList.remove('show');world.setAttribute('aria-hidden','true');}
+    saveGame();
+    render();
+  }
+
+  function renderBeyondWorld(){
+    if(!beyondUnlocked)return;
+    const setText=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
+
+    setText('beyondEssenceTop',fmt(beyondEssence));
+    setText('beyondCoresTop',fmt(beyondCores));
+    setText('beyondAscensionsTop',fmt(beyondAscensions));
+    setText('beyondPowerNumber',fmt(beyondEssence)+' Essence');
+    setText('beyondPowerClick','+'+fmt(effBeyondClick())+' per click');
+    setText('beyondPowerAuto',fmt(effBeyondAuto())+' / sec');
+    setText('beyondGlobalMult','x'+beyondGlobalMultiplier().toFixed(2));
+    setText('beyondCritChance',Math.round(beyondCritChance()*100)+'%');
+    setText('beyondClickValue','+'+fmt(effBeyondClick())+' Essence');
+    setText('beyondLifetimeStat',fmt(beyondLifetime));
+    setText('beyondClicksStat',fmt(beyondClicks));
+    setText('beyondRunStat',fmt(beyondRunEssence));
+    setText('beyondRankStat',beyondRank());
+    setText('beyondRankPill',beyondRank().toUpperCase());
+
+    const fill=document.getElementById('beyondResonanceFill');
+    if(fill)fill.style.width=Math.max(0,Math.min(100,beyondResonance))+'%';
+    setText('beyondResonanceText',Math.floor(beyondResonance)+' / 100');
+    setText('beyondResonanceGain','+'+beyondResonancePerClick()+' / click');
+
+    const active=beyondOverdriveActive();
+    const overdrive=document.getElementById('beyondOverdriveLive');
+    const ring=document.getElementById('beyondArchieRing');
+    if(overdrive){
+      overdrive.classList.toggle('show',active);
+      if(active){
+        const secs=Math.max(1,Math.ceil((beyondOverdriveEndsAt-Date.now())/1000));
+        overdrive.textContent='⚡ PRIME OVERDRIVE · x'+beyondOverdriveMultiplier()+' · '+secs+'s';
+      }
+    }
+    if(ring)ring.classList.toggle('overdrive',active);
+
+    const gain=beyondAscensionGain();
+    const ascend=document.getElementById('beyondAscendBtn');
+    if(ascend){
+      ascend.disabled=gain<1;
+      ascend.textContent=gain>0?'Ascend for +'+gain+' Prime Core'+(gain===1?'':'s'):'Ascend for 0 Prime Cores';
+    }
+    setText('beyondAscendDesc',gain>0
+      ? 'Reset only this World 2 run for +'+gain+' Prime Core'+(gain===1?'':'s')+'. Spend Cores in the permanent Constellation.'
+      : 'Earn '+fmt(Math.max(0,1e8-beyondRunEssence))+' more Beyond Essence this run to unlock Prime Ascension.');
+
+    renderBeyondUpgrades();
+    renderBeyondMasteries();
+    renderBeyondMilestones();
+  }
+
+  function renderBeyondUpgrades(){
+    const list=document.getElementById('beyondUpgradeList');
+    if(!list)return;
+    list.innerHTML='';
+    BEYOND_UPGRADES.forEach(u=>{
+      const level=beyondUpgradeLevel(u.id),c=beyondUpgradeCost(u);
+      const row=document.createElement('div');
+      row.className='beyond-upgrade'+(beyondEssence>=c?' affordable':'');
+      row.innerHTML='<div class="beyond-upgrade-head"><div class="beyond-upgrade-name">'+u.icon+' '+u.name+'</div><div class="beyond-upgrade-level">LV '+level+'</div></div>'+
+        '<div class="beyond-upgrade-desc">'+u.desc+' · Next cost '+fmt(c)+' Essence</div>'+
+        '<button class="beyond-buy" '+(beyondEssence<c?'disabled':'')+'>Buy Upgrade</button>';
+      row.querySelector('.beyond-buy').addEventListener('click',()=>buyBeyondUpgrade(u));
+      list.appendChild(row);
+    });
+  }
+
+  function buyBeyondUpgrade(u){
+    const c=beyondUpgradeCost(u);
+    if(beyondEssence<c)return;
+    beyondEssence-=c;
+    beyondUpgradeLevels[u.id]=beyondUpgradeLevel(u.id)+1;
+    playUISound('purchase');
+    saveGame();
+    renderBeyondWorld();
+  }
+
+  function renderBeyondMasteries(){
+    const list=document.getElementById('beyondMasteryList');
+    if(!list)return;
+    list.innerHTML='';
+    BEYOND_MASTERIES.forEach(m=>{
+      const owned=beyondMasteryOwned(m.id);
+      const prereqs=(m.prereq||[]).every(id=>beyondMasteryOwned(id));
+      const affordable=prereqs&&beyondCores>=m.cost&&!owned;
+      const row=document.createElement('div');
+      row.className='beyond-mastery'+(owned?' owned':affordable?' affordable':'');
+      row.innerHTML='<div class="beyond-mastery-head"><div class="beyond-mastery-name">'+m.icon+' '+m.name+'</div><div class="beyond-mastery-cost">'+(owned?'OWNED':m.cost+' Core'+(m.cost===1?'':'s'))+'</div></div>'+
+        '<div class="beyond-mastery-desc">'+m.desc+(prereqs?'':' · Requires earlier Constellation nodes')+'</div>'+
+        (!owned?'<button class="beyond-buy" '+(!affordable?'disabled':'')+'>Unlock Mastery</button>':'');
+      const b=row.querySelector('.beyond-buy');
+      if(b)b.addEventListener('click',()=>buyBeyondMastery(m));
+      list.appendChild(row);
+    });
+  }
+
+  function buyBeyondMastery(m){
+    if(beyondMasteryOwned(m.id))return;
+    if(!(m.prereq||[]).every(id=>beyondMasteryOwned(id)))return;
+    if(beyondCores<m.cost)return;
+    beyondCores-=m.cost;
+    beyondMasteriesOwned.add(m.id);
+    showToast('✦ Prime Mastery unlocked: '+m.name);
+    playUISound('confirm');
+    saveGame();
+    renderBeyondWorld();
+  }
+
+  function renderBeyondMilestones(){
+    const list=document.getElementById('beyondMilestoneList');
+    if(!list)return;
+    list.innerHTML='';
+    BEYOND_MILESTONES.forEach(m=>{
+      const earned=beyondLifetime>=m.goal;
+      const row=document.createElement('div');
+      row.className='beyond-milestone'+(earned?' earned':'');
+      row.innerHTML='<div class="beyond-milestone-head"><div class="beyond-milestone-name">'+(earned?'✓ ':'🔒 ')+m.name+'</div><div class="beyond-milestone-state">'+(earned?'x'+m.mult.toFixed(2):fmt(m.goal))+'</div></div>'+
+        '<div class="beyond-milestone-desc">'+m.desc+' · Permanent x'+m.mult.toFixed(2)+' World 2 multiplier.</div>';
+      list.appendChild(row);
+    });
+  }
+
+  function triggerBeyondOverdrive(){
+    beyondResonance=0;
+    beyondOverdriveEndsAt=Date.now()+12000;
+    showToast('⚡ PRIME OVERDRIVE! x'+beyondOverdriveMultiplier()+' World 2 production for 12 seconds.');
+    playUISound('confirm');
+  }
+
+  function performBeyondClick(e,fromKeyboard=false){
+    if(!beyondActive||playerIsBanned)return;
+    if(!acceptHumanClick(e))return;
+
+    const crit=Math.random()<beyondCritChance();
+    let gain=effBeyondClick();
+    if(crit)gain*=5;
+    beyondEssence+=gain;
+    beyondLifetime+=gain;
+    beyondRunEssence+=gain;
+    beyondClicks++;
+    beyondResonance=Math.min(100,beyondResonance+beyondResonancePerClick()+(crit?6:0));
+    if(beyondResonance>=100&&!beyondOverdriveActive())triggerBeyondOverdrive();
+
+    const b=document.getElementById('beyondArchieBtn');
+    const r=b?b.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};
+    const x=!fromKeyboard&&e&&Number.isFinite(e.clientX)?e.clientX:r.left+r.width/2;
+    const y=!fromKeyboard&&e&&Number.isFinite(e.clientY)?e.clientY:r.top+r.height*.45;
+
+    const f=document.createElement('div');
+    f.className='beyond-float-number'+(crit?' crit':'');
+    f.textContent=(crit?'CRIT ':'')+'+'+fmt(gain);
+    f.style.left=x+'px';f.style.top=y+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),700);
+
+    const count=crit?8:4;
+    for(let i=0;i<count;i++){
+      const p=document.createElement('div');p.className='beyond-particle';p.style.left=x+'px';p.style.top=y+'px';
+      const a=Math.PI*2*i/count+Math.random()*.3,d=28+Math.random()*42;
+      p.style.setProperty('--dx',Math.cos(a)*d+'px');p.style.setProperty('--dy',Math.sin(a)*d+'px');
+      document.body.appendChild(p);setTimeout(()=>p.remove(),600);
+    }
+
+    saveGame();
+    renderBeyondWorld();
+  }
+
+  function primeAscendBeyond(){
+    const gain=beyondAscensionGain();
+    if(gain<1)return;
+    if(!confirm('PRIME ASCEND?\n\nThis resets ONLY World 2 Beyond Essence and World 2 upgrade levels.\nIt keeps the original Archie world, Lifetime Beyond Essence, Prime Cores, Constellation masteries and Prime Ascension count.\n\nYou gain +'+gain+' Prime Core'+(gain===1?'':'s')+'.'))return;
+
+    beyondCores+=gain;
+    beyondAscensions++;
+    beyondEssence=beyondStartEssence();
+    beyondRunEssence=beyondEssence;
+    beyondResonance=0;
+    beyondOverdriveEndsAt=0;
+    beyondUpgradeLevels={};
+    burstConfetti(innerWidth/2,innerHeight/2,70);
+    showToast('✦ Prime Ascension complete · +'+gain+' Core'+(gain===1?'':'s'));
+    playUISound('confirm');
+    saveGame();
+    renderBeyondWorld();
+  }
+
+  function grantBeyondOfflineEarnings(savedAt){
+    if(!beyondUnlocked||!savedAt)return;
+    const elapsed=Math.max(0,(Date.now()-savedAt)/1000);
+    if(elapsed<60)return;
+    const perSec=effBeyondAuto();
+    if(perSec<=0)return;
+    const capped=Math.min(elapsed,8*3600);
+    const gain=Math.floor(perSec*capped*beyondOfflineRate());
+    if(gain<1)return;
+    beyondEssence+=gain;beyondLifetime+=gain;beyondRunEssence+=gain;
+    setTimeout(()=>showToast('🌌 Archie Beyond earned '+fmt(gain)+' Essence while you were away.'),700);
+  }
+
   function render() {
     scoreEl.textContent = fmt(score) + ' Archies';
     fitMainScoreText();
@@ -4814,6 +5322,7 @@
     const starterAdvanced = starterMaybeAdvance();
     renderStarterJourney();
     renderEmpire();
+    renderBeyondPortal();
     renderNextInteresting();
     if (starterAdvanced) setTimeout(render,0);
   }
@@ -5491,6 +6000,22 @@
     ascensionCount = 0;
     empireProjectLevels = {};
     economyVersion = 2;
+
+    beyondUnlocked = false;
+    beyondActive = false;
+    beyondEssence = 0;
+    beyondLifetime = 0;
+    beyondRunEssence = 0;
+    beyondClicks = 0;
+    beyondCores = 0;
+    beyondAscensions = 0;
+    beyondResonance = 0;
+    beyondOverdriveEndsAt = 0;
+    beyondUpgradeLevels = {};
+    beyondMasteriesOwned.clear();
+    document.body.classList.remove('beyond-world-open');
+    document.getElementById('beyondWorld')?.classList.remove('show');
+
     if (leaderboardProfile) leaderboardProfile.archies = 0;
     renderAchvList();
     render();
@@ -5996,6 +6521,11 @@
   });
 
   document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && beyondActive) {
+      e.preventDefault();
+      exitBeyondWorld();
+      return;
+    }
     if (e.key === 'Escape' && document.getElementById('panel-legacy')?.classList.contains('active')) {
       e.preventDefault();
       document.getElementById('legacyFullscreenClose')?.click();
@@ -6005,6 +6535,7 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.code !== 'Space') return;
+    if (typeof aflEventRunning === 'function' && aflEventRunning()) return;
 
     const target = e.target;
     const tag = target && target.tagName ? target.tagName.toLowerCase() : '';
@@ -6030,18 +6561,31 @@
     }
 
     e.preventDefault();
-    performArchieClick(e, true);
+    if (beyondActive) performBeyondClick(e, true);
+    else performArchieClick(e, true);
   });
 
   setInterval(() => {
     if (playerIsBanned) { saveGame(); return; }
+
     const gain = effAuto();
     if (gain > 0) {
       score += gain;
       totalEarned += gain;
       runEarned += gain;
-      render();
+      if (!beyondActive) render();
     }
+
+    if (beyondUnlocked) {
+      const beyondGain = effBeyondAuto();
+      if (beyondGain > 0) {
+        beyondEssence += beyondGain;
+        beyondLifetime += beyondGain;
+        beyondRunEssence += beyondGain;
+      }
+      if (beyondActive) renderBeyondWorld();
+    }
+
     saveGame();
   }, 1000);
 
@@ -6952,6 +7496,12 @@
 
   function setPlayerBanned(banned) {
     playerIsBanned = !!banned;
+    if (playerIsBanned && beyondActive) {
+      beyondActive = false;
+      document.body.classList.remove('beyond-world-open');
+      const bw = document.getElementById('beyondWorld');
+      if (bw) { bw.classList.remove('show'); bw.setAttribute('aria-hidden','true'); }
+    }
     if (banScreen) banScreen.classList.toggle('show', playerIsBanned);
   }
 
@@ -7297,6 +7847,54 @@
       render();
     } catch (err) {
       if (status) status.textContent = err && err.message ? err.message : 'Creator cosmetic unlock failed.';
+    }
+  }
+
+
+  async function adminGrantSelfPreset() {
+    const select=document.getElementById('adminSelfGrantAmount');
+    const lifetime=document.getElementById('adminSelfGrantLifetime');
+    const status=document.getElementById('adminSelfGrantStatus');
+    const button=document.getElementById('adminSelfGrantBtn');
+
+    if(!adminUnlocked||!leaderboardDb||!leaderboardUser){
+      if(status)status.textContent='Admin connection is not ready.';
+      return;
+    }
+
+    const raw=String(select?.value||'');
+    if(!/^\d+$/.test(raw)||raw==='0'){
+      if(status)status.textContent='Choose a valid amount.';
+      return;
+    }
+
+    const label=select?.options?.[select.selectedIndex]?.textContent||raw;
+    const countsLifetime=!!lifetime?.checked;
+
+    if(!confirm('Give yourself '+label+' Archies'+(countsLifetime?' and add the same amount to Lifetime?':'?')))return;
+
+    if(button)button.disabled=true;
+    if(status)status.textContent='Sending '+label+' to your account…';
+
+    try{
+      const {error}=await leaderboardDb.rpc('archie_admin_give_self_archies',{
+        p_amount:raw,
+        p_count_lifetime:countsLifetime
+      });
+      if(error)throw error;
+
+      if(status)status.textContent='✓ '+label+' queued for your account.';
+      showToast('💰 Developer self-grant: +'+label);
+
+      // Pull the pending adjustment down immediately instead of waiting
+      // for the normal polling interval.
+      setTimeout(()=>pollClientState(true),180);
+      setTimeout(()=>syncLifetimeArchies(true),500);
+      setTimeout(()=>loadAdminPlayers(),750);
+    }catch(err){
+      if(status)status.textContent='Self-grant error: '+(err&&err.message?err.message:'request failed');
+    }finally{
+      if(button)button.disabled=false;
     }
   }
 
@@ -7718,7 +8316,9 @@
   });
 
   loadGame();
+  const savedAtForOfflineEarnings = offlineSavedAt;
   grantOfflineEarnings();
+  grantBeyondOfflineEarnings(savedAtForOfflineEarnings);
   updateWorldProgression(true);
   renderWorldSelector();
   renderAchvList();
@@ -7783,6 +8383,7 @@
   document.getElementById('developerPinSubmit').addEventListener('click', submitDeveloperPin);
   document.getElementById('developerPinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') submitDeveloperPin(); });
   document.getElementById('developerAdminClose').addEventListener('click', closeDeveloperAdmin);
+  document.getElementById('adminSelfGrantBtn').addEventListener('click',adminGrantSelfPreset);
   document.querySelectorAll('.creator-cosmetic-unlock').forEach(btn => btn.addEventListener('click',()=>unlockCreatorCosmetic(btn.dataset.creatorItem)));
   document.getElementById('adminRefreshPlayers').addEventListener('click', loadAdminPlayers);
   document.getElementById('adminPushUpdate').addEventListener('click', adminPushUpdate);
@@ -7827,6 +8428,15 @@
   document.getElementById('empireBurn25').addEventListener('click',()=>burnEmpireWealth(.25));
   document.getElementById('empireBurn50').addEventListener('click',()=>burnEmpireWealth(.50));
   document.getElementById('ascendArchieBtn').addEventListener('click',ascendArchie);
+  document.getElementById('beyondUnlockBtn').addEventListener('click',unlockOrEnterBeyond);
+  document.getElementById('beyondQuickEnter').addEventListener('click',enterBeyondWorld);
+  document.getElementById('beyondReturnBtn').addEventListener('click',exitBeyondWorld);
+  document.getElementById('beyondArchieBtn').addEventListener('click',(e)=>performBeyondClick(e,false));
+  document.getElementById('beyondAscendBtn').addEventListener('click',primeAscendBeyond);
+  document.querySelectorAll('.beyond-tab').forEach(tab=>tab.addEventListener('click',()=>{
+    document.querySelectorAll('.beyond-tab').forEach(t=>t.classList.toggle('active',t===tab));
+    document.querySelectorAll('.beyond-panel').forEach(p=>p.classList.toggle('active',p.id==='beyondPanel-'+tab.dataset.beyondTab));
+  }));
   document.getElementById('cosmeticPreviewReset').addEventListener('click',resetCosmeticPreview);
   window.addEventListener('resize',()=>requestAnimationFrame(()=>{ fitMainScoreText(); updateDynamicScoreGlow(); }),{passive:true});
   window.addEventListener('orientationchange',()=>setTimeout(()=>{ fitMainScoreText(); updateDynamicScoreGlow(); },120),{passive:true});
