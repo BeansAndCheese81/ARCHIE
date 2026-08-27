@@ -3835,6 +3835,305 @@ body.beyond-world-open{overflow:hidden!important}
   #panel-cosmetics .cosmetics-card:not(.wardrobe-card){flex:0 0 auto!important}
   @media(max-width:900px){#panel-cosmetics #cosmeticsList{max-height:275px!important}}
 
+
+  /* =========================================================
+     READABILITY PASS — SIDEBAR / COSMETICS / LEGACY / WORLD 2
+     ========================================================= */
+
+  /* Main upgrade / boost / achievement cards */
+  .upgrade .name { font-size:1rem!important; line-height:1.15!important; }
+  .upgrade .desc { font-size:.76rem!important; line-height:1.35!important; }
+  .upgrade .cost { font-size:.82rem!important; }
+  .upgrade .owned { font-size:.71rem!important; }
+  .achv-item { font-size:.84rem!important; }
+  .achv-item .aname { font-size:.88rem!important; }
+  .achv-item .adesc { font-size:.74rem!important; line-height:1.35!important; }
+  .hold-buy-hint { font-size:.65rem!important; line-height:1.35!important; }
+
+  /* Friends / quests / inbox */
+  .friends-title { font-size:.98rem!important; }
+  .friends-subtitle,.friends-status,.friend-empty { font-size:.70rem!important;line-height:1.4!important; }
+  .friend-name { font-size:.86rem!important; }
+  .friend-meta { font-size:.68rem!important;line-height:1.35!important; }
+  .friends-btn { font-size:.72rem!important; }
+  .daily-title,.inbox-title { font-size:1rem!important; }
+  .daily-sub,.inbox-sub { font-size:.69rem!important;line-height:1.42!important; }
+  .quest-name { font-size:.87rem!important; }
+  .quest-reward { font-size:.66rem!important; }
+  .quest-desc { font-size:.69rem!important;line-height:1.4!important; }
+  .quest-progress-line { font-size:.66rem!important; }
+  .quest-claim { font-size:.70rem!important; }
+
+  /* Cosmetics — readable without returning to the giant wall layout */
+  #panel-cosmetics .cosmetics-wardrobe-title { font-size:.94rem!important; }
+  #panel-cosmetics .cosmetics-wardrobe-sub { font-size:.66rem!important;line-height:1.4!important; }
+  #panel-cosmetics .cosmetics-summary-stat b { font-size:.73rem!important; }
+  #panel-cosmetics .cosmetics-summary-stat span { font-size:.48rem!important; }
+  #panel-cosmetics .cosmetics-search { font-size:.65rem!important;padding:7px 9px!important; }
+  #panel-cosmetics .cosmetics-filter-chip { font-size:.57rem!important;padding:5px 7px!important; }
+  #panel-cosmetics .cosmetic-preview-label { font-size:.56rem!important; }
+  #panel-cosmetics .cosmetic-preview-name { font-size:.72rem!important; }
+  #panel-cosmetics .cosmetic-preview-title { font-size:.62rem!important; }
+  #panel-cosmetics .cosmetic-preview-desc { font-size:.58rem!important;line-height:1.4!important; }
+  #panel-cosmetics .cosmetic-preview-actions .cosmetic-btn { font-size:.59rem!important; }
+  #panel-cosmetics .cosmetics-category-head b { font-size:.74rem!important; }
+  #panel-cosmetics .cosmetics-category-head span { font-size:.55rem!important; }
+  #panel-cosmetics .cosmetic-name { font-size:.76rem!important;line-height:1.18!important; }
+  #panel-cosmetics .cosmetic-desc { font-size:.62rem!important;line-height:1.38!important; }
+  #panel-cosmetics .cosmetic-rarity { font-size:.47rem!important;padding:2px 5px!important; }
+  #panel-cosmetics .cosmetic-actions .cosmetic-btn { font-size:.60rem!important;padding:6px 8px!important; }
+  #panel-cosmetics #cosmeticsList>.cosmetic-btn.secondary { font-size:.57rem!important;padding:5px 8px!important; }
+  #panel-cosmetics #cosmeticsList { max-height:335px!important; }
+
+  /* Legacy skill tree */
+  .legacy-node-name { font-size:.88rem!important;line-height:1.2!important; }
+  .legacy-node-cost { font-size:.67rem!important; }
+  .legacy-node-desc { font-size:.70rem!important;line-height:1.4!important; }
+  .legacy-node-prereq { font-size:.63rem!important;line-height:1.3!important; }
+  .legacy-filter-btn { font-size:.62rem!important; }
+  .legacy-branch-progress { font-size:.56rem!important; }
+
+  /* Live chat */
+  .archie-chat-title { font-size:.76rem!important; }
+  .archie-chat-name { font-size:.66rem!important; }
+  .archie-chat-text { font-size:.65rem!important;line-height:1.42!important; }
+  .archie-chat-time { font-size:.50rem!important; }
+  .archie-chat-input { font-size:.64rem!important; }
+  .archie-chat-send { font-size:.63rem!important; }
+  .archie-chat-status { font-size:.52rem!important; }
+
+  /* World 2 */
+  .beyond-kicker { font-size:.66rem!important; }
+  .beyond-subtitle { font-size:.74rem!important; }
+  .beyond-topstat b { font-size:.94rem!important; }
+  .beyond-topstat span { font-size:.61rem!important; }
+  .beyond-card-kicker { font-size:.64rem!important; }
+  .beyond-card-title { font-size:1.06rem!important; }
+  .beyond-power-sub { font-size:.78rem!important; }
+  .beyond-statline { font-size:.72rem!important;line-height:1.4!important; }
+  .beyond-tab { font-size:.74rem!important; }
+  .beyond-panel-title { font-size:1.08rem!important; }
+  .beyond-panel-sub { font-size:.70rem!important;line-height:1.48!important; }
+  .beyond-upgrade-name,.beyond-mastery-name,.beyond-milestone-name { font-size:.87rem!important;line-height:1.2!important; }
+  .beyond-upgrade-level,.beyond-mastery-cost,.beyond-milestone-state { font-size:.64rem!important; }
+  .beyond-upgrade-desc,.beyond-mastery-desc,.beyond-milestone-desc { font-size:.69rem!important;line-height:1.48!important; }
+  .beyond-buy { font-size:.73rem!important;padding:9px 10px!important; }
+  .beyond-click-label,.beyond-center-hint { font-size:.67rem!important; }
+
+  /* World 2 breakthrough/progression feedback */
+  .beyond-upgrade { position:relative;overflow:hidden; }
+  .beyond-upgrade-progress {
+    height:5px;
+    margin-top:7px;
+    border-radius:999px;
+    overflow:hidden;
+    background:rgba(255,255,255,.07);
+  }
+  .beyond-upgrade-progress > span {
+    display:block;
+    height:100%;
+    width:0;
+    border-radius:999px;
+    background:linear-gradient(90deg,#4fd8ff,#8878ff,#d774ff);
+    box-shadow:0 0 9px rgba(111,131,255,.35);
+    transition:width .22s ease;
+  }
+  .beyond-upgrade-progress-label {
+    margin-top:3px;
+    color:#91a5ca;
+    font-size:.59rem;
+    font-weight:800;
+  }
+  .beyond-upgrade.purchase-hit {
+    animation:beyondPurchaseHit .48s ease;
+    border-color:rgba(108,225,255,.72)!important;
+  }
+  .beyond-upgrade.breakthrough-hit {
+    animation:beyondBreakthroughHit .9s ease;
+    border-color:#ffe07e!important;
+    box-shadow:0 0 28px rgba(255,210,93,.34),0 0 48px rgba(126,113,255,.20)!important;
+  }
+  .beyond-topstat.purchase-pulse,
+  .beyond-archie-ring.purchase-pulse {
+    animation:beyondPurchasePulse .55s ease!important;
+  }
+  .beyond-purchase-banner {
+    position:fixed;
+    left:50%;
+    top:92px;
+    z-index:7440;
+    transform:translate(-50%,-18px) scale(.94);
+    opacity:0;
+    pointer-events:none;
+    min-width:250px;
+    max-width:min(520px,88vw);
+    padding:9px 14px;
+    border-radius:15px;
+    text-align:center;
+    border:1px solid rgba(145,183,255,.34);
+    background:linear-gradient(135deg,rgba(14,28,68,.96),rgba(56,30,91,.96));
+    box-shadow:0 14px 40px rgba(0,0,0,.35),0 0 28px rgba(104,116,255,.20);
+    color:#f5f8ff;
+    transition:opacity .16s ease,transform .18s ease;
+  }
+  .beyond-purchase-banner.show {
+    opacity:1;
+    transform:translate(-50%,0) scale(1);
+  }
+  .beyond-purchase-banner.breakthrough {
+    border-color:rgba(255,221,111,.68);
+    background:linear-gradient(135deg,rgba(73,48,36,.98),rgba(82,50,112,.98));
+    box-shadow:0 14px 42px rgba(0,0,0,.38),0 0 32px rgba(255,205,74,.28);
+  }
+  .beyond-purchase-banner-title {
+    font-family:'Baloo 2',sans-serif;
+    font-size:.92rem;
+    font-weight:900;
+  }
+  .beyond-purchase-banner-sub {
+    margin-top:1px;
+    color:#bcd0f3;
+    font-size:.68rem;
+    font-weight:800;
+  }
+  .beyond-purchase-banner.breakthrough .beyond-purchase-banner-title { color:#ffe697; }
+  .beyond-purchase-banner.breakthrough .beyond-purchase-banner-sub { color:#f4dca6; }
+
+  @keyframes beyondPurchaseHit {
+    0%,100%{transform:none}
+    32%{transform:scale(1.025);background:rgba(86,133,255,.16)}
+    58%{transform:scale(.995)}
+  }
+  @keyframes beyondBreakthroughHit {
+    0%,100%{transform:none;filter:none}
+    25%{transform:scale(1.045);filter:brightness(1.28)}
+    55%{transform:scale(.995);filter:brightness(1.12)}
+  }
+  @keyframes beyondPurchasePulse {
+    0%,100%{transform:none;filter:none}
+    40%{transform:scale(1.08);filter:brightness(1.32)}
+  }
+
+  @media(max-width:900px){
+    #panel-cosmetics .cosmetic-name { font-size:.72rem!important; }
+    #panel-cosmetics .cosmetic-desc { font-size:.60rem!important; }
+    #panel-cosmetics #cosmeticsList { max-height:300px!important; }
+  }
+
+
+
+  /* =========================================================
+     MODEST BIGGER MENU PASS
+     ========================================================= */
+  .layout {
+    grid-template-columns: 1fr minmax(270px, 380px) !important;
+  }
+  .sidebar {
+    padding: 12px 16px 12px 10px !important;
+  }
+  .tabs {
+    gap: 7px !important;
+    margin-bottom: 10px !important;
+    padding: 8px !important;
+  }
+  .tab {
+    font-size: 0.74rem !important;
+    padding: 9px 5px !important;
+    border-radius: 12px !important;
+  }
+  .panel { gap: 4px; }
+  .shop, .achv-list, .boost-list, .stats-panel, .friends-panel {
+    padding-right: 6px !important;
+  }
+  .leaderboard-card,
+  .friends-card,
+  .friend-card,
+  .cosmetics-card,
+  .legacy-branch,
+  .prestige-box,
+  .daily-card,
+  .inbox-card,
+  .stat-card,
+  .quest-row,
+  .social-modal .stat-card {
+    border-radius: 15px !important;
+  }
+  .leaderboard-button,
+  .leaderboard-switch button,
+  .friends-btn,
+  .cosmetic-btn,
+  .quest-claim,
+  .prestige-btn,
+  .admin-btn,
+  .beyond-buy {
+    min-height: 34px;
+  }
+  .leaderboard-card,
+  .friends-card,
+  .cosmetics-card,
+  .legacy-branch,
+  .daily-card,
+  .inbox-card,
+  .stat-card {
+    padding: 11px !important;
+  }
+  .upgrade, .achv-item {
+    padding: 10px 12px !important;
+  }
+  .upgrade .name { font-size: 1.02rem !important; }
+  .upgrade .desc { font-size: 0.79rem !important; }
+  .upgrade .cost { font-size: 0.84rem !important; padding: 6px 11px !important; }
+  .upgrade .owned { font-size: 0.73rem !important; }
+
+  #panel-cosmetics #cosmeticsList { max-height: 350px !important; }
+  #panel-cosmetics .cosmetic-item { padding: 7px 8px !important; }
+  #panel-cosmetics .cosmetic-name { font-size: .78rem !important; }
+  #panel-cosmetics .cosmetic-desc { font-size: .64rem !important; }
+  #panel-cosmetics .cosmetic-actions .cosmetic-btn { font-size: .62rem !important; }
+
+  .legacy-node { padding: 10px !important; }
+  .legacy-node-name { font-size: .9rem !important; }
+  .legacy-node-desc { font-size: .72rem !important; }
+
+  .friends-title, .daily-title, .inbox-title { font-size: 1.02rem !important; }
+  .friend-name { font-size: .88rem !important; }
+  .friend-meta, .friends-subtitle, .friends-status { font-size: .7rem !important; }
+
+  .quest-name { font-size: .89rem !important; }
+  .quest-desc { font-size: .71rem !important; }
+  .quest-reward, .quest-progress-line { font-size: .67rem !important; }
+
+  .leaderboard-header-title,
+  .leaderboard-title,
+  .leaderboard-card-title {
+    font-size: .98rem !important;
+  }
+
+  @media (max-width: 1100px) {
+    .layout {
+      grid-template-columns: 1fr minmax(255px, 355px) !important;
+    }
+    .tab {
+      font-size: 0.71rem !important;
+      padding: 8px 5px !important;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .sidebar {
+      max-height: 46vh !important;
+      padding: 10px 10px 12px !important;
+    }
+    .tabs {
+      gap: 6px !important;
+      padding: 6px !important;
+    }
+    .tab {
+      font-size: 0.68rem !important;
+      padding: 8px 4px !important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -4463,6 +4762,30 @@ body.beyond-world-open{overflow:hidden!important}
       </label>
       <div class="admin-self-fund-note">Server-protected: the RPC always targets <b>your own auth UID</b> and still requires the server-side admin allow-list.</div>
       <div class="admin-status" id="adminSelfGrantStatus"></div>
+
+      <div style="height:1px;background:rgba(83,150,255,.18);margin:10px 0 9px"></div>
+
+      <div class="admin-section-title" style="font-size:.72rem">🌌 World 2 Essence</div>
+      <div class="admin-muted">Give Beyond Essence directly to your own World 2 save for testing upgrades, milestones and Prime Ascension.</div>
+      <div class="admin-self-fund-grid">
+        <select class="admin-select" id="adminSelfEssenceAmount">
+          <option value="1000">1K Essence</option>
+          <option value="1000000">1M Essence</option>
+          <option value="100000000">100M Essence · Prime Ascension test</option>
+          <option value="10000000000">10B Essence</option>
+          <option value="1000000000000">1T Essence</option>
+          <option value="1000000000000000">1Qa Essence</option>
+          <option value="1000000000000000000">1Qi Essence</option>
+          <option value="1000000000000000000000000">1Sp Essence</option>
+        </select>
+        <button class="admin-btn good" id="adminSelfEssenceBtn" type="button">Give Essence</button>
+      </div>
+      <label class="admin-check" style="margin-top:7px">
+        <input type="checkbox" id="adminSelfEssenceLifetime" checked>
+        also add the same amount to Lifetime Beyond Essence
+      </label>
+      <div class="admin-self-fund-note">Current-only grants are useful for shop testing. Lifetime grants also count toward World 2 milestones and sync to the World 2 leaderboard.</div>
+      <div class="admin-status" id="adminSelfEssenceStatus"></div>
     </div>
 
     <div class="admin-section">
@@ -5067,6 +5390,12 @@ body.beyond-world-open{overflow:hidden!important}
 
   function beyondUpgradeLevel(id){ return Math.max(0,Math.floor(Number(beyondUpgradeLevels[id])||0)); }
   function beyondUpgradeCost(u){ return Math.floor(u.base*Math.pow(u.growth,beyondUpgradeLevel(u.id))); }
+  function beyondUpgradeBreakthroughMult(level){
+    return Math.min(3,1+Math.floor(Math.max(0,Number(level)||0)/10)*0.10);
+  }
+  function beyondUpgradeNextBreakthrough(level){
+    return (Math.floor(Math.max(0,Number(level)||0)/10)+1)*10;
+  }
   function beyondMasteryOwned(id){ return beyondMasteriesOwned.has(id); }
   function beyondMasteryProduct(type){ return BEYOND_MASTERIES.reduce((v,m)=>beyondMasteryOwned(m.id)&&m.type===type?v*m.value:v,1); }
   function beyondMasterySum(type){ return BEYOND_MASTERIES.reduce((v,m)=>beyondMasteryOwned(m.id)&&m.type===type?v+m.value:v,0); }
@@ -5076,8 +5405,18 @@ body.beyond-world-open{overflow:hidden!important}
   function beyondOverdriveActive(){ return beyondOverdriveEndsAt>Date.now(); }
   function beyondOverdriveMultiplier(){ return beyondOverdriveActive()?(beyondMasteryOwned('bm_overdrive')?8:5):1; }
   function beyondGlobalMultiplier(){ return beyondMilestoneMultiplier()*beyondAscensionMultiplier()*beyondMasteryProduct('allMult')*beyondOverdriveMultiplier(); }
-  function beyondBaseClick(){ return 1+BEYOND_UPGRADES.filter(u=>u.type==='click').reduce((v,u)=>v+u.amount*beyondUpgradeLevel(u.id),0); }
-  function beyondBaseAuto(){ return BEYOND_UPGRADES.filter(u=>u.type==='auto').reduce((v,u)=>v+u.amount*beyondUpgradeLevel(u.id),0); }
+  function beyondBaseClick(){
+    return 1+BEYOND_UPGRADES.filter(u=>u.type==='click').reduce((v,u)=>{
+      const level=beyondUpgradeLevel(u.id);
+      return v+u.amount*level*beyondUpgradeBreakthroughMult(level);
+    },0);
+  }
+  function beyondBaseAuto(){
+    return BEYOND_UPGRADES.filter(u=>u.type==='auto').reduce((v,u)=>{
+      const level=beyondUpgradeLevel(u.id);
+      return v+u.amount*level*beyondUpgradeBreakthroughMult(level);
+    },0);
+  }
   function effBeyondClick(){ return beyondBaseClick()*beyondMasteryProduct('clickMult')*beyondGlobalMultiplier(); }
   function effBeyondAuto(){ return beyondBaseAuto()*beyondMasteryProduct('autoMult')*beyondGlobalMultiplier(); }
   function beyondCritChance(){ return Math.min(.45,.05+beyondMasterySum('critAdd')); }
@@ -6108,22 +6447,111 @@ body.beyond-world-open{overflow:hidden!important}
       const row=document.createElement('div');
       row.className='beyond-upgrade'+(beyondEssence>=c?' affordable':'');
       row.dataset.beyondId=u.id;
-      row.innerHTML='<div class="beyond-upgrade-head"><div class="beyond-upgrade-name">'+u.icon+' '+u.name+'</div><div class="beyond-upgrade-level">LV '+level+'</div></div>'+
+      const breakthroughMult=beyondUpgradeBreakthroughMult(level);
+      const nextBreak=beyondUpgradeNextBreakthrough(level);
+      const breakProgress=(level%10)*10;
+      row.innerHTML='<div class="beyond-upgrade-head"><div class="beyond-upgrade-name">'+u.icon+' '+u.name+'</div><div class="beyond-upgrade-level">LV '+level+' · x'+breakthroughMult.toFixed(2)+'</div></div>'+
         '<div class="beyond-upgrade-desc">'+u.desc+' · Next cost '+fmt(c)+' Essence</div>'+
-        '<button class="beyond-buy" '+(beyondEssence<c?'disabled':'')+'>Buy Upgrade</button>';
+        '<div class="beyond-upgrade-progress"><span style="width:'+breakProgress+'%"></span></div>'+
+        '<div class="beyond-upgrade-progress-label">Next Breakthrough: LV '+nextBreak+' · +10% upgrade power</div>'+
+        '<button class="beyond-buy" '+(beyondEssence<c?'disabled':'')+'>POWER UP · '+fmt(c)+' Essence</button>';
       row.querySelector('.beyond-buy').addEventListener('click',()=>buyBeyondUpgrade(u));
       list.appendChild(row);
     });
   }
 
+
+  let beyondPurchaseBannerTimer=null;
+  let lastBeyondPurchaseFeedbackAt=0;
+
+  function showBeyondPurchaseBanner(title,sub,breakthrough=false){
+    let banner=document.getElementById('beyondPurchaseBanner');
+    if(!banner){
+      banner=document.createElement('div');
+      banner.id='beyondPurchaseBanner';
+      banner.className='beyond-purchase-banner';
+      banner.innerHTML='<div class="beyond-purchase-banner-title"></div><div class="beyond-purchase-banner-sub"></div>';
+      document.body.appendChild(banner);
+    }
+    banner.querySelector('.beyond-purchase-banner-title').textContent=title;
+    banner.querySelector('.beyond-purchase-banner-sub').textContent=sub;
+    banner.classList.toggle('breakthrough',!!breakthrough);
+    banner.classList.remove('show');
+    void banner.offsetWidth;
+    banner.classList.add('show');
+    if(beyondPurchaseBannerTimer)clearTimeout(beyondPurchaseBannerTimer);
+    beyondPurchaseBannerTimer=setTimeout(()=>banner.classList.remove('show'),breakthrough?1250:620);
+  }
+
+  function beyondPurchaseCelebrate(u,level,beforePower,afterPower,fromHold=false){
+    const breakthrough=level>0&&level%10===0;
+    const now=performance.now();
+
+    // Hold-to-buy can run ~10 times/sec; keep it punchy without turning into
+    // a strobe/sound machine. Breakthroughs always get the full celebration.
+    if(fromHold&&!breakthrough&&now-lastBeyondPurchaseFeedbackAt<170)return;
+    lastBeyondPurchaseFeedbackAt=now;
+
+    const row=document.querySelector('.beyond-upgrade[data-beyond-id="'+u.id+'"]');
+    if(row){
+      row.classList.remove('purchase-hit','breakthrough-hit');
+      void row.offsetWidth;
+      row.classList.add(breakthrough?'breakthrough-hit':'purchase-hit');
+      setTimeout(()=>row.classList.remove('purchase-hit','breakthrough-hit'),breakthrough?950:520);
+    }
+
+    document.querySelectorAll('.beyond-topstat').forEach(el=>{
+      el.classList.remove('purchase-pulse');
+      void el.offsetWidth;
+      el.classList.add('purchase-pulse');
+      setTimeout(()=>el.classList.remove('purchase-pulse'),580);
+    });
+    const ring=document.querySelector('.beyond-archie-ring');
+    if(ring){
+      ring.classList.remove('purchase-pulse');
+      void ring.offsetWidth;
+      ring.classList.add('purchase-pulse');
+      setTimeout(()=>ring.classList.remove('purchase-pulse'),580);
+    }
+
+    const delta=Math.max(0,Number(afterPower)-Number(beforePower));
+    const unit=u.type==='click'?' per click':' / sec';
+
+    if(breakthrough){
+      const mult=beyondUpgradeBreakthroughMult(level);
+      showBeyondPurchaseBanner('✨ BREAKTHROUGH · '+u.name+' LV '+level,'Upgrade power is now x'+mult.toFixed(2)+' · +'+fmt(delta)+unit,true);
+      showToast('🌌 BREAKTHROUGH! '+u.name+' reached LV '+level+' · x'+mult.toFixed(2)+' power');
+      playUISound('confirm');
+      if(row){
+        const r=row.getBoundingClientRect();
+        burstConfetti(r.left+r.width/2,r.top+r.height/2,48);
+      }else{
+        burstConfetti(innerWidth*.78,innerHeight*.45,48);
+      }
+      try{navigator.vibrate?.([28,18,42]);}catch(e){}
+    }else{
+      showBeyondPurchaseBanner(u.icon+' '+u.name+' · LV '+level,'Power increased by +'+fmt(delta)+unit,false);
+      playUISound('purchase');
+      if(!fromHold&&row){
+        const r=row.getBoundingClientRect();
+        burstConfetti(r.left+r.width/2,r.top+r.height/2,10);
+      }
+      try{navigator.vibrate?.(10);}catch(e){}
+    }
+  }
+
+
   function buyBeyondUpgrade(u){
     const c=beyondUpgradeCost(u);
     if(beyondEssence<c)return;
+    const beforePower=u.type==='click'?effBeyondClick():effBeyondAuto();
     beyondEssence-=c;
     beyondUpgradeLevels[u.id]=beyondUpgradeLevel(u.id)+1;
-    playUISound('purchase');
+    const newLevel=beyondUpgradeLevel(u.id);
+    const afterPower=u.type==='click'?effBeyondClick():effBeyondAuto();
     saveGame();
     renderBeyondWorld();
+    beyondPurchaseCelebrate(u,newLevel,beforePower,afterPower,false);
   }
 
   function renderBeyondMasteries(){
@@ -7239,7 +7667,19 @@ body.beyond-world-open{overflow:hidden!important}
   let holdBuyTimer=null, holdBuyInterval=null, holdBuyTarget=null;
   function stopHoldBuy(){if(holdBuyTimer)clearTimeout(holdBuyTimer);if(holdBuyInterval)clearInterval(holdBuyInterval);holdBuyTimer=null;holdBuyInterval=null;if(holdBuyTarget)holdBuyTarget.classList.remove('hold-buying');holdBuyTarget=null;}
   function quickBuyUpgrade(u){const c=cost(u);if(score<c){stopHoldBuy();return false;}score-=c;u.owned++;if(u.type==='click')bonusClickAdd+=u.amount;if(u.type==='auto')bonusAutoAdd+=u.amount;render();saveGame();return true;}
-  function quickBuyBeyondUpgrade(u){const c=beyondUpgradeCost(u);if(beyondEssence<c){stopHoldBuy();return false;}beyondEssence-=c;beyondUpgradeLevels[u.id]=beyondUpgradeLevel(u.id)+1;renderBeyondWorld();saveGame();return true;}
+  function quickBuyBeyondUpgrade(u){
+    const c=beyondUpgradeCost(u);
+    if(beyondEssence<c){stopHoldBuy();return false;}
+    const beforePower=u.type==='click'?effBeyondClick():effBeyondAuto();
+    beyondEssence-=c;
+    beyondUpgradeLevels[u.id]=beyondUpgradeLevel(u.id)+1;
+    const newLevel=beyondUpgradeLevel(u.id);
+    const afterPower=u.type==='click'?effBeyondClick():effBeyondAuto();
+    renderBeyondWorld();
+    saveGame();
+    beyondPurchaseCelebrate(u,newLevel,beforePower,afterPower,true);
+    return true;
+  }
   function startHoldBuy(el,buyFn){stopHoldBuy();holdBuyTarget=el;holdBuyTimer=setTimeout(()=>{if(holdBuyTarget)holdBuyTarget.classList.add('hold-buying');buyFn();holdBuyInterval=setInterval(()=>{if(!buyFn())stopHoldBuy();},95);},330);}
   window.addEventListener('pointerup',stopHoldBuy,{passive:true});window.addEventListener('pointercancel',stopHoldBuy,{passive:true});window.addEventListener('blur',stopHoldBuy);
 
@@ -9017,6 +9457,77 @@ body.beyond-world-open{overflow:hidden!important}
     }
   }
 
+
+  async function adminGrantSelfEssencePreset() {
+    const select=document.getElementById('adminSelfEssenceAmount');
+    const lifetime=document.getElementById('adminSelfEssenceLifetime');
+    const status=document.getElementById('adminSelfEssenceStatus');
+    const button=document.getElementById('adminSelfEssenceBtn');
+
+    if(!adminUnlocked||!leaderboardDb||!leaderboardUser){
+      if(status)status.textContent='Admin connection is not ready.';
+      return;
+    }
+
+    const raw=String(select?.value||'');
+    if(!/^\d+$/.test(raw)||raw==='0'){
+      if(status)status.textContent='Choose a valid Essence amount.';
+      return;
+    }
+
+    const amount=Number(raw);
+    if(!Number.isFinite(amount)||amount<=0){
+      if(status)status.textContent='That Essence amount is too large for this browser.';
+      return;
+    }
+
+    const label=select?.options?.[select.selectedIndex]?.textContent||raw;
+    const countsLifetime=!!lifetime?.checked;
+
+    if(!confirm(
+      'Give yourself '+label+
+      (countsLifetime?' and add it to Lifetime Beyond Essence?':' as CURRENT Essence only?')
+    ))return;
+
+    if(button)button.disabled=true;
+    if(status)status.textContent='Authorising Essence grant…';
+
+    try{
+      const {data,error}=await leaderboardDb.rpc('archie_admin_give_self_essence',{
+        p_amount:raw,
+        p_count_lifetime:countsLifetime
+      });
+      if(error)throw error;
+
+      const granted=Number(data);
+      const safeGrant=Number.isFinite(granted)&&granted>0?granted:amount;
+
+      beyondEssence=Math.max(0,beyondEssence+safeGrant);
+
+      if(countsLifetime){
+        beyondLifetime=Math.max(0,beyondLifetime+safeGrant);
+        beyondRunEssence=Math.max(0,beyondRunEssence+safeGrant);
+      }
+
+      saveGame();
+      if(beyondUnlocked)renderBeyondWorld();
+      render();
+
+      if(countsLifetime){
+        lastSyncedBeyondLifetime=-1;
+        setTimeout(()=>syncBeyondLeaderboard(true),250);
+      }
+
+      if(status)status.textContent='✓ +'+fmt(safeGrant)+' Essence added to your World 2 save.';
+      showToast('🌌 Developer Essence grant: +'+fmt(safeGrant));
+    }catch(err){
+      if(status)status.textContent='Essence grant error: '+(err&&err.message?err.message:'request failed');
+    }finally{
+      if(button)button.disabled=false;
+    }
+  }
+
+
   function makeAdminButton(label, cls, handler) {
     const b = document.createElement('button');
     b.className = 'admin-btn' + (cls ? ' ' + cls : '');
@@ -9689,6 +10200,7 @@ body.beyond-world-open{overflow:hidden!important}
   document.getElementById('developerPinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') submitDeveloperPin(); });
   document.getElementById('developerAdminClose').addEventListener('click', closeDeveloperAdmin);
   document.getElementById('adminSelfGrantBtn').addEventListener('click',adminGrantSelfPreset);
+  document.getElementById('adminSelfEssenceBtn').addEventListener('click',adminGrantSelfEssencePreset);
   document.querySelectorAll('.creator-cosmetic-unlock').forEach(btn => btn.addEventListener('click',()=>unlockCreatorCosmetic(btn.dataset.creatorItem)));
   document.getElementById('adminRefreshPlayers').addEventListener('click', loadAdminPlayers);
   document.getElementById('adminPushUpdate').addEventListener('click', adminPushUpdate);
