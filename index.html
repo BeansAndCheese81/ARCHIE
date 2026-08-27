@@ -3688,23 +3688,68 @@ body.beyond-world-open{overflow:hidden!important}
     .archie-chat.collapsed { width:190px; }
   }
 
+
+  /* =========================================================
+     PROMINENT LEADERBOARD NAVIGATION
+     ========================================================= */
+  .tab.leaderboard-nav-tab {
+    grid-column:1 / -1!important;
+    min-height:44px!important;
+    margin-top:2px;
+    border:2px solid rgba(225,168,45,.52)!important;
+    background:
+      radial-gradient(circle at 16% 50%,rgba(255,225,117,.18),transparent 26%),
+      radial-gradient(circle at 85% 50%,rgba(255,192,64,.12),transparent 28%),
+      linear-gradient(90deg,#76521a,#a76f17)!important;
+    color:#fff9e8!important;
+    font-size:.72rem!important;
+    letter-spacing:.05em!important;
+    box-shadow:0 7px 18px rgba(117,78,18,.20),inset 0 0 0 1px rgba(255,255,255,.08)!important;
+    overflow:hidden;
+    position:relative;
+  }
+  .tab.leaderboard-nav-tab::before {
+    content:'';
+    position:absolute;
+    inset:-90% -20%;
+    pointer-events:none;
+    background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.22) 50%,transparent 60%);
+    transform:translateX(-68%);
+    animation:leaderboardNavShine 5.2s ease-in-out infinite;
+  }
+  .tab.leaderboard-nav-tab:hover {
+    border-color:#f3cc66!important;
+    box-shadow:0 10px 23px rgba(117,78,18,.28),0 0 22px rgba(243,191,68,.16)!important;
+  }
+  .tab.leaderboard-nav-tab.active {
+    background:linear-gradient(90deg,#a66c12,#d09a28)!important;
+    border-color:#ffe184!important;
+    color:#fff!important;
+  }
+  .leaderboard-nav-tab .tab-icon {
+    font-size:1.05rem!important;
+  }
+  .leaderboard-nav-tag {
+    margin-left:5px;
+    padding:2px 7px;
+    border-radius:999px;
+    background:rgba(255,248,215,.14);
+    border:1px solid rgba(255,244,194,.24);
+    color:#fff4c7;
+    font-size:.45rem;
+    font-weight:900;
+    letter-spacing:.08em;
+  }
+  @keyframes leaderboardNavShine {
+    0%,74%{transform:translateX(-68%)}
+    94%,100%{transform:translateX(68%)}
+  }
+
 </style>
 </head>
 <body>
 
 <div class="world-bg world-0" id="worldBg" aria-hidden="true"></div>
-<div class="empire-monument-layer" id="empireMonumentLayer" aria-hidden="true">
-  <div class="empire-monument monument-stadium" data-monument="stadium"><div class="monument-visual"><span class="monument-icon">🏟️</span><span class="monument-level"></span></div><div class="monument-name">Archie Super Stadium</div></div>
-  <div class="empire-monument monument-tower" data-monument="tower"><div class="monument-visual"><span class="monument-icon">🏙️</span><span class="monument-level"></span></div><div class="monument-name">World Headquarters</div></div>
-  <div class="empire-monument monument-exchange" data-monument="exchange"><div class="monument-visual"><span class="monument-icon">💹</span><span class="monument-level"></span></div><div class="monument-name">Global Exchange</div></div>
-  <div class="empire-monument monument-moon" data-monument="moon"><div class="monument-visual"><span class="monument-icon">🌕</span><span class="monument-level"></span></div><div class="monument-name">Lunar Colony</div></div>
-  <div class="empire-monument monument-fleet" data-monument="fleet"><div class="monument-visual"><span class="monument-icon">🚀</span><span class="monument-level"></span></div><div class="monument-name">Constellation Fleet</div></div>
-  <div class="empire-monument monument-dyson" data-monument="dyson"><div class="monument-visual"><span class="monument-icon">☀️</span><span class="monument-level"></span></div><div class="monument-name">Dyson Sphere</div></div>
-  <div class="empire-monument monument-mint" data-monument="mint"><div class="monument-visual"><span class="monument-icon">🏦</span><span class="monument-level"></span></div><div class="monument-name">Infinite Mint</div></div>
-  <div class="empire-monument monument-foundry" data-monument="foundry"><div class="monument-visual"><span class="monument-icon">🪐</span><span class="monument-level"></span></div><div class="monument-name">Reality Foundry</div></div>
-  <div class="empire-monument monument-vault" data-monument="vault"><div class="monument-visual"><span class="monument-icon">🧿</span><span class="monument-level"></span></div><div class="monument-name">Omega Vault</div></div>
-  <div class="empire-monument monument-throne" data-monument="throne"><div class="monument-visual"><span class="monument-icon">👑</span><span class="monument-level"></span></div><div class="monument-name">Eternal Throne</div></div>
-</div>
 <div class="season-theme-overlay" id="seasonThemeOverlay" aria-hidden="true"></div>
 <div class="boss-atmosphere" id="bossAtmosphere" aria-hidden="true"></div>
 <div class="boss-entrance-overlay" id="bossEntranceOverlay" aria-hidden="true">
@@ -3838,8 +3883,7 @@ body.beyond-world-open{overflow:hidden!important}
       <div class="tab" data-tab="inbox"><span class="tab-icon">📬</span><span class="tab-label">Inbox</span><span class="tab-badge" id="inboxBadge">0</span></div>
       <div class="tab" data-tab="cosmetics"><span class="tab-icon">✨</span><span class="tab-label">Cosmetics</span></div>
       <div class="tab" data-tab="legacy"><span class="tab-icon">🌳</span><span class="tab-label">Legacy</span></div>
-      <div class="tab" data-tab="empire"><span class="tab-icon">🏛️</span><span class="tab-label">Empire</span><span class="empire-new-badge">NEW</span></div>
-      <div class="tab" data-tab="leaderboard"><span class="tab-icon">🏆</span><span class="tab-label">Leaderboard</span></div>
+      <div class="tab leaderboard-nav-tab" data-tab="leaderboard"><span class="tab-icon">🏆</span><span class="tab-label">LEADERBOARDS</span><span class="leaderboard-nav-tag">POPULAR</span></div>
       <div class="tab beyond-nav-tab" data-tab="beyondportal"><span class="tab-icon">🌌</span><span class="tab-label">WORLD 2 · ARCHIE BEYOND</span><span class="beyond-nav-tag">LATE GAME</span></div>
     </div>
 
@@ -3965,55 +4009,6 @@ body.beyond-world-open{overflow:hidden!important}
           <button class="prestige-btn" id="prestigeBtn">Retire for +0 Legacy</button>
         </div>
         <div class="legacy-tree" id="legacyTree"></div>
-      </div>
-    </div>
-
-    <div class="panel" id="panel-empire">
-      <div class="empire-panel">
-        <div class="empire-hero">
-          <div class="empire-kicker">Late-game progression</div>
-          <div class="empire-title">🏛️ Archie Empire</div>
-          <div class="empire-sub">This is the late-game system for players with ridiculous amounts of Archies. You do <b>not</b> have to reset anything just to use it.</div>
-          <div class="empire-howto">
-            <div class="empire-howto-item"><b>1 · Spend Archies</b>Fund Mega Projects. The early projects eventually finish; the final projects can be upgraded forever.</div>
-            <div class="empire-howto-item"><b>2 · Build Influence</b>Project levels and optional Vault sacrifices raise Empire Influence and your Empire rank.</div>
-            <div class="empire-howto-item"><b>3 · Ascend Later</b>Ascension is optional. It restarts your normal economy for permanent Stars while keeping the major prestige systems.</div>
-          </div>
-          <div class="empire-metrics">
-            <div class="empire-metric" title="Influence comes from Empire Projects and the Empire Vault."><b id="empireInfluenceValue">0</b><span>Influence</span></div>
-            <div class="empire-metric" title="Permanent Stars earned from optional Ascension."><b id="empireStarsValue">0</b><span>Ascension Stars</span></div>
-            <div class="empire-metric" title="How many times you have Ascended Archie."><b id="empireAscensionsValue">0</b><span>Ascensions</span></div>
-          </div>
-          <div class="empire-rank-wrap">
-            <div class="empire-rank-line"><span id="empireRankName">Local Entrepreneur</span><span id="empireRankNext">Next rank</span></div>
-            <div class="empire-track"><div class="empire-fill" id="empireRankFill"></div></div>
-          </div>
-        </div>
-
-        <div class="empire-card">
-          <div class="empire-card-title">Mega Projects</div>
-          <div class="empire-card-sub">Buying a stage permanently removes its price from your <b>current Archie balance</b>. It does <b>not</b> reduce Lifetime Archies. Project levels stay with you through Ascension.</div>
-          <div class="empire-helpbox"><b>What do projects give?</b> Each funded level adds 1 Empire Influence. Influence mainly increases your Empire rank and gives a small capped production bonus. The main purpose is giving huge balances something worth spending on without another runaway x1000 multiplier.</div>
-          <div class="empire-projects" id="empireProjects"></div>
-        </div>
-
-        <div class="empire-card">
-          <div class="empire-card-title">Empire Vault</div>
-          <div class="empire-card-sub"><b>Optional money sink.</b> Burn 10%, 25% or 50% of your <b>current</b> Archies for permanent Empire Influence. This does not touch Lifetime Archies, Legacy, cosmetics or Projects.</div>
-          <div class="empire-vault-buttons">
-            <button class="empire-vault-btn" id="empireBurn10" type="button">Burn 10%</button>
-            <button class="empire-vault-btn" id="empireBurn25" type="button">Burn 25%</button>
-            <button class="empire-vault-btn" id="empireBurn50" type="button">Burn 50%</button>
-          </div>
-          <div class="empire-vault-note" id="empireVaultNote">The bigger the sacrifice, the more Influence it can create. This permanently removes those current Archies.</div>
-        </div>
-
-        <div class="ascension-card">
-          <div class="ascension-title">✦ Archie Ascension</div>
-          <div class="ascension-sub"><b>OPTIONAL — this is the only reset in the Empire section.</b><br>Ascension wipes current Archies, normal upgrade levels, one-time Boost purchases and current-run earnings. It <b>keeps Lifetime Archies, Legacy Points/skills, cosmetics, friends, chests, Empire Influence, Empire Projects and previous Ascension Stars</b>. In return you receive permanent Ascension Stars.</div>
-          <div class="ascension-gain" id="ascensionGainText">Reach 1Qi current Archies to Ascend.</div>
-          <button class="ascend-btn" id="ascendArchieBtn" type="button" disabled>Ascend Archie</button>
-        </div>
       </div>
     </div>
 
@@ -4940,8 +4935,8 @@ body.beyond-world-open{overflow:hidden!important}
     return 1 + influenceBonus + starBonus;
   }
 
-  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult') * empireProductionMultiplier() * liveEventMultiplier() * timedClickMultiplier(); }
-  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult') * empireProductionMultiplier() * liveEventMultiplier() * timedAutoMultiplier(); }
+  function effClick() { return (1 + bonusClickAdd) * clickMult * legacyMultiplier() * legacyProduct('clickMult') * legacyProduct('globalMult') * liveEventMultiplier() * timedClickMultiplier(); }
+  function effAuto() { return bonusAutoAdd * autoMult * legacyMultiplier() * legacyProduct('autoMult') * legacyProduct('globalMult') * liveEventMultiplier() * timedAutoMultiplier(); }
 
   const BEYOND_UPGRADES = [
     {id:'prime_touch',icon:'☝️',name:'Prime Touch',desc:'+1 Essence per click',type:'click',amount:1,base:10,growth:1.17},
@@ -5707,14 +5702,6 @@ body.beyond-world-open{overflow:hidden!important}
       const p=Math.max(0,Number(s.progress())||0);
       setNextInteresting('🌟','Starter Journey: '+s.title,s.desc,'Do it',()=>document.getElementById('archieBtn')?.focus(),p/Math.max(1,s.target)*100);return;
     }
-    if(score>=1e15 || totalEmpireInfluence()>0 || ascensionStars>0){
-      const nextProject=EMPIRE_PROJECTS.find(p=>!empireProjectIsComplete(p));
-      const sub=nextProject
-        ? ('Fund '+nextProject.name+' · next stage costs '+fmt(empireProjectCost(nextProject))+' Archies.')
-        : 'Use the Empire Vault or Ascend Archie for a new late-game cycle.';
-      setNextInteresting('🏛️','Your Archie Empire needs funding',sub,'Empire',()=>openGameTab('empire'),Math.min(100,totalEmpireInfluence()/25));
-      return;
-    }
     const gain=prestigeGain();
     if(gain>=1){
       setNextInteresting('🌳','Retirement is available','Retire this run for +'+gain+' Legacy Points and strengthen future runs.','Legacy',()=>openGameTab('legacy'),100);return;
@@ -5726,7 +5713,7 @@ body.beyond-world-open{overflow:hidden!important}
       const p=Math.max(0,Math.min(100,(totalEarned-cur.min)/span*100));
       setNextInteresting(next.icon,'Next world: '+next.name,fmt(Math.max(0,next.min-totalEarned))+' Lifetime Archies to go.','Build',()=>openGameTab('shop'),p);return;
     }
-    setNextInteresting('✨','Build your perfect Archie empire','Chase Legacy mastery, friends, Boss fights, cosmetics and personal records.','Upgrades',()=>openGameTab('shop'),100);
+    setNextInteresting('✨','Keep building your Archie legacy','Chase World 2, Legacy mastery, friends, Click-Offs, Boss fights, cosmetics and personal records.','Upgrades',()=>openGameTab('shop'),100);
   }
 
 
@@ -6222,8 +6209,6 @@ body.beyond-world-open{overflow:hidden!important}
     renderHat();
     const starterAdvanced = starterMaybeAdvance();
     renderStarterJourney();
-    renderEmpire();
-    renderEmpireMonuments();
     renderBeyondPortal();
     renderNextInteresting();
     if (starterAdvanced) setTimeout(render,0);
@@ -6709,7 +6694,6 @@ body.beyond-world-open{overflow:hidden!important}
     if (tabName === 'inbox') { refreshInbox(true); setTimeout(markInboxRead,500); }
     if (tabName === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
     if (tabName === 'legacy') renderLegacyTree();
-    if (tabName === 'empire') renderEmpire();
     if (tabName === 'beyondportal') renderBeyondPortal();
   }
 
@@ -7082,8 +7066,6 @@ body.beyond-world-open{overflow:hidden!important}
       statCard('Critical clicks', fmt(critCount)) +
       statCard('Legacy Points', legacyPoints + ' total · ' + legacyTokensAvailable() + ' available') +
       statCard('Legacy base bonus', 'x' + legacyMultiplier().toFixed(2)) +
-      statCard('Empire rank', empireRankInfo().currentName + ' · ' + totalEmpireInfluence() + ' Influence') +
-      statCard('Ascension', ascensionStars + ' Stars · ' + ascensionCount + ' total') +
       statCard('Click power', fmt(effClick())) +
       statCard('Archies / sec', fmt(effAuto())) +
       statCard('Crit chance', Math.round(effectiveCritChance() * 100) + '%') +
@@ -9531,7 +9513,6 @@ body.beyond-world-open{overflow:hidden!important}
       if (tab.dataset.tab === 'inbox') { refreshInbox(true); setTimeout(markInboxRead, 500); }
       if (tab.dataset.tab === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
       if (tab.dataset.tab === 'legacy') renderLegacyTree();
-      if (tab.dataset.tab === 'empire') renderEmpire();
       if (tab.dataset.tab === 'beyondportal') renderBeyondPortal();
     });
   });
@@ -9654,10 +9635,6 @@ body.beyond-world-open{overflow:hidden!important}
   document.getElementById('inboxRefreshBtn').addEventListener('click',()=>refreshInbox(true));
   document.getElementById('adminSendMailPlayer').addEventListener('click',()=>adminSendMailbox(false));
   document.getElementById('adminSendMailAll').addEventListener('click',()=>adminSendMailbox(true));
-  document.getElementById('empireBurn10').addEventListener('click',()=>burnEmpireWealth(.10));
-  document.getElementById('empireBurn25').addEventListener('click',()=>burnEmpireWealth(.25));
-  document.getElementById('empireBurn50').addEventListener('click',()=>burnEmpireWealth(.50));
-  document.getElementById('ascendArchieBtn').addEventListener('click',ascendArchie);
   document.getElementById('beyondUnlockBtn').addEventListener('click',unlockOrEnterBeyond);
   document.getElementById('beyondQuickEnter').addEventListener('click',enterBeyondWorld);
   document.getElementById('beyondReturnBtn').addEventListener('click',exitBeyondWorld);
