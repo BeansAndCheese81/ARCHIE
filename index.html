@@ -3745,6 +3745,50 @@ body.beyond-world-open{overflow:hidden!important}
     94%,100%{transform:translateX(68%)}
   }
 
+
+  /* =========================================================
+     COSMETICS SAFARI FLEX-SHRINK FIX
+     ========================================================= */
+  #panel-cosmetics {
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  #panel-cosmetics .cosmetics-panel {
+    min-height:0!important;
+    height:100%!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:9px!important;
+    padding-right:3px!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  #panel-cosmetics .cosmetics-card {
+    flex:0 0 auto!important;
+    min-height:max-content!important;
+  }
+  #panel-cosmetics .cosmetics-card.wardrobe-card {
+    flex:0 0 auto!important;
+    height:auto!important;
+    min-height:220px!important;
+    overflow:visible!important;
+    border:3px solid rgba(198,91,143,.34)!important;
+    box-shadow:0 8px 22px rgba(110,63,92,.10)!important;
+  }
+  #panel-cosmetics .cosmetics-wardrobe-head,
+  #panel-cosmetics .cosmetics-toolbar,
+  #panel-cosmetics #cosmeticPreviewWrap,
+  #panel-cosmetics #cosmeticsList {
+    flex:none!important;
+    position:relative;
+  }
+  #panel-cosmetics #cosmeticPreviewWrap {
+    position:relative!important;
+    top:auto!important;
+  }
+
 </style>
 </head>
 <body>
@@ -4613,7 +4657,7 @@ body.beyond-world-open{overflow:hidden!important}
   // enable Anonymous Sign-Ins, then paste the Project URL + publishable key here.
   // IMPORTANT: never put a Supabase service_role key in this HTML file.
   const SUPABASE_URL = 'https://nnizjcmxlecwaqdovyzh.supabase.co';
-  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_u0OXHhasWEiUabrIj24paw_8FL3oD1G';
+  const SUPABASE_PUBLISHABLE_KEY = 'b_publishable_u0OXHhasWEiUabrIj24paw_8FL3oD1G';
 
   let leaderboardDb = null;
   let leaderboardUser = null;
@@ -6679,6 +6723,16 @@ body.beyond-world-open{overflow:hidden!important}
   }
 
 
+
+  function resetCosmeticsPanelToTop(){
+    const panel=document.getElementById('panel-cosmetics');
+    const inner=panel?.querySelector('.cosmetics-panel');
+    requestAnimationFrame(()=>{
+      if(inner)inner.scrollTop=0;
+      if(panel)panel.scrollTop=0;
+    });
+  }
+
   function openGameTab(tabName) {
     const targetTab = document.querySelector('.tab[data-tab="' + tabName + '"]');
     const targetPanel = document.getElementById('panel-' + tabName);
@@ -6692,7 +6746,7 @@ body.beyond-world-open{overflow:hidden!important}
     if (tabName === 'friends') refreshFriends();
     if (tabName === 'quests') refreshDailyQuests(true);
     if (tabName === 'inbox') { refreshInbox(true); setTimeout(markInboxRead,500); }
-    if (tabName === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
+    if (tabName === 'cosmetics') { renderCosmetics(); renderWorldSelector(); resetCosmeticsPanelToTop(); }
     if (tabName === 'legacy') renderLegacyTree();
     if (tabName === 'beyondportal') renderBeyondPortal();
   }
@@ -9511,7 +9565,7 @@ body.beyond-world-open{overflow:hidden!important}
       if (tab.dataset.tab === 'friends') refreshFriends();
       if (tab.dataset.tab === 'quests') refreshDailyQuests(true);
       if (tab.dataset.tab === 'inbox') { refreshInbox(true); setTimeout(markInboxRead, 500); }
-      if (tab.dataset.tab === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
+      if (tab.dataset.tab === 'cosmetics') { renderCosmetics(); renderWorldSelector(); resetCosmeticsPanelToTop(); }
       if (tab.dataset.tab === 'legacy') renderLegacyTree();
       if (tab.dataset.tab === 'beyondportal') renderBeyondPortal();
     });
