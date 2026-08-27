@@ -2411,9 +2411,7 @@
      ========================================================= */
 
   .score.dynamic-score-glow {
-    animation:
-      scoreGlowPulse var(--score-glow-speed,4.8s) ease-in-out infinite,
-      scoreShine 7s ease-in-out infinite;
+    animation:scoreGlowPulse var(--score-glow-speed,4.8s) ease-in-out infinite;
     will-change: box-shadow, transform, filter;
   }
   .score.dynamic-score-glow::before {
@@ -2768,6 +2766,78 @@
     .cosmetic-preview-card { grid-template-columns:44px minmax(0,1fr);padding:8px; }
     .cosmetic-preview-avatar { width:42px;height:42px;border-radius:12px; }
   }
+
+
+  /* =========================================================
+     LARGE COSMETICS EXPANSION + CREATOR VAULT
+     ========================================================= */
+
+  /* New shop frames */
+  .frame-sapphire { box-shadow:0 0 0 3px #4cbcf2,0 0 22px rgba(76,188,242,.68)!important; }
+  .frame-ruby { box-shadow:0 0 0 3px #e64f6b,0 0 23px rgba(230,79,107,.68)!important; }
+  .frame-neon { box-shadow:0 0 0 3px #43edc5,0 0 16px rgba(67,237,197,.72),0 0 29px rgba(143,94,255,.42)!important; }
+  .frame-platinum { box-shadow:0 0 0 3px #dce3ec,0 0 19px rgba(221,230,240,.82),0 0 28px rgba(112,139,173,.32)!important; }
+  .frame-solar { box-shadow:0 0 0 3px #ffbc45,0 0 18px rgba(255,188,69,.82),0 0 31px rgba(255,104,45,.35)!important; }
+  .frame-void { box-shadow:0 0 0 3px #6d56b1,0 0 18px rgba(109,86,177,.80),0 0 33px rgba(32,15,61,.66)!important; }
+  .frame-prism { box-shadow:0 0 0 3px #f77ac8,0 0 15px rgba(247,122,200,.64),0 0 24px rgba(75,214,247,.55),0 0 34px rgba(255,213,79,.38)!important; }
+  .frame-infinity { box-shadow:0 0 0 3px #8cf2ff,0 0 18px rgba(140,242,255,.76),0 0 31px rgba(255,104,207,.58),0 0 43px rgba(161,115,255,.36)!important; }
+
+  /* Creator-only frames */
+  .frame-creator-crown {
+    box-shadow:0 0 0 4px #ffe172,0 0 18px rgba(255,225,114,.94),0 0 34px rgba(255,135,55,.62),0 0 52px rgba(255,239,165,.34)!important;
+    border-color:#ffe172!important;
+  }
+  .frame-developer-matrix {
+    box-shadow:0 0 0 3px #45f5dd,0 0 16px rgba(69,245,221,.86),0 0 30px rgba(93,116,255,.67),0 0 45px rgba(197,93,255,.40)!important;
+    border-color:#45f5dd!important;
+  }
+
+  /* New shop effects — intentionally lightweight because these run on profile cards. */
+  .effect-pulse { animation:cosPulse 1.9s ease-in-out infinite; }
+  .effect-lightning { animation:cosLightning 1.45s ease-in-out infinite; }
+  .effect-aurora { animation:cosAurora 4.2s ease-in-out infinite; }
+  .effect-hologram { animation:cosHologram 2.7s ease-in-out infinite; }
+  .effect-inferno { animation:cosInferno 1.7s ease-in-out infinite; }
+  .effect-quantum { animation:cosQuantum 2.15s ease-in-out infinite; }
+  .effect-divine { animation:cosDivine 2.4s ease-in-out infinite; }
+  .effect-galaxy { animation:cosGalaxy 3.4s ease-in-out infinite; }
+
+  /* Creator-only effects */
+  .effect-creator-constellation { animation:creatorConstellation 1.8s ease-in-out infinite; }
+  .effect-admin-overdrive { animation:creatorOverdrive 1.1s ease-in-out infinite; }
+
+  @keyframes cosPulse { 0%,100%{filter:brightness(1);box-shadow:inherit} 50%{filter:brightness(1.08) drop-shadow(0 0 8px rgba(242,144,59,.65))} }
+  @keyframes cosLightning { 0%,100%{filter:brightness(1) drop-shadow(0 0 2px #75dfff)} 48%{filter:brightness(1.14) drop-shadow(0 0 13px #75dfff)} 55%{filter:brightness(1.03) drop-shadow(0 0 5px #e9fbff)} }
+  @keyframes cosAurora { 0%,100%{filter:hue-rotate(0deg) saturate(1.05) drop-shadow(0 0 5px #70e9d1)} 50%{filter:hue-rotate(95deg) saturate(1.22) drop-shadow(0 0 13px #a88cff)} }
+  @keyframes cosHologram { 0%,100%{filter:saturate(.95) brightness(1) drop-shadow(0 0 4px #71e8ff)} 50%{filter:saturate(1.25) brightness(1.12) drop-shadow(0 0 12px #b6f5ff)} }
+  @keyframes cosInferno { 0%,100%{filter:drop-shadow(0 0 4px #ff6d3b) brightness(1)} 50%{filter:drop-shadow(0 0 16px #ffb13d) brightness(1.14) saturate(1.2)} }
+  @keyframes cosQuantum { 0%,100%{filter:drop-shadow(0 0 4px #8d6cff) hue-rotate(0deg)} 50%{filter:drop-shadow(0 0 15px #5fe9ff) hue-rotate(45deg) brightness(1.11)} }
+  @keyframes cosDivine { 0%,100%{filter:drop-shadow(0 0 4px #ffe57b) brightness(1)} 50%{filter:drop-shadow(0 0 18px #fff7c9) brightness(1.16)} }
+  @keyframes cosGalaxy { 0%,100%{filter:hue-rotate(0deg) drop-shadow(0 0 5px #9b79ff)} 50%{filter:hue-rotate(80deg) drop-shadow(0 0 15px #e882ff) brightness(1.10)} }
+  @keyframes creatorConstellation { 0%,100%{filter:drop-shadow(0 0 5px #ffe472) drop-shadow(0 0 9px #72dfff)} 50%{filter:drop-shadow(0 0 16px #fff5ba) drop-shadow(0 0 20px #9d80ff) brightness(1.16)} }
+  @keyframes creatorOverdrive { 0%,100%{filter:drop-shadow(0 0 5px #4fffe1) brightness(1)} 50%{filter:drop-shadow(0 0 17px #4fffe1) drop-shadow(0 0 22px #ff70d2) brightness(1.18) saturate(1.2)} }
+
+  .creator-vault-section {
+    display:none;
+    border-color:rgba(255,207,77,.48)!important;
+    background:linear-gradient(145deg,rgba(50,28,67,.96),rgba(87,41,83,.95))!important;
+    color:#fff;
+    box-shadow:0 12px 34px rgba(48,22,66,.20),inset 0 0 0 1px rgba(255,224,127,.13);
+  }
+  .creator-vault-section .admin-section-title { color:#ffe08a!important; }
+  .creator-vault-section .admin-muted { color:#eadbef!important; }
+  .creator-vault-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px; }
+  .creator-vault-item {
+    border:1px solid rgba(255,226,141,.22);
+    border-radius:12px;
+    padding:8px;
+    background:rgba(255,255,255,.07);
+  }
+  .creator-vault-name { font-family:'Baloo 2',sans-serif;font-size:.69rem;font-weight:900;color:#fff2c2; }
+  .creator-vault-desc { margin-top:2px;font-size:.53rem;line-height:1.32;font-weight:700;color:#d9c9df; }
+  .creator-vault-item .admin-btn { width:100%;margin-top:7px;background:linear-gradient(90deg,#d49b32,#f1ca65);color:#4f3109; }
+  .creator-vault-item .admin-btn:disabled { opacity:.55;cursor:default; }
+  @media(max-width:620px){ .creator-vault-grid{grid-template-columns:1fr;} }
 
 </style>
 </head>
@@ -3255,6 +3325,20 @@
       <div class="admin-status" id="adminItemStatus"></div>
     </div>
 
+    <div class="admin-section creator-vault-section" id="creatorCosmeticSection">
+      <div class="admin-section-title">★ Creator Cosmetic Vault</div>
+      <div class="admin-muted">These six cosmetics are locked to the configured Archie Clicker Creator account. The server will reject the unlock if the signed-in account is not the Creator.</div>
+      <div class="creator-vault-grid">
+        <div class="creator-vault-item"><div class="creator-vault-name">★ Creator Supreme</div><div class="creator-vault-desc">Exclusive Creator title.</div><button class="admin-btn creator-cosmetic-unlock" data-creator-item="cos_creator_title_supreme">Unlock Title</button></div>
+        <div class="creator-vault-item"><div class="creator-vault-name">⌘ Archie Architect</div><div class="creator-vault-desc">Exclusive game-builder title.</div><button class="admin-btn creator-cosmetic-unlock" data-creator-item="cos_creator_title_architect">Unlock Title</button></div>
+        <div class="creator-vault-item"><div class="creator-vault-name">👑 Crown of Creation</div><div class="creator-vault-desc">Gold Creator-only frame.</div><button class="admin-btn creator-cosmetic-unlock" data-creator-item="cos_creator_frame_crown">Unlock Frame</button></div>
+        <div class="creator-vault-item"><div class="creator-vault-name">💻 Developer Matrix</div><div class="creator-vault-desc">Cyan-violet Creator-only frame.</div><button class="admin-btn creator-cosmetic-unlock" data-creator-item="cos_creator_frame_matrix">Unlock Frame</button></div>
+        <div class="creator-vault-item"><div class="creator-vault-name">🌌 Creator Constellation</div><div class="creator-vault-desc">Gold-blue cosmic Creator effect.</div><button class="admin-btn creator-cosmetic-unlock" data-creator-item="cos_creator_effect_constellation">Unlock Effect</button></div>
+        <div class="creator-vault-item"><div class="creator-vault-name">⚡ Admin Overdrive</div><div class="creator-vault-desc">Fast cyan-pink Creator effect.</div><button class="admin-btn creator-cosmetic-unlock" data-creator-item="cos_creator_effect_overdrive">Unlock Effect</button></div>
+      </div>
+      <div class="admin-status" id="creatorCosmeticStatus"></div>
+    </div>
+
 
     <div class="admin-section">
       <div class="admin-section-title">Mailbox / Inbox</div>
@@ -3410,6 +3494,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+(() => {
+'use strict';
+/* ARCHIE PRIVATE GAME SCOPE */
+
   // ---------------- state ----------------
   let score = 0;
   let bonusClickAdd = 0;
@@ -3533,16 +3621,45 @@
 
 
   const cosmetics = [
+    // Titles
     { id:'title_tapper', kind:'title', name:'Dedicated Tapper', desc:'Profile title', cost:50000, value:'Dedicated Tapper' },
     { id:'title_tycoon', kind:'title', name:'Archie Tycoon', desc:'Profile title', cost:5000000, value:'Archie Tycoon' },
     { id:'title_legacy', kind:'title', name:'Legacy Walker', desc:'Profile title', cost:250000000, value:'Legacy Walker' },
+    { id:'title_certified', kind:'title', name:'Certified Clicker', desc:'For players who take tapping far too seriously.', cost:500000000, value:'Certified Clicker' },
+    { id:'title_automation', kind:'title', name:'Automation Addict', desc:'The machines are doing most of the work now.', cost:50000000000, value:'Automation Addict' },
+    { id:'title_investor', kind:'title', name:'Archie Investor', desc:'A respectable amount of questionable Archie capital.', cost:5000000000000, value:'Archie Investor' },
+    { id:'title_industrialist', kind:'title', name:'Archie Industrialist', desc:'Industry, but almost entirely Archie.', cost:5000000000000000, value:'Archie Industrialist' },
+    { id:'title_cosmicshare', kind:'title', name:'Cosmic Shareholder', desc:'Owns a suspicious percentage of the observable universe.', cost:5000000000000000000, value:'Cosmic Shareholder' },
+    { id:'title_empirebuilder', kind:'title', name:'Empire Builder', desc:'Built an Archie empire and made it everyone else’s problem.', cost:5e22, value:'Empire Builder' },
+    { id:'title_realitycollector', kind:'title', name:'Reality Collector', desc:'One reality was apparently not enough.', cost:5e27, value:'Reality Collector' },
+    { id:'title_unreasonable', kind:'title', name:'Unreasonably Wealthy', desc:'The number stopped being sensible a long time ago.', cost:5e33, value:'Unreasonably Wealthy' },
+
+    // Frames
     { id:'frame_orange', kind:'frame', name:'Orange Glow', desc:'Warm Archie profile glow', cost:100000, value:'orange' },
     { id:'frame_berry', kind:'frame', name:'Berry Ring', desc:'Pink profile aura', cost:5000000, value:'berry' },
     { id:'frame_gold', kind:'frame', name:'Golden Frame', desc:'Bright golden profile frame', cost:250000000, value:'gold' },
     { id:'frame_cosmic', kind:'frame', name:'Cosmic Frame', desc:'Late-game cosmic frame', cost:50000000000, value:'cosmic' },
+    { id:'frame_sapphire', kind:'frame', name:'Sapphire Frame', desc:'Bright blue gemstone glow.', cost:2000000000, value:'sapphire' },
+    { id:'frame_ruby', kind:'frame', name:'Ruby Frame', desc:'Deep red luxury profile ring.', cost:200000000000, value:'ruby' },
+    { id:'frame_neon', kind:'frame', name:'Neon Circuit', desc:'Cyan and violet electric edging.', cost:500000000000000, value:'neon' },
+    { id:'frame_platinum', kind:'frame', name:'Platinum Frame', desc:'Cold metallic prestige.', cost:1e18, value:'platinum' },
+    { id:'frame_solar', kind:'frame', name:'Solar Crown', desc:'Hot gold and orange star glow.', cost:1e22, value:'solar' },
+    { id:'frame_void', kind:'frame', name:'Void Frame', desc:'Dark purple endgame aura.', cost:1e26, value:'void' },
+    { id:'frame_prism', kind:'frame', name:'Prismatic Frame', desc:'Layered pink, cyan and gold glow.', cost:1e30, value:'prism' },
+    { id:'frame_infinity', kind:'frame', name:'Infinity Frame', desc:'An absurd ultra-late profile halo.', cost:1e34, value:'infinity' },
+
+    // Effects
     { id:'effect_sparkle', kind:'effect', name:'Archie Sparkles', desc:'Soft shimmering effect', cost:1000000, value:'sparkle' },
     { id:'effect_rainbow', kind:'effect', name:'Rainbow Shift', desc:'Slow colour-shift effect', cost:100000000, value:'rainbow' },
     { id:'effect_royal', kind:'effect', name:'Royal Aura', desc:'Gold and berry pulsing aura', cost:10000000000, value:'royal' },
+    { id:'effect_pulse', kind:'effect', name:'Power Pulse', desc:'A gentle breathing energy glow.', cost:5000000000, value:'pulse' },
+    { id:'effect_lightning', kind:'effect', name:'Lightning Charge', desc:'Fast icy-electric profile flashes.', cost:1e12, value:'lightning' },
+    { id:'effect_aurora', kind:'effect', name:'Aurora Drift', desc:'Slow shifting green-violet light.', cost:1e15, value:'aurora' },
+    { id:'effect_hologram', kind:'effect', name:'Hologram', desc:'Clean futuristic cyan shimmer.', cost:1e18, value:'hologram' },
+    { id:'effect_inferno', kind:'effect', name:'Inferno Aura', desc:'Hot orange flame-like profile glow.', cost:1e22, value:'inferno' },
+    { id:'effect_quantum', kind:'effect', name:'Quantum Field', desc:'Purple-cyan high-energy pulse.', cost:1e26, value:'quantum' },
+    { id:'effect_divine', kind:'effect', name:'Divine Light', desc:'Bright prestige glow for extreme players.', cost:1e30, value:'divine' },
+    { id:'effect_galaxy', kind:'effect', name:'Living Galaxy', desc:'Slow cosmic colour energy.', cost:1e34, value:'galaxy' },
 
     // Secret / limited cosmetics are completely hidden until the server says you own them.
     { id:'secret_title_treasure', kind:'title', name:'Treasure Hunter', desc:'A secret title found in treasure chests.', value:'Treasure Hunter', secret:true, serverItem:'cos_title_treasure_hunter' },
@@ -3553,7 +3670,15 @@
     { id:'limited_frame_frost', kind:'frame', name:'Frost Frame', desc:'Limited winter profile frame.', value:'frost', secret:true, limited:true, serverItem:'cos_frame_frost' },
     { id:'secret_effect_stardust', kind:'effect', name:'Stardust', desc:'A secret cosmic shimmer.', value:'stardust', secret:true, serverItem:'cos_effect_stardust' },
     { id:'secret_effect_ember', kind:'effect', name:'Ember Aura', desc:'A rare warm treasure aura.', value:'ember', secret:true, serverItem:'cos_effect_ember' },
-    { id:'limited_effect_snow', kind:'effect', name:'Snowfall', desc:'Limited seasonal snowfall aura.', value:'snowfall', secret:true, limited:true, serverItem:'cos_effect_snowfall' }
+    { id:'limited_effect_snow', kind:'effect', name:'Snowfall', desc:'Limited seasonal snowfall aura.', value:'snowfall', secret:true, limited:true, serverItem:'cos_effect_snowfall' },
+
+    // Creator Vault — server-hidden unless the configured Creator account owns them.
+    { id:'creator_title_supreme', kind:'title', name:'Creator Supreme', desc:'Creator-only animated-status title.', value:'Creator Supreme', secret:true, limited:true, creatorOnly:true, serverItem:'cos_creator_title_supreme' },
+    { id:'creator_title_architect', kind:'title', name:'Archie Architect', desc:'Creator-only title for the person behind the game.', value:'Archie Architect', secret:true, limited:true, creatorOnly:true, serverItem:'cos_creator_title_architect' },
+    { id:'creator_frame_crown', kind:'frame', name:'Crown of Creation', desc:'Creator-only gold crown-style profile halo.', value:'creator-crown', secret:true, limited:true, creatorOnly:true, serverItem:'cos_creator_frame_crown' },
+    { id:'creator_frame_matrix', kind:'frame', name:'Developer Matrix', desc:'Creator-only cyan, blue and violet developer frame.', value:'developer-matrix', secret:true, limited:true, creatorOnly:true, serverItem:'cos_creator_frame_matrix' },
+    { id:'creator_effect_constellation', kind:'effect', name:'Creator Constellation', desc:'Creator-only gold, blue and violet constellation aura.', value:'creator-constellation', secret:true, limited:true, creatorOnly:true, serverItem:'cos_creator_effect_constellation' },
+    { id:'creator_effect_overdrive', kind:'effect', name:'Admin Overdrive', desc:'Creator-only rapid cyan and pink power surge.', value:'admin-overdrive', secret:true, limited:true, creatorOnly:true, serverItem:'cos_creator_effect_overdrive' }
   ];
 
   const serverItemCatalog = {
@@ -3567,6 +3692,12 @@
     cos_effect_stardust:{ name:'Stardust', kind:'cosmetic', desc:'Secret profile effect.' },
     cos_effect_ember:{ name:'Ember Aura', kind:'cosmetic', desc:'Rare profile effect.' },
     cos_effect_snowfall:{ name:'Snowfall', kind:'cosmetic', desc:'Limited winter effect.' },
+    cos_creator_title_supreme:{ name:'Creator Supreme', kind:'cosmetic', desc:'Creator-only profile title.', creatorOnly:true },
+    cos_creator_title_architect:{ name:'Archie Architect', kind:'cosmetic', desc:'Creator-only profile title.', creatorOnly:true },
+    cos_creator_frame_crown:{ name:'Crown of Creation', kind:'cosmetic', desc:'Creator-only profile frame.', creatorOnly:true },
+    cos_creator_frame_matrix:{ name:'Developer Matrix', kind:'cosmetic', desc:'Creator-only profile frame.', creatorOnly:true },
+    cos_creator_effect_constellation:{ name:'Creator Constellation', kind:'cosmetic', desc:'Creator-only profile effect.', creatorOnly:true },
+    cos_creator_effect_overdrive:{ name:'Admin Overdrive', kind:'cosmetic', desc:'Creator-only profile effect.', creatorOnly:true },
     boost_click2_10:{ name:'Double Tap', kind:'boost', desc:'2× click power for 10 minutes.', click:2 },
     boost_auto2_10:{ name:'Overtime', kind:'boost', desc:'2× Archies/sec for 10 minutes.', auto:2 },
     boost_all3_5:{ name:'Jackpot Rush', kind:'boost', desc:'3× all production for 5 minutes.', click:3, auto:3 },
@@ -4772,8 +4903,10 @@
 
 
   const COSMETIC_VISUAL_CLASSES = [
-    'frame-orange','frame-berry','frame-gold','frame-cosmic','frame-obsidian','frame-emerald','frame-frost',
-    'effect-sparkle','effect-rainbow','effect-royal','effect-stardust','effect-ember','effect-snowfall'
+    'frame-orange','frame-berry','frame-gold','frame-cosmic','frame-sapphire','frame-ruby','frame-neon','frame-platinum','frame-solar','frame-void','frame-prism','frame-infinity',
+    'frame-obsidian','frame-emerald','frame-frost','frame-creator-crown','frame-developer-matrix',
+    'effect-sparkle','effect-rainbow','effect-royal','effect-pulse','effect-lightning','effect-aurora','effect-hologram','effect-inferno','effect-quantum','effect-divine','effect-galaxy',
+    'effect-stardust','effect-ember','effect-snowfall','effect-creator-constellation','effect-admin-overdrive'
   ];
 
   function previewCosmeticById(id) {
@@ -4829,10 +4962,11 @@
   function applyMyCosmetics() {
     [profileChip, profileCard].forEach(el => {
       if (!el) return;
-      ['frame-orange','frame-berry','frame-gold','frame-cosmic','frame-obsidian','frame-emerald','frame-frost','effect-sparkle','effect-rainbow','effect-royal','effect-stardust','effect-ember','effect-snowfall'].forEach(c => el.classList.remove(c));
+      COSMETIC_VISUAL_CLASSES.forEach(c => el.classList.remove(c));
       if (equippedFrame) el.classList.add(cosmeticClass('frame', equippedFrame));
+      else if (isCreatorAccount) el.classList.add('frame-gold');
       if (equippedEffect) el.classList.add(cosmeticClass('effect', equippedEffect));
-      if (isCreatorAccount) el.classList.add('frame-gold','effect-royal');
+      else if (isCreatorAccount) el.classList.add('effect-royal');
     });
   }
 
@@ -4992,6 +5126,7 @@
       const { data, error } = await leaderboardDb.rpc('archie_get_item_state');
       if (error) throw error;
       serverItems = new Map((data || []).map(row => [row.item_id, row]));
+      renderCreatorVaultState();
       const newChestCount = Number((serverItems.get('chest_mystery') || {}).quantity || 0);
 
       if (lastKnownChestCount === null) {
@@ -6208,12 +6343,24 @@
       const serverLifetime = Number(data);
       leaderboardProfile.archies = Number.isFinite(serverLifetime) ? serverLifetime : lifetime;
       if (Number.isFinite(serverLifetime) && serverLifetime + 1 < lifetime) {
-        // The server rejected/held a suspicious jump. Local progress is deliberately
-        // left untouched; only competitive/shared score syncing is paused.
+        // The server rejected/held a suspicious jump. Roll the local economy back
+        // to the last server-verified Lifetime amount instead of letting fake money
+        // remain usable in the browser.
         leaderboardScoreHeld = true;
-        lastSyncedLifetimeArchies = lifetime;
-        setLeaderboardStatus('⚠ Score verification hold: your local game is unchanged, but this Lifetime total was not accepted for the leaderboard.');
-        showToast('⚠ Leaderboard verification held this score for developer review.');
+
+        const acceptedLifetime = Math.max(0, Math.floor(serverLifetime));
+        totalEarned = acceptedLifetime;
+        runEarned = Math.min(Math.max(0, Number(runEarned) || 0), acceptedLifetime);
+
+        // Current Archies can never legitimately exceed Lifetime Archies.
+        score = Math.min(Math.max(0, Number(score) || 0), acceptedLifetime);
+
+        lastSyncedLifetimeArchies = acceptedLifetime;
+        saveGame();
+        render();
+
+        setLeaderboardStatus('⚠ Suspicious Archie jump rejected and rolled back to the last verified server total.');
+        showToast('⚠ Unverified Archie gain removed. Score held for developer review.');
       } else {
         leaderboardScoreHeld = false;
         lastSyncedLifetimeArchies = leaderboardProfile.archies;
@@ -6764,7 +6911,7 @@
       if (nameEl) nameEl.textContent = profile.username;
       if (rankEl2) rankEl2.textContent = profile.is_creator ? '★ Creator' : (profile.profile_title || profile.rank_title || 'Archie Nobody');
       const modal=document.querySelector('#playerProfileOverlay .social-modal');
-      if(modal){['frame-orange','frame-berry','frame-gold','frame-cosmic','frame-obsidian','frame-emerald','frame-frost','effect-sparkle','effect-rainbow','effect-royal','effect-stardust','effect-ember','effect-snowfall'].forEach(c=>modal.classList.remove(c));if(profile.profile_frame)modal.classList.add(cosmeticClass('frame',profile.profile_frame));if(profile.profile_effect)modal.classList.add(cosmeticClass('effect',profile.profile_effect));if(profile.is_creator)modal.classList.add('frame-gold','effect-royal');}
+      if(modal){COSMETIC_VISUAL_CLASSES.forEach(c=>modal.classList.remove(c));if(profile.profile_frame)modal.classList.add(cosmeticClass('frame',profile.profile_frame));else if(profile.is_creator)modal.classList.add('frame-gold');if(profile.profile_effect)modal.classList.add(cosmeticClass('effect',profile.profile_effect));else if(profile.is_creator)modal.classList.add('effect-royal');}
       if (summary) {
         summary.innerHTML = statCard('Lifetime Archies', fmt(Number(profile.archies) || 0)) + statCard('Status', formatLastSeen(profile.last_seen_at || profile.updated_at, profile.is_online)) + statCard('Relationship', relationshipText(profile.relationship) || (profile.relationship === 'self' ? 'This is you' : 'Not friends yet'));
         if (Number(profile.friend_streak || 0) > 0) addFriendStreakToSummary(summary, profile.friend_streak);
@@ -7069,6 +7216,7 @@
     refreshAdminEventUi();
     refreshBossState(true);
     loadAdminMetrics();
+    renderCreatorVaultState();
     pollClientState(true);
   }
 
@@ -7109,6 +7257,46 @@
     } catch (err) {
       showToast('Admin error: ' + (err && err.message ? err.message : 'request failed'));
       return false;
+    }
+  }
+
+
+  function renderCreatorVaultState() {
+    const section = document.getElementById('creatorCosmeticSection');
+    if (!section) return;
+    const allowed = !!(adminUnlocked && isCreatorAccount);
+    section.style.display = allowed ? 'block' : 'none';
+    if (!allowed) return;
+
+    section.querySelectorAll('.creator-cosmetic-unlock').forEach(btn => {
+      const itemId = btn.dataset.creatorItem || '';
+      const owned = serverItemOwned(itemId);
+      btn.disabled = owned;
+      if (owned) btn.textContent = '✓ Owned';
+      else if (itemId.includes('_title_')) btn.textContent = 'Unlock Title';
+      else if (itemId.includes('_frame_')) btn.textContent = 'Unlock Frame';
+      else btn.textContent = 'Unlock Effect';
+    });
+  }
+
+  async function unlockCreatorCosmetic(itemId) {
+    const status = document.getElementById('creatorCosmeticStatus');
+    if (!adminUnlocked || !leaderboardDb || !leaderboardUser) return;
+    if (!isCreatorAccount) {
+      if (status) status.textContent = 'This account is not the configured Creator.';
+      return;
+    }
+    if (status) status.textContent = 'Unlocking Creator cosmetic…';
+    try {
+      const { error } = await leaderboardDb.rpc('archie_creator_unlock_cosmetic', { p_item_id:itemId });
+      if (error) throw error;
+      if (status) status.textContent = 'Creator cosmetic unlocked.';
+      showToast('★ Creator cosmetic unlocked!');
+      await refreshServerItems(true);
+      renderCreatorVaultState();
+      render();
+    } catch (err) {
+      if (status) status.textContent = err && err.message ? err.message : 'Creator cosmetic unlock failed.';
     }
   }
 
@@ -7595,6 +7783,7 @@
   document.getElementById('developerPinSubmit').addEventListener('click', submitDeveloperPin);
   document.getElementById('developerPinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') submitDeveloperPin(); });
   document.getElementById('developerAdminClose').addEventListener('click', closeDeveloperAdmin);
+  document.querySelectorAll('.creator-cosmetic-unlock').forEach(btn => btn.addEventListener('click',()=>unlockCreatorCosmetic(btn.dataset.creatorItem)));
   document.getElementById('adminRefreshPlayers').addEventListener('click', loadAdminPlayers);
   document.getElementById('adminPushUpdate').addEventListener('click', adminPushUpdate);
   document.getElementById('adminPublishMessage').addEventListener('click', () => publishAdminMessage(false));
@@ -7652,6 +7841,9 @@
   });
   window.addEventListener('pagehide', saveGame);
   window.addEventListener('beforeunload', saveGame);
+
+/* END ARCHIE PRIVATE GAME SCOPE */
+})();
 </script>
 
 </body>
