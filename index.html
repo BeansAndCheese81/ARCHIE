@@ -3745,6 +3745,96 @@ body.beyond-world-open{overflow:hidden!important}
     94%,100%{transform:translateX(68%)}
   }
 
+
+  /* =========================================================
+     COSMETICS SAFARI FLEX-SHRINK FIX
+     ========================================================= */
+  #panel-cosmetics {
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  #panel-cosmetics .cosmetics-panel {
+    min-height:0!important;
+    height:100%!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:9px!important;
+    padding-right:3px!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  #panel-cosmetics .cosmetics-card {
+    flex:0 0 auto!important;
+    min-height:max-content!important;
+  }
+  #panel-cosmetics .cosmetics-card.wardrobe-card {
+    flex:0 0 auto!important;
+    height:auto!important;
+    min-height:220px!important;
+    overflow:visible!important;
+    border:3px solid rgba(198,91,143,.34)!important;
+    box-shadow:0 8px 22px rgba(110,63,92,.10)!important;
+  }
+  #panel-cosmetics .cosmetics-wardrobe-head,
+  #panel-cosmetics .cosmetics-toolbar,
+  #panel-cosmetics #cosmeticPreviewWrap,
+  #panel-cosmetics #cosmeticsList {
+    flex:none!important;
+    position:relative;
+  }
+  #panel-cosmetics #cosmeticPreviewWrap {
+    position:relative!important;
+    top:auto!important;
+  }
+
+
+  /* =========================================================
+     COSMETICS WARDROBE — COMPACT POLISHED LAYOUT
+     ========================================================= */
+  #panel-cosmetics .cosmetics-panel{gap:8px!important;padding-right:2px!important}
+  #panel-cosmetics .cosmetics-card.wardrobe-card{min-height:0!important;height:auto!important;overflow:hidden!important;border:2px solid rgba(212,113,31,.22)!important;border-radius:14px!important;box-shadow:none!important;background:var(--panel)!important}
+  #panel-cosmetics .cosmetics-wardrobe-head{padding:8px 9px 7px!important;background:linear-gradient(135deg,#fffaf4,#fff4e8)!important;border-bottom:1px solid rgba(212,113,31,.11)!important}
+  #panel-cosmetics .cosmetics-wardrobe-head::after{display:none!important}
+  #panel-cosmetics .cosmetics-wardrobe-title{font-size:.82rem!important}
+  #panel-cosmetics .cosmetics-wardrobe-sub{margin-top:1px!important;font-size:.52rem!important;line-height:1.32!important}
+  #panel-cosmetics .cosmetics-summary-row{gap:4px!important;margin-top:6px!important}
+  #panel-cosmetics .cosmetics-summary-stat{padding:4px!important;border-radius:8px!important}
+  #panel-cosmetics .cosmetics-summary-stat b{font-size:.62rem!important}
+  #panel-cosmetics .cosmetics-summary-stat span{font-size:.37rem!important}
+  #panel-cosmetics .cosmetics-toolbar{padding:7px 8px 6px!important}
+  #panel-cosmetics .cosmetics-search{padding:6px 8px!important;font-size:.54rem!important;border-width:1px!important}
+  #panel-cosmetics .cosmetics-filter-row{gap:4px!important;margin-top:5px!important}
+  #panel-cosmetics .cosmetics-filter-chip{padding:4px 6px!important;font-size:.46rem!important}
+
+  #panel-cosmetics #cosmeticPreviewWrap{margin:0!important;padding:6px 8px!important;border:none!important;border-top:1px solid rgba(212,113,31,.10)!important;border-bottom:1px solid rgba(212,113,31,.10)!important;border-radius:0!important;background:linear-gradient(135deg,#fffdf9,#fff8f0)!important;box-shadow:none!important}
+  #panel-cosmetics .cosmetic-preview-label{margin-bottom:4px!important;font-size:.44rem!important}
+  #panel-cosmetics .cosmetic-preview-card{grid-template-columns:38px minmax(0,1fr)!important;gap:7px!important;padding:6px!important;border-radius:9px!important;border:1px solid rgba(212,113,31,.14)!important;box-shadow:none!important;background:#fff!important}
+  #panel-cosmetics .cosmetic-preview-avatar{width:36px!important;height:36px!important;border-radius:9px!important}
+  #panel-cosmetics .cosmetic-preview-name{font-size:.58rem!important}
+  #panel-cosmetics .cosmetic-preview-title{font-size:.49rem!important}
+  #panel-cosmetics .cosmetic-preview-desc{margin-top:1px!important;font-size:.43rem!important;line-height:1.25!important}
+  #panel-cosmetics .cosmetic-preview-actions{margin-top:4px!important}
+  #panel-cosmetics .cosmetic-preview-actions .cosmetic-btn{padding:4px 7px!important;font-size:.47rem!important}
+
+  #panel-cosmetics #cosmeticsList{max-height:310px!important;overflow-y:auto!important;overflow-x:hidden!important;padding:6px 7px 8px!important;gap:4px!important;scrollbar-width:thin}
+  #panel-cosmetics .cosmetics-category-head{margin:4px 1px 1px!important}
+  #panel-cosmetics .cosmetics-category-head b{font-size:.61rem!important}
+  #panel-cosmetics .cosmetics-category-head span{font-size:.42rem!important}
+  #panel-cosmetics .cosmetic-item{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:5px!important;align-items:center!important;padding:6px 7px!important;border-width:1px!important;border-radius:9px!important}
+  #panel-cosmetics .cosmetic-name-row{gap:4px!important}
+  #panel-cosmetics .cosmetic-name{font-size:.63rem!important}
+  #panel-cosmetics .cosmetic-desc{margin-top:1px!important;font-size:.48rem!important;line-height:1.25!important}
+  #panel-cosmetics .cosmetic-rarity{font-size:.34rem!important;padding:1px 4px!important}
+  #panel-cosmetics .cosmetic-actions{display:flex!important;flex-direction:row!important;gap:4px!important;align-items:center!important}
+  #panel-cosmetics .cosmetic-actions .cosmetic-btn{padding:5px 6px!important;font-size:.48rem!important}
+  #panel-cosmetics #cosmeticsList>.cosmetic-btn.secondary{width:auto!important;align-self:flex-start!important;margin:1px 0 3px!important;padding:4px 7px!important;font-size:.45rem!important}
+  #panel-cosmetics .cosmetic-item.equipped{background:#fff6fa!important;border-color:rgba(198,91,143,.38)!important;box-shadow:none!important}
+  #panel-cosmetics .cosmetic-preview-card[class*="frame-"],#panel-cosmetics .cosmetic-preview-card[class*="effect-"]{filter:none!important;animation:none!important}
+  #panel-cosmetics .cosmetics-card:not(.wardrobe-card){flex:0 0 auto!important}
+  @media(max-width:900px){#panel-cosmetics #cosmeticsList{max-height:275px!important}}
+
 </style>
 </head>
 <body>
@@ -3943,7 +4033,7 @@ body.beyond-world-open{overflow:hidden!important}
         <div class="cosmetics-card wardrobe-card">
           <div class="cosmetics-wardrobe-head">
             <div class="cosmetics-wardrobe-title">✨ Archie Wardrobe</div>
-            <div class="cosmetics-wardrobe-sub">Preview, filter and equip your collection without digging through one giant list.</div>
+            <div class="cosmetics-wardrobe-sub">Browse, preview and equip your collection.</div>
             <div class="cosmetics-summary-row">
               <div class="cosmetics-summary-stat"><b id="cosmeticsOwnedCount">0</b><span>Owned</span></div>
               <div class="cosmetics-summary-stat"><b id="cosmeticsTotalCount">0</b><span>Visible</span></div>
@@ -6679,6 +6769,16 @@ body.beyond-world-open{overflow:hidden!important}
   }
 
 
+
+  function resetCosmeticsPanelToTop(){
+    const panel=document.getElementById('panel-cosmetics');
+    const inner=panel?.querySelector('.cosmetics-panel');
+    requestAnimationFrame(()=>{
+      if(inner)inner.scrollTop=0;
+      if(panel)panel.scrollTop=0;
+    });
+  }
+
   function openGameTab(tabName) {
     const targetTab = document.querySelector('.tab[data-tab="' + tabName + '"]');
     const targetPanel = document.getElementById('panel-' + tabName);
@@ -6692,7 +6792,7 @@ body.beyond-world-open{overflow:hidden!important}
     if (tabName === 'friends') refreshFriends();
     if (tabName === 'quests') refreshDailyQuests(true);
     if (tabName === 'inbox') { refreshInbox(true); setTimeout(markInboxRead,500); }
-    if (tabName === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
+    if (tabName === 'cosmetics') { renderCosmetics(); renderWorldSelector(); resetCosmeticsPanelToTop(); }
     if (tabName === 'legacy') renderLegacyTree();
     if (tabName === 'beyondportal') renderBeyondPortal();
   }
@@ -9511,7 +9611,7 @@ body.beyond-world-open{overflow:hidden!important}
       if (tab.dataset.tab === 'friends') refreshFriends();
       if (tab.dataset.tab === 'quests') refreshDailyQuests(true);
       if (tab.dataset.tab === 'inbox') { refreshInbox(true); setTimeout(markInboxRead, 500); }
-      if (tab.dataset.tab === 'cosmetics') { renderCosmetics(); renderWorldSelector(); }
+      if (tab.dataset.tab === 'cosmetics') { renderCosmetics(); renderWorldSelector(); resetCosmeticsPanelToTop(); }
       if (tab.dataset.tab === 'legacy') renderLegacyTree();
       if (tab.dataset.tab === 'beyondportal') renderBeyondPortal();
     });
