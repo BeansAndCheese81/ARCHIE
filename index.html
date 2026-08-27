@@ -4352,6 +4352,49 @@ body.beyond-world-open{overflow:hidden!important}
     .subway-train,.subway-coin,.subway-sleepers,.subway-runner{animation-play-state:paused!important}
   }
 
+
+  /* =========================================================
+     FINAL RETENTION / SOCIAL POLISH
+     ========================================================= */
+  .friend-rivalry-card{
+    width:min(560px,92vw);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;
+    padding:9px 11px;border-radius:15px;border:2px solid rgba(198,91,143,.32);
+    background:linear-gradient(135deg,rgba(255,250,240,.94),rgba(255,239,248,.92));
+    box-shadow:0 4px 14px rgba(91,58,41,.10);cursor:pointer;transition:.15s ease;
+  }
+  .friend-rivalry-card:hover{transform:translateY(-1px);border-color:var(--berry);box-shadow:0 7px 20px rgba(198,91,143,.16)}
+  .friend-rivalry-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(198,91,143,.12);font-size:1.15rem}
+  .friend-rivalry-kicker{font-size:.50rem;letter-spacing:1.2px;font-weight:900;color:var(--berry)}
+  .friend-rivalry-title{font-family:'Baloo 2',sans-serif;font-size:.82rem;font-weight:900;color:var(--choc);line-height:1.15;margin-top:1px}
+  .friend-rivalry-sub{font-size:.57rem;color:var(--muted);font-weight:700;line-height:1.3;margin-top:1px}
+  .friend-rivalry-track{height:5px;margin-top:5px;border-radius:999px;background:rgba(198,91,143,.12);overflow:hidden}
+  .friend-rivalry-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#f2903b,#c65b8f);transition:width .35s ease}
+  .friend-rivalry-action{border:0;border-radius:999px;padding:7px 10px;background:var(--berry);color:#fff;font-family:'Baloo 2',sans-serif;font-weight:900;font-size:.58rem;cursor:pointer;white-space:nowrap}
+  .friend-rivalry-card.rival-winning{border-color:rgba(212,113,31,.45);background:linear-gradient(135deg,#fffaf0,#fff2d9)}
+  .friend-rivalry-card.rival-winning .friend-rivalry-icon{background:rgba(212,113,31,.12)}
+
+  .archie-reaction{
+    position:fixed;z-index:95;left:50%;top:calc(50% - min(30vh,180px));transform:translate(-50%,10px) scale(.92);
+    opacity:0;pointer-events:none;padding:7px 12px;border-radius:999px;border:2px solid rgba(212,113,31,.35);
+    background:rgba(255,250,240,.96);color:var(--choc);font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:900;
+    box-shadow:0 8px 24px rgba(91,58,41,.16);transition:opacity .18s ease,transform .2s ease;white-space:nowrap;
+  }
+  .archie-reaction.show{opacity:1;transform:translate(-50%,0) scale(1)}
+  .archie-reaction.rare{border-color:#ffd34d;background:#fff8cf;box-shadow:0 0 24px rgba(255,211,77,.32)}
+
+  .milestone-flash{position:fixed;inset:0;pointer-events:none;z-index:91;background:radial-gradient(circle at 50% 48%,rgba(255,215,91,.22),transparent 42%);opacity:0;animation:milestoneFlash .55s ease forwards}
+  @keyframes milestoneFlash{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+
+  .daily-login-card .daily-streak-badge{display:inline-flex;align-items:center;gap:4px;margin-left:5px;padding:3px 7px;border-radius:999px;background:#fff0cf;border:1px solid #e4ad49;color:#8c5a16;font-size:.54rem;font-weight:900}
+  .daily-login-card.reward-celebrate{animation:dailyRewardPop .65s ease}
+  @keyframes dailyRewardPop{0%{transform:scale(1)}35%{transform:scale(1.025)}65%{transform:scale(.995)}100%{transform:scale(1)}}
+
+  @media(max-width:720px){
+    .friend-rivalry-card{width:min(94vw,560px);grid-template-columns:auto minmax(0,1fr);}
+    .friend-rivalry-action{grid-column:2;justify-self:start}
+    .friend-rivalry-sub{font-size:.55rem}
+  }
+
 </style>
 </head>
 <body>
@@ -4474,6 +4517,17 @@ body.beyond-world-open{overflow:hidden!important}
       <div><div class="next-interesting-kicker">Up Next</div><div class="next-interesting-title" id="nextInterestingTitle">Keep building your Archie empire</div><div class="next-interesting-sub" id="nextInterestingSub"></div></div>
       <button class="next-interesting-action" id="nextInterestingAction" type="button">Go</button>
       <div class="next-interesting-track"><div class="next-interesting-fill" id="nextInterestingFill"></div></div>
+    </div>
+
+    <div class="friend-rivalry-card" id="friendRivalryCard" role="button" tabindex="0">
+      <div class="friend-rivalry-icon">⚔️</div>
+      <div class="friend-rivalry-main">
+        <div class="friend-rivalry-kicker">FRIEND RIVALRY</div>
+        <div class="friend-rivalry-title" id="friendRivalryTitle">Your friends are your competition</div>
+        <div class="friend-rivalry-sub" id="friendRivalrySub">Add friends to see who is ahead and start a Click-Off.</div>
+        <div class="friend-rivalry-track"><div class="friend-rivalry-fill" id="friendRivalryFill"></div></div>
+      </div>
+      <button class="friend-rivalry-action" id="friendRivalryAction" type="button">Friends</button>
     </div>
 
     <button class="beyond-portal-quick" id="beyondQuickEnter" type="button">🌌 Enter Archie Beyond</button>
@@ -5301,6 +5355,9 @@ body.beyond-world-open{overflow:hidden!important}
   let friendsRefreshBusy = false;
   let lastSocialSignature = '';
   let activeSocialPlayerId = null;
+  let friendRivalRows = [];
+  let lastArchieReactionAt = 0;
+  let lastReactionMilestone = 0;
 
   function leaderboardIsConfigured() {
     return /^https:\/\//.test(SUPABASE_URL) && !SUPABASE_URL.includes('PASTE_') &&
@@ -6376,6 +6433,14 @@ body.beyond-world-open{overflow:hidden!important}
     const requests=incomingFriendRequestCount();
     if(requests>0){
       setNextInteresting('👥',requests+' friend '+(requests===1?'request':'requests'),'Someone wants to join your Archie network.','Friends',()=>openGameTab('friends'),100);return;
+    }
+    if(friendRivalRows.length){
+      const rival=friendRivalRows.slice().sort((a,b)=>(Number(b.archies)||0)-(Number(a.archies)||0))[0];
+      const mine=Math.max(0,Number(totalEarned)||0),theirs=Math.max(0,Number(rival?.archies)||0);
+      if(rival && theirs>mine){
+        const pct=Math.min(100,mine/Math.max(1,theirs)*100);
+        setNextInteresting('⚔️',rival.username+' is ahead of you',fmt(theirs-mine)+' Lifetime Archies to catch them.','Catch Up',()=>openGameTab('friends'),pct);return;
+      }
     }
     const chests=Number((serverItems.get('chest_mystery')||{}).quantity||0);
     if(chests>0){
@@ -8283,6 +8348,28 @@ body.beyond-world-open{overflow:hidden!important}
     }
   }
 
+
+  function showArchieReaction(message,rare=false){
+    const now=Date.now();
+    if(now-lastArchieReactionAt<320)return;
+    lastArchieReactionAt=now;
+    let el=document.getElementById('archieReaction');
+    if(!el){el=document.createElement('div');el.id='archieReaction';el.className='archie-reaction';document.body.appendChild(el);}
+    el.textContent=message; el.classList.toggle('rare',!!rare); el.classList.remove('show'); void el.offsetWidth; el.classList.add('show');
+    clearTimeout(el._hideTimer); el._hideTimer=setTimeout(()=>el.classList.remove('show'),rare?1500:900);
+  }
+
+  function checkArchiePersonalityReaction(gain,crit){
+    if(totalClicks>0&&totalClicks%100===0){showArchieReaction('😳 '+fmt(totalClicks)+' clicks?! You people are serious.',true);return;}
+    if(crit){showArchieReaction('🔥 CRITICAL! Archie felt that one.',true);return;}
+    if(totalEarned>=1000000000&&lastReactionMilestone<1000000000){lastReactionMilestone=1000000000;showArchieReaction('💰 A BILLION ARCHIES?! I need a new accountant.',true);return;}
+    if(totalEarned>=1000000&&lastReactionMilestone<1000000){lastReactionMilestone=1000000;showArchieReaction('😎 One million. Archie is officially getting rich.');return;}
+    if(Math.random()<0.0025){
+      const lines=['👋 Archie approves.','🫡 Keep cooking.','😏 That click looked expensive.','🚀 We are so back.','🧀 Somehow this is still productive.','👀 Your friends are probably watching the leaderboard.'];
+      showArchieReaction(lines[Math.floor(Math.random()*lines.length)]);
+    }
+  }
+
   function performArchieClick(e, fromKeyboard = false) {
     if (playerIsBanned) return;
     if (!acceptHumanClick(e)) return;
@@ -8300,6 +8387,7 @@ body.beyond-world-open{overflow:hidden!important}
     totalEarned += gain;
     runEarned += gain;
     totalClicks += 1;
+    checkArchiePersonalityReaction(gain,crit);
     if (bossState && bossState.active) bossPendingHits = Math.min(30, bossPendingHits + 1);
 
     const rect = btn.getBoundingClientRect();
@@ -8956,7 +9044,9 @@ body.beyond-world-open{overflow:hidden!important}
       const {data,error}=await leaderboardDb.rpc('archie_claim_daily_login');
       if(error)throw error;
       const row=Array.isArray(data)?data[0]:data;
-      showToast('🎁 Daily Reward claimed: '+(row?.reward_name||'Reward'));
+      showToast('🎁 Daily Reward claimed: '+(row?.reward_name||'Reward')+' · Streak Day '+Number(row?.reward_day||dailyLoginState?.reward_day||1));
+      const dailyCard=document.getElementById('dailyLoginCard');
+      if(dailyCard){dailyCard.classList.remove('reward-celebrate');void dailyCard.offsetWidth;dailyCard.classList.add('reward-celebrate');}
       burstConfetti(window.innerWidth*.30,90,42);
       playUISound('confirm');
       await pollClientState(true);
@@ -9094,6 +9184,44 @@ body.beyond-world-open{overflow:hidden!important}
     return card;
   }
 
+
+  function renderFriendRivalry(rows=friendRivalRows){
+    const card=document.getElementById('friendRivalryCard');
+    const title=document.getElementById('friendRivalryTitle');
+    const sub=document.getElementById('friendRivalrySub');
+    const fill=document.getElementById('friendRivalryFill');
+    const action=document.getElementById('friendRivalryAction');
+    if(!card||!title||!sub||!fill||!action)return;
+    const list=Array.isArray(rows)?rows.filter(Boolean):[];
+    if(!leaderboardProfile||!list.length){
+      card.classList.remove('rival-winning');
+      title.textContent=leaderboardProfile?'Your friends are your competition':'Join the leaderboard to compete with friends';
+      sub.textContent=leaderboardProfile?'Add friends to see who is ahead, compare lifetime Archies and start a Click-Off.':'Pick a username, then add your friends from the Leaderboard.';
+      fill.style.width='0%'; action.textContent='Friends'; return;
+    }
+    const sorted=list.slice().sort((a,b)=>(Number(b.archies)||0)-(Number(a.archies)||0));
+    const rival=sorted[0];
+    const mine=Math.max(0,Number(totalEarned)||0);
+    const theirs=Math.max(0,Number(rival.archies)||0);
+    const high=Math.max(1,mine,theirs);
+    const pct=Math.min(100,mine/high*100);
+    fill.style.width=pct+'%';
+    card.classList.toggle('rival-winning',mine>=theirs);
+    if(mine>=theirs){
+      const lead=mine-theirs;
+      title.textContent='You are ahead of '+(rival.username||'your top friend')+'! 🏆';
+      sub.textContent='Lead: '+fmt(lead)+' Lifetime Archies · keep the gap alive.';
+    }else{
+      const gap=theirs-mine;
+      title.textContent=(rival.username||'Your friend')+' is ahead of you! 👀';
+      sub.textContent='Gap: '+fmt(gap)+' Lifetime Archies · time to catch them.';
+    }
+    action.textContent='⚔️ Challenge';
+    action.onclick=(e)=>{e.stopPropagation();challengeFriendClickoff(rival.user_id,rival.username||'your friend');};
+    card.onclick=()=>openGameTab('friends');
+    card.onkeydown=(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGameTab('friends');}};
+  }
+
   async function searchFriends() {
     const input = document.getElementById('friendSearchInput');
     const list = document.getElementById('friendSearchResults');
@@ -9145,6 +9273,8 @@ body.beyond-world-open{overflow:hidden!important}
 
       friendsList.innerHTML = '';
       (friendsRes.data || []).forEach(row => friendsList.appendChild(makeFriendRow(row, 'friend')));
+      friendRivalRows = Array.isArray(friendsRes.data) ? friendsRes.data.slice() : [];
+      renderFriendRivalry(friendRivalRows);
       if (!friendsRes.data || !friendsRes.data.length) emptyFriendList(friendsList, 'No friends yet. Search above or click a leaderboard player.');
 
       incomingList.innerHTML = '';
@@ -10367,7 +10497,7 @@ body.beyond-world-open{overflow:hidden!important}
   setInterval(()=>refreshChat(false),1600);
   setInterval(flushClickoffClicks,160);
   setInterval(()=>{if(clickoffScreenShowing())renderClickoffState();},100);
-  setInterval(() => { const active = document.querySelector('.tab.active'); if (active && active.dataset.tab === 'friends') refreshFriends(); }, 10000);
+  setInterval(() => { const active = document.querySelector('.tab.active'); if (active && active.dataset.tab === 'friends') refreshFriends(); else if (leaderboardProfile && friendRivalRows.length===0) refreshFriends(); }, 10000);
   setInterval(refreshServerItems, 10000);
   setInterval(refreshBossState, 2000);
   setInterval(refreshBossContributions, 2000);
