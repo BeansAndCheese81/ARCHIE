@@ -3986,6 +3986,7 @@ body.beyond-world-open{overflow:hidden!important}
   let leaderboardProfile = null;
   let leaderboardSyncBusy = false;
   let leaderboardScoreHeld = false;
+  let leaderboardSyncRetryAt = 0;
   let leaderboardRefreshBusy = false;
   let lastSyncedLifetimeArchies = -1;
   let clientStatePollBusy = false;
@@ -7111,7 +7112,7 @@ body.beyond-world-open{overflow:hidden!important}
 
   async function syncLifetimeArchies(force = false) {
     if (!leaderboardDb || !leaderboardProfile || leaderboardSyncBusy || playerIsBanned) return;
-    if (leaderboardScoreHeld && !force) return;
+    if (!force && Date.now() < leaderboardSyncRetryAt) return;
     const lifetime = Math.max(0, Math.floor(Number(totalEarned) || 0));
     if (!force && lifetime <= lastSyncedLifetimeArchies) return;
 
@@ -7122,26 +7123,20 @@ body.beyond-world-open{overflow:hidden!important}
       const serverLifetime = Number(data);
       leaderboardProfile.archies = Number.isFinite(serverLifetime) ? serverLifetime : lifetime;
       if (Number.isFinite(serverLifetime) && serverLifetime + 1 < lifetime) {
-        // The server rejected/held a suspicious jump. Roll the local economy back
-        // to the last server-verified Lifetime amount instead of letting fake money
-        // remain usable in the browser.
-        leaderboardScoreHeld = true;
+        // Competitive/server verification rejected this jump, but NEVER destroy
+        // the player's local progress and NEVER auto-jail them from one score spike.
+        leaderboardScoreHeld = false;
+        leaderboardSyncRetryAt = Date.now() + 60000;
 
-        const acceptedLifetime = Math.max(0, Math.floor(serverLifetime));
-        totalEarned = acceptedLifetime;
-        runEarned = Math.min(Math.max(0, Number(runEarned) || 0), acceptedLifetime);
+        // Mark this exact local value as attempted so the normal 3-second loop
+        // does not hammer the server until the cooldown expires.
+        lastSyncedLifetimeArchies = lifetime;
 
-        // Current Archies can never legitimately exceed Lifetime Archies.
-        score = Math.min(Math.max(0, Number(score) || 0), acceptedLifetime);
-
-        lastSyncedLifetimeArchies = acceptedLifetime;
-        saveGame();
-        render();
-
-        setLeaderboardStatus('⚠ Suspicious Archie jump rejected and rolled back to the last verified server total.');
-        showToast('⚠ Unverified Archie gain removed. Score held for developer review.');
+        setLeaderboardStatus('⚠ Lifetime verification paused for 60s. Your game progress is untouched while the server reviews the jump.');
+        showToast('⚠ Leaderboard verification paused — your Archies were NOT removed.');
       } else {
         leaderboardScoreHeld = false;
+        leaderboardSyncRetryAt = 0;
         lastSyncedLifetimeArchies = leaderboardProfile.archies;
         setLeaderboardStatus('Leaderboard synced: ' + fmt(leaderboardProfile.archies) + ' Lifetime Archies');
       }
