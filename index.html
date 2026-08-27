@@ -3147,11 +3147,564 @@ body.beyond-world-open{overflow:hidden!important}
   .admin-clickoff-box{margin-top:10px;padding:9px;border:2px solid rgba(95,105,226,.24);border-radius:13px;background:linear-gradient(135deg,rgba(237,241,255,.72),rgba(249,237,255,.68))}.admin-clickoff-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
   @media(max-width:760px){.clickoff-arena{height:min(820px,96vh)}.clickoff-header{grid-template-columns:1fr auto}.clickoff-mycount{grid-column:1/-1;justify-self:center;text-align:center}.clickoff-body{grid-template-columns:1fr;overflow-y:auto}.clickoff-play{min-height:430px}.clickoff-button{width:min(70vw,320px);height:min(70vw,320px)}.clickoff-board{min-height:240px}}
 
+
+  /* =========================================================
+     WORLD POLISH + LIVE CHAT UPDATE
+     Empire Monuments · Cosmetics Wardrobe · Legacy Branch UI · Chat
+     ========================================================= */
+
+  /* ---------------- Empire monuments in World 1 backdrop ---------------- */
+  .empire-monument-layer {
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  body.beyond-world-open .empire-monument-layer { display:none; }
+  .empire-monument {
+    position:absolute;
+    opacity:0;
+    transform:translateY(24px) scale(.78);
+    transition:opacity .7s ease,transform .8s cubic-bezier(.2,.85,.2,1),filter .6s ease;
+    filter:drop-shadow(0 8px 16px rgba(20,15,30,.22));
+  }
+  .empire-monument.show {
+    opacity:var(--monument-opacity,.72);
+    transform:translateY(0) scale(var(--monument-scale,1));
+  }
+  .empire-monument .monument-visual {
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    height:100%;
+    border:1px solid rgba(255,255,255,.14);
+    color:#fff5d7;
+    background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(20,20,48,.20));
+    backdrop-filter:blur(1px);
+    -webkit-backdrop-filter:blur(1px);
+    overflow:hidden;
+  }
+  .empire-monument .monument-icon {
+    font-size:var(--monument-icon,3rem);
+    line-height:1;
+    text-shadow:0 4px 12px rgba(0,0,0,.30);
+  }
+  .empire-monument .monument-level {
+    position:absolute;
+    right:5px;
+    bottom:4px;
+    min-width:22px;
+    padding:2px 5px;
+    border-radius:999px;
+    background:rgba(19,18,42,.70);
+    border:1px solid rgba(255,226,139,.18);
+    color:#ffe9a8;
+    font-size:.43rem;
+    font-weight:900;
+    text-align:center;
+  }
+  .empire-monument .monument-name {
+    position:absolute;
+    left:50%;
+    top:calc(100% + 5px);
+    transform:translateX(-50%);
+    width:max-content;
+    max-width:190px;
+    padding:3px 7px;
+    border-radius:999px;
+    background:rgba(17,16,38,.64);
+    color:rgba(255,247,222,.88);
+    font-size:.45rem;
+    font-weight:850;
+    text-shadow:0 1px 3px rgba(0,0,0,.45);
+  }
+  .monument-stadium { left:2vw;bottom:5vh;width:170px;height:78px; }
+  .monument-stadium .monument-visual { border-radius:50% 50% 14px 14px;background:linear-gradient(180deg,rgba(237,191,78,.20),rgba(55,44,91,.28)); }
+  .monument-tower { left:10vw;bottom:12vh;width:74px;height:205px; }
+  .monument-tower .monument-visual { border-radius:25px 25px 6px 6px;background:linear-gradient(90deg,rgba(67,173,210,.22),rgba(105,80,182,.30)); }
+  .monument-exchange { right:10vw;bottom:7vh;width:132px;height:108px; }
+  .monument-exchange .monument-visual { border-radius:11px;background:linear-gradient(180deg,rgba(85,199,124,.18),rgba(34,45,82,.28)); }
+  .monument-moon { right:4vw;top:13vh;width:105px;height:105px; }
+  .monument-moon .monument-visual { border-radius:50%;background:radial-gradient(circle at 35% 28%,rgba(255,247,193,.55),rgba(147,147,189,.22) 55%,rgba(44,46,92,.16)); }
+  .monument-fleet { right:23vw;top:18vh;width:118px;height:70px; }
+  .monument-fleet .monument-visual { border-radius:50%;background:radial-gradient(ellipse,rgba(91,216,255,.14),rgba(69,58,144,.15) 60%,transparent 68%);border:none; }
+  .monument-dyson { left:21vw;top:10vh;width:112px;height:112px; }
+  .monument-dyson .monument-visual { border-radius:50%;background:radial-gradient(circle,#fff4a9 0 16%,rgba(255,191,68,.45) 17% 32%,rgba(127,82,205,.10) 34% 51%,transparent 52%);border:2px dashed rgba(255,222,109,.32); }
+  .monument-mint { left:1.5vw;top:37vh;width:92px;height:92px; }
+  .monument-mint .monument-visual { border-radius:18px;background:linear-gradient(145deg,rgba(90,215,157,.18),rgba(55,47,114,.25)); }
+  .monument-foundry { right:2vw;bottom:30vh;width:110px;height:92px; }
+  .monument-foundry .monument-visual { border-radius:20px;background:linear-gradient(145deg,rgba(230,107,74,.18),rgba(83,50,129,.25)); }
+  .monument-vault { left:27vw;bottom:5vh;width:92px;height:88px; }
+  .monument-vault .monument-visual { border-radius:22px;background:radial-gradient(circle,rgba(138,114,255,.24),rgba(31,34,72,.22)); }
+  .monument-throne { right:31vw;bottom:4vh;width:96px;height:108px; }
+  .monument-throne .monument-visual { border-radius:28px 28px 9px 9px;background:linear-gradient(180deg,rgba(255,209,91,.20),rgba(106,60,142,.25)); }
+
+  body.boss-mode .empire-monument-layer { filter:brightness(.55) saturate(.75); }
+  body.seasonal-active .empire-monument .monument-visual { box-shadow:inset 0 0 22px rgba(255,255,255,.06); }
+
+  @media(max-width:900px){
+    .empire-monument-layer { opacity:.60; }
+    .empire-monument .monument-name { display:none; }
+    .monument-stadium{width:125px;height:58px}
+    .monument-tower{height:150px;width:58px}
+    .monument-exchange{width:100px;height:82px}
+    .monument-moon,.monument-dyson{width:78px;height:78px}
+    .monument-fleet{width:85px;height:52px}
+    .monument-mint,.monument-foundry,.monument-vault,.monument-throne{width:68px;height:68px}
+  }
+
+  /* ---------------- Cosmetics wardrobe cleanup ---------------- */
+  .cosmetics-panel {
+    gap:9px!important;
+    padding-right:3px;
+  }
+  .cosmetics-card.wardrobe-card {
+    padding:0!important;
+    overflow:hidden;
+  }
+  .cosmetics-wardrobe-head {
+    padding:11px 11px 9px;
+    background:linear-gradient(135deg,#fff8ef,#fff0dc);
+    border-bottom:1px solid rgba(212,113,31,.15);
+  }
+  .cosmetics-wardrobe-title {
+    font-family:'Baloo 2',sans-serif;
+    font-size:.95rem;
+    font-weight:900;
+    color:var(--choc);
+  }
+  .cosmetics-wardrobe-sub {
+    margin-top:1px;
+    font-size:.59rem;
+    color:#876f5d;
+    font-weight:700;
+  }
+  .cosmetics-summary-row {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:5px;
+    margin-top:8px;
+  }
+  .cosmetics-summary-stat {
+    padding:6px;
+    border-radius:9px;
+    text-align:center;
+    background:rgba(255,255,255,.68);
+    border:1px solid rgba(212,113,31,.12);
+  }
+  .cosmetics-summary-stat b {
+    display:block;
+    font-family:'Baloo 2',sans-serif;
+    font-size:.72rem;
+    color:#6d4a36;
+  }
+  .cosmetics-summary-stat span {
+    display:block;
+    font-size:.43rem;
+    color:#9a806e;
+    font-weight:900;
+    text-transform:uppercase;
+  }
+  .cosmetics-toolbar {
+    padding:9px 10px 8px;
+    background:rgba(255,255,255,.58);
+    border-bottom:1px solid rgba(212,113,31,.12);
+  }
+  .cosmetics-search {
+    width:100%;
+    box-sizing:border-box;
+    border:2px solid rgba(212,113,31,.18);
+    border-radius:999px;
+    background:#fff;
+    color:#614532;
+    padding:7px 10px;
+    font-family:'Nunito',sans-serif;
+    font-size:.61rem;
+    font-weight:750;
+    outline:none;
+  }
+  .cosmetics-search:focus { border-color:#c65b8f;box-shadow:0 0 0 3px rgba(198,91,143,.08); }
+  .cosmetics-filter-row {
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:7px;
+  }
+  .cosmetics-filter-chip {
+    border:1px solid rgba(113,80,67,.14);
+    border-radius:999px;
+    padding:5px 7px;
+    background:#fffaf4;
+    color:#765b4a;
+    font-family:'Baloo 2',sans-serif;
+    font-size:.53rem;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .cosmetics-filter-chip.active {
+    border-color:#c65b8f;
+    background:#fff0f6;
+    color:#a33e70;
+    box-shadow:0 3px 9px rgba(198,91,143,.12);
+  }
+  .cosmetics-catalog {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    padding:9px 10px 11px;
+  }
+  .cosmetics-category-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin:5px 1px 1px;
+  }
+  .cosmetics-category-head b {
+    font-family:'Baloo 2',sans-serif;
+    color:#5d4133;
+    font-size:.72rem;
+  }
+  .cosmetics-category-head span {
+    color:#9a806f;
+    font-size:.49rem;
+    font-weight:800;
+  }
+  .cosmetic-item {
+    align-items:flex-start!important;
+    padding:8px 9px!important;
+  }
+  .cosmetic-info { flex:1; }
+  .cosmetic-name-row { display:flex;align-items:center;gap:5px;flex-wrap:wrap; }
+  .cosmetic-rarity {
+    padding:1px 5px;
+    border-radius:999px;
+    font-size:.42rem;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+  .rarity-common { background:#eee8e2;color:#735e50; }
+  .rarity-rare { background:#e9f5ff;color:#3c77a4; }
+  .rarity-epic { background:#f2eaff;color:#7653aa; }
+  .rarity-legendary { background:#fff0c8;color:#9a6a0f; }
+  .rarity-mythic { background:#ffe8f5;color:#a63f78; }
+  .rarity-limited { background:#e9f9f5;color:#26795e; }
+  .cosmetics-empty {
+    padding:14px 10px;
+    text-align:center;
+    color:#8d7565;
+    font-size:.60rem;
+    font-weight:750;
+  }
+  #cosmeticPreviewWrap {
+    position:sticky;
+    top:0;
+    z-index:6;
+    margin:0!important;
+    border-radius:0!important;
+    border-left:none!important;
+    border-right:none!important;
+    border-top:none!important;
+    box-shadow:0 6px 14px rgba(62,38,27,.07);
+  }
+
+  /* ---------------- Legacy skill tree cleanup ---------------- */
+  #panel-legacy .legacy-summary {
+    min-height:100px;
+    padding-bottom:10px!important;
+  }
+  .legacy-toolbar {
+    margin-top:8px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-wrap:wrap;
+    padding-right:330px;
+  }
+  .legacy-filter-btn {
+    border:1px solid rgba(218,146,255,.22);
+    border-radius:999px;
+    padding:5px 8px;
+    background:rgba(255,255,255,.06);
+    color:#dcc8ec;
+    font-family:'Baloo 2',sans-serif;
+    font-size:.54rem;
+    font-weight:900;
+    cursor:pointer;
+    transition:background .16s ease,border-color .16s ease,transform .16s ease;
+  }
+  .legacy-filter-btn:hover { transform:translateY(-1px);border-color:#d291f5; }
+  .legacy-filter-btn.active {
+    background:linear-gradient(90deg,rgba(154,81,193,.42),rgba(87,99,210,.36));
+    border-color:#dda4ff;
+    color:#fff;
+    box-shadow:0 0 14px rgba(204,130,255,.14);
+  }
+  .legacy-tree-canvas {
+    background:
+      radial-gradient(circle at 50% 18%,rgba(180,118,255,.06),transparent 27%),
+      linear-gradient(180deg,rgba(255,255,255,.018),transparent 30%)!important;
+  }
+  .legacy-branch-lane {
+    position:absolute;
+    top:75px;
+    width:196px;
+    height:815px;
+    transform:translateX(-50%);
+    border:1px solid rgba(255,255,255,.045);
+    border-radius:24px;
+    background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));
+    pointer-events:none;
+  }
+  .legacy-branch-lane.focused {
+    border-color:rgba(209,145,255,.22);
+    background:linear-gradient(180deg,rgba(178,105,227,.08),rgba(93,90,192,.035));
+    box-shadow:0 0 25px rgba(149,86,212,.07);
+  }
+  .legacy-branch-progress {
+    position:absolute;
+    top:83px;
+    transform:translateX(-50%);
+    width:150px;
+    text-align:center;
+    color:#a995b8;
+    font-size:.48rem;
+    font-weight:800;
+    pointer-events:none;
+  }
+  .legacy-node {
+    width:184px!important;
+    min-height:96px!important;
+    border-radius:15px!important;
+    box-shadow:0 8px 20px rgba(0,0,0,.18)!important;
+  }
+  .legacy-node.branch-dimmed {
+    opacity:.17!important;
+    filter:grayscale(.55)!important;
+    pointer-events:none!important;
+  }
+  .legacy-node.mastery-node {
+    width:230px!important;
+    transform:translateX(-23px);
+    border-color:rgba(255,219,112,.48)!important;
+    background:linear-gradient(145deg,rgba(82,43,100,.92),rgba(86,65,35,.88))!important;
+    box-shadow:0 0 24px rgba(255,205,92,.14),0 10px 24px rgba(0,0,0,.22)!important;
+  }
+  .legacy-line.branch-dimmed { opacity:.06!important; }
+  .legacy-branch-label {
+    top:54px!important;
+    padding:4px 9px!important;
+    border-radius:999px;
+    background:rgba(21,14,32,.62);
+    border:1px solid rgba(215,151,255,.14);
+  }
+  .legacy-build-summary {
+    position:absolute;
+    right:342px;
+    top:14px;
+    color:#baa6ca;
+    font-size:.53rem;
+    font-weight:750;
+    text-align:right;
+  }
+  .legacy-build-summary b { color:#fff!important;font-size:.60rem!important; }
+
+  @media(max-width:900px){
+    .legacy-toolbar { padding-right:0;max-width:70%; }
+    .legacy-build-summary { display:none; }
+  }
+
+  /* ---------------- Live global chat ---------------- */
+  .archie-chat {
+    position:fixed;
+    left:10px;
+    bottom:10px;
+    z-index:520;
+    width:min(330px,calc(100vw - 20px));
+    border:2px solid rgba(110,99,181,.22);
+    border-radius:17px;
+    overflow:hidden;
+    background:linear-gradient(145deg,rgba(255,251,244,.97),rgba(245,240,255,.96));
+    box-shadow:0 16px 42px rgba(37,26,57,.25);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:height .18s ease,transform .18s ease;
+  }
+  .archie-chat.collapsed { width:220px; }
+  .archie-chat-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    padding:8px 9px;
+    cursor:pointer;
+    background:linear-gradient(90deg,#332b66,#684283);
+    color:#fff;
+  }
+  .archie-chat-title {
+    display:flex;
+    align-items:center;
+    gap:6px;
+    min-width:0;
+    font-family:'Baloo 2',sans-serif;
+    font-size:.69rem;
+    font-weight:900;
+  }
+  .archie-chat-live {
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#62db79;
+    box-shadow:0 0 8px rgba(98,219,121,.8);
+  }
+  .archie-chat-toggle {
+    border:none;
+    background:rgba(255,255,255,.10);
+    color:#fff;
+    width:25px;
+    height:25px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:900;
+  }
+  .archie-chat-body { display:flex;flex-direction:column;height:270px; }
+  .archie-chat.collapsed .archie-chat-body { display:none; }
+  .archie-chat-messages {
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    padding:7px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+  .archie-chat-message {
+    padding:6px 7px;
+    border-radius:10px;
+    background:rgba(255,255,255,.72);
+    border:1px solid rgba(77,58,105,.08);
+  }
+  .archie-chat-message.creator {
+    border-color:rgba(255,194,57,.62);
+    background:linear-gradient(135deg,#fff8d8,#fff1bd);
+    box-shadow:0 0 15px rgba(255,194,57,.24),inset 0 0 12px rgba(255,255,255,.48);
+  }
+  .archie-chat-meta {
+    display:flex;
+    align-items:center;
+    gap:5px;
+    min-width:0;
+  }
+  .archie-chat-name {
+    color:#604461;
+    font-family:'Baloo 2',sans-serif;
+    font-size:.57rem;
+    font-weight:900;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .archie-chat-message.creator .archie-chat-name {
+    color:#9a6500;
+    text-shadow:0 0 7px rgba(255,195,64,.28);
+  }
+  .archie-chat-creator {
+    display:none;
+    padding:1px 5px;
+    border-radius:999px;
+    background:#e7aa25;
+    color:#fff;
+    font-size:.40rem;
+    font-weight:900;
+    letter-spacing:.05em;
+  }
+  .archie-chat-message.creator .archie-chat-creator { display:inline-block; }
+  .archie-chat-time {
+    margin-left:auto;
+    color:#a28f9d;
+    font-size:.42rem;
+    font-weight:750;
+  }
+  .archie-chat-text {
+    margin-top:2px;
+    color:#614f5c;
+    font-size:.56rem;
+    line-height:1.35;
+    font-weight:650;
+    overflow-wrap:anywhere;
+  }
+  .archie-chat-message.creator .archie-chat-text { color:#6c4b13;font-weight:800; }
+  .archie-chat-compose {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:5px;
+    padding:7px;
+    border-top:1px solid rgba(91,65,112,.10);
+    background:rgba(255,255,255,.62);
+  }
+  .archie-chat-input {
+    min-width:0;
+    border:2px solid rgba(101,78,129,.14);
+    border-radius:999px;
+    background:#fff;
+    color:#584758;
+    padding:7px 9px;
+    font-family:'Nunito',sans-serif;
+    font-size:.56rem;
+    font-weight:700;
+    outline:none;
+  }
+  .archie-chat-input:focus { border-color:#8a68b6; }
+  .archie-chat-send {
+    border:none;
+    border-radius:999px;
+    padding:6px 10px;
+    background:#6c54a3;
+    color:#fff;
+    font-family:'Baloo 2',sans-serif;
+    font-size:.55rem;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .archie-chat-status {
+    min-height:14px;
+    padding:0 8px 5px;
+    color:#988397;
+    font-size:.44rem;
+    font-weight:700;
+    background:rgba(255,255,255,.62);
+  }
+  body.beyond-world-open .archie-chat,
+  body:has(.clickoff-overlay.show) .archie-chat,
+  body:has(.afl-overlay.show) .archie-chat { display:none!important; }
+
+  @media(max-width:720px){
+    .archie-chat { bottom:6px;left:6px;width:min(315px,calc(100vw - 12px)); }
+    .archie-chat-body { height:230px; }
+    .archie-chat.collapsed { width:190px; }
+  }
+
 </style>
 </head>
 <body>
 
 <div class="world-bg world-0" id="worldBg" aria-hidden="true"></div>
+<div class="empire-monument-layer" id="empireMonumentLayer" aria-hidden="true">
+  <div class="empire-monument monument-stadium" data-monument="stadium"><div class="monument-visual"><span class="monument-icon">🏟️</span><span class="monument-level"></span></div><div class="monument-name">Archie Super Stadium</div></div>
+  <div class="empire-monument monument-tower" data-monument="tower"><div class="monument-visual"><span class="monument-icon">🏙️</span><span class="monument-level"></span></div><div class="monument-name">World Headquarters</div></div>
+  <div class="empire-monument monument-exchange" data-monument="exchange"><div class="monument-visual"><span class="monument-icon">💹</span><span class="monument-level"></span></div><div class="monument-name">Global Exchange</div></div>
+  <div class="empire-monument monument-moon" data-monument="moon"><div class="monument-visual"><span class="monument-icon">🌕</span><span class="monument-level"></span></div><div class="monument-name">Lunar Colony</div></div>
+  <div class="empire-monument monument-fleet" data-monument="fleet"><div class="monument-visual"><span class="monument-icon">🚀</span><span class="monument-level"></span></div><div class="monument-name">Constellation Fleet</div></div>
+  <div class="empire-monument monument-dyson" data-monument="dyson"><div class="monument-visual"><span class="monument-icon">☀️</span><span class="monument-level"></span></div><div class="monument-name">Dyson Sphere</div></div>
+  <div class="empire-monument monument-mint" data-monument="mint"><div class="monument-visual"><span class="monument-icon">🏦</span><span class="monument-level"></span></div><div class="monument-name">Infinite Mint</div></div>
+  <div class="empire-monument monument-foundry" data-monument="foundry"><div class="monument-visual"><span class="monument-icon">🪐</span><span class="monument-level"></span></div><div class="monument-name">Reality Foundry</div></div>
+  <div class="empire-monument monument-vault" data-monument="vault"><div class="monument-visual"><span class="monument-icon">🧿</span><span class="monument-level"></span></div><div class="monument-name">Omega Vault</div></div>
+  <div class="empire-monument monument-throne" data-monument="throne"><div class="monument-visual"><span class="monument-icon">👑</span><span class="monument-level"></span></div><div class="monument-name">Eternal Throne</div></div>
+</div>
 <div class="season-theme-overlay" id="seasonThemeOverlay" aria-hidden="true"></div>
 <div class="boss-atmosphere" id="bossAtmosphere" aria-hidden="true"></div>
 <div class="boss-entrance-overlay" id="bossEntranceOverlay" aria-hidden="true">
@@ -3343,9 +3896,27 @@ body.beyond-world-open{overflow:hidden!important}
 
     <div class="panel" id="panel-cosmetics">
       <div class="cosmetics-panel">
-        <div class="cosmetics-card">
-          <div class="cosmetics-title">Profile Customisation</div>
-          <div class="cosmetics-sub">Buy cosmetic titles, frames and effects with your current Archies. Cosmetics never affect production.</div>
+        <div class="cosmetics-card wardrobe-card">
+          <div class="cosmetics-wardrobe-head">
+            <div class="cosmetics-wardrobe-title">✨ Archie Wardrobe</div>
+            <div class="cosmetics-wardrobe-sub">Preview, filter and equip your collection without digging through one giant list.</div>
+            <div class="cosmetics-summary-row">
+              <div class="cosmetics-summary-stat"><b id="cosmeticsOwnedCount">0</b><span>Owned</span></div>
+              <div class="cosmetics-summary-stat"><b id="cosmeticsTotalCount">0</b><span>Visible</span></div>
+              <div class="cosmetics-summary-stat"><b id="cosmeticsEquippedCount">0</b><span>Equipped</span></div>
+            </div>
+          </div>
+          <div class="cosmetics-toolbar">
+            <input class="cosmetics-search" id="cosmeticsSearch" type="search" maxlength="40" placeholder="Search cosmetics…">
+            <div class="cosmetics-filter-row" id="cosmeticsFilterRow">
+              <button class="cosmetics-filter-chip active" data-cos-filter="all" type="button">All</button>
+              <button class="cosmetics-filter-chip" data-cos-filter="title" type="button">Titles</button>
+              <button class="cosmetics-filter-chip" data-cos-filter="frame" type="button">Frames</button>
+              <button class="cosmetics-filter-chip" data-cos-filter="effect" type="button">Effects</button>
+              <button class="cosmetics-filter-chip" data-cos-filter="owned" type="button">Owned</button>
+              <button class="cosmetics-filter-chip" data-cos-filter="limited" type="button">Limited</button>
+            </div>
+          </div>
           <div class="cosmetic-preview-wrap" id="cosmeticPreviewWrap">
             <div class="cosmetic-preview-label"><span>👀 Cosmetic Preview</span><span class="cosmetic-preview-safe">No purchase · no equip</span></div>
             <div class="cosmetic-preview-card" id="cosmeticPreviewCard">
@@ -3358,7 +3929,7 @@ body.beyond-world-open{overflow:hidden!important}
             </div>
             <div class="cosmetic-preview-actions"><button class="cosmetic-btn secondary" id="cosmeticPreviewReset" type="button">Show Current Look</button></div>
           </div>
-          <div id="cosmeticsList" class="cosmetic-grid"></div>
+          <div id="cosmeticsList" class="cosmetic-grid cosmetics-catalog"></div>
         </div>
         <div class="cosmetics-card">
           <div class="cosmetics-title">Treasure Vault</div>
@@ -3385,6 +3956,8 @@ body.beyond-world-open{overflow:hidden!important}
           <b>Legacy Skill Tree</b><br>
           <span id="legacyTokenSummary">0 Legacy Tokens available</span><br>
           <span style="font-size:.64rem">Skills are permanent and survive retirement. Legacy Points still keep their normal +2% each bonus.</span>
+          <div class="legacy-toolbar" id="legacyToolbar"></div>
+          <div class="legacy-build-summary" id="legacyBuildSummary"></div>
         </div>
         <div class="prestige-box" style="margin-top:0">
           <div class="ptitle">Retire Archie</div>
@@ -3842,6 +4415,21 @@ body.beyond-world-open{overflow:hidden!important}
 </div>
 
 
+<div class="archie-chat" id="archieChat">
+  <div class="archie-chat-head" id="archieChatHead">
+    <div class="archie-chat-title"><span class="archie-chat-live"></span><span>Archie Live Chat</span></div>
+    <button class="archie-chat-toggle" id="archieChatToggle" type="button" aria-label="Toggle chat">−</button>
+  </div>
+  <div class="archie-chat-body">
+    <div class="archie-chat-messages" id="archieChatMessages"></div>
+    <div class="archie-chat-compose">
+      <input class="archie-chat-input" id="archieChatInput" type="text" maxlength="180" placeholder="Say something…">
+      <button class="archie-chat-send" id="archieChatSend" type="button">Send</button>
+    </div>
+    <div class="archie-chat-status" id="archieChatStatus">Connecting to chat…</div>
+  </div>
+</div>
+
 <div class="clickoff-invite-overlay" id="clickoffInviteOverlay" aria-hidden="true"><div class="clickoff-invite-card"><div class="clickoff-invite-icon">⚔️</div><div class="clickoff-invite-title">Friend Click-Off Challenge!</div><div class="clickoff-invite-copy" id="clickoffInviteCopy">A friend has challenged you to a 30-second click-off.</div><div class="clickoff-invite-actions"><button class="clickoff-accept" id="clickoffInviteAccept" type="button">Accept</button><button class="clickoff-decline" id="clickoffInviteDecline" type="button">Decline</button></div></div></div>
 <div class="clickoff-overlay" id="clickoffOverlay" aria-hidden="true"><div class="clickoff-arena"><div class="clickoff-header"><div><div class="clickoff-type" id="clickoffType">SERVER EVENT</div><div class="clickoff-title" id="clickoffTitle">Archie Click-Off</div></div><div class="clickoff-timer" id="clickoffTimer">30.0</div><div class="clickoff-mycount"><span>Your accepted clicks</span><b id="clickoffMyClicks">0</b></div></div><div class="clickoff-body"><div class="clickoff-play"><div class="clickoff-status" id="clickoffStatus">GET READY</div><button class="clickoff-button" id="clickoffButton" type="button">CLICK!</button><div class="clickoff-hint">Click the button or press SPACE · server cap: 15 accepted clicks/sec</div><button class="clickoff-exit" id="clickoffExit" type="button">Return to Game</button></div><div class="clickoff-board"><div class="clickoff-board-head">LIVE STANDINGS</div><div class="clickoff-rewards" id="clickoffRewards">🥇 5 Mystery Chests · 🥈 3 · 🥉 1</div><div class="clickoff-rankings" id="clickoffRankings"></div></div></div></div></div>
 <div class="afl-overlay" id="aflOverlay" aria-hidden="true">
@@ -3965,6 +4553,13 @@ body.beyond-world-open{overflow:hidden!important}
   let bossEntranceTimeout = null;
   let renderedSeasonTheme = '__init__';
   let cosmeticPreviewId = '';
+  let cosmeticFilter = 'all';
+  let cosmeticSearch = '';
+  let legacyBranchFilter = 'All';
+  let chatLastMessageId = 0;
+  let chatPollBusy = false;
+  let chatSendBusy = false;
+  let chatCollapsed = false;
   let empireInfluence = 0;
   let ascensionStars = 0;
   let ascensionCount = 0;
@@ -5164,6 +5759,28 @@ body.beyond-world-open{overflow:hidden!important}
     return Math.max(1,Math.min(250,Math.floor(Math.log10(Math.max(1,(score/target)+1))*4)+1));
   }
 
+
+  function renderEmpireMonuments(){
+    const layer=document.getElementById('empireMonumentLayer');
+    if(!layer)return;
+
+    EMPIRE_PROJECTS.forEach(p=>{
+      const el=layer.querySelector('[data-monument="'+p.id+'"]');
+      if(!el)return;
+      const level=empireProjectLevel(p.id);
+      const visible=level>0;
+      const max=Number.isFinite(Number(p.max))?Number(p.max):Math.max(10,level+3);
+      const progress=Math.max(0,Math.min(1,level/Math.max(1,max)));
+      const repeatBonus=p.repeatable?Math.min(.22,level*.012):0;
+      el.classList.toggle('show',visible);
+      el.style.setProperty('--monument-opacity',String(Math.min(.88,.43+progress*.35+repeatBonus)));
+      el.style.setProperty('--monument-scale',String(.78+progress*.20+repeatBonus));
+      const badge=el.querySelector('.monument-level');
+      if(badge)badge.textContent=p.repeatable?('LV '+level):(level+' / '+p.max);
+      el.title=p.name+' · Level '+level;
+    });
+  }
+
   function renderEmpire(){
     const projectsEl=document.getElementById('empireProjects');
     if(!projectsEl) return;
@@ -5606,6 +6223,7 @@ body.beyond-world-open{overflow:hidden!important}
     const starterAdvanced = starterMaybeAdvance();
     renderStarterJourney();
     renderEmpire();
+    renderEmpireMonuments();
     renderBeyondPortal();
     renderNextInteresting();
     if (starterAdvanced) setTimeout(render,0);
@@ -5624,64 +6242,113 @@ body.beyond-world-open{overflow:hidden!important}
     saveGame();
   }
 
+  function renderLegacyToolbar(){
+    const toolbar=document.getElementById('legacyToolbar');
+    const summary=document.getElementById('legacyBuildSummary');
+    if(!toolbar)return;
+
+    const branches=['All',...Array.from(new Set(legacySkills.map(s=>s.branch)))];
+    toolbar.innerHTML='';
+    branches.forEach(branch=>{
+      const b=document.createElement('button');
+      b.className='legacy-filter-btn'+(legacyBranchFilter===branch?' active':'');
+      b.type='button';
+      b.textContent=branch;
+      b.addEventListener('click',()=>{legacyBranchFilter=branch;renderLegacyTree();});
+      toolbar.appendChild(b);
+    });
+
+    if(summary){
+      const owned=legacySkillsOwned.size;
+      const total=legacySkills.length;
+      let focus='Balanced';
+      const counts={};
+      legacySkills.forEach(s=>{if(legacySkillsOwned.has(s.id))counts[s.branch]=(counts[s.branch]||0)+1;});
+      const sorted=Object.entries(counts).filter(([k])=>k!=='Mastery').sort((a,b)=>b[1]-a[1]);
+      if(sorted.length&&sorted[0][1]>(sorted[1]?.[1]||0))focus=sorted[0][0];
+      summary.innerHTML='<b>'+owned+' / '+total+' skills</b><br>Build focus: '+focus;
+    }
+  }
+
   function renderLegacyTree() {
     if (!legacyTreeEl || !legacyTokenSummary) return;
     legacyTokenSummary.textContent = legacyTokensAvailable() + ' available · ' + legacyPoints + ' total · ' + legacyTokensSpent() + ' spent';
+    renderLegacyToolbar();
     legacyTreeEl.innerHTML = '';
 
     const canvas = document.createElement('div');
     canvas.className = 'legacy-tree-canvas';
 
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(svgNS, 'svg');
+    const branchCenters = {};
+    legacySkills.forEach(s=>{
+      if(s.branch==='Mastery')return;
+      branchCenters[s.branch]=branchCenters[s.branch]||[];
+      branchCenters[s.branch].push(s.x);
+    });
+
+    Object.entries(branchCenters).forEach(([branch,xs])=>{
+      const center=xs.reduce((a,b)=>a+b,0)/xs.length;
+      const lane=document.createElement('div');
+      lane.className='legacy-branch-lane'+(legacyBranchFilter===branch?' focused':'');
+      lane.style.left=center+'px';
+      canvas.appendChild(lane);
+
+      const label=document.createElement('div');
+      label.className='legacy-branch-label';
+      label.textContent=branch;
+      label.style.left=center+'px';
+      label.style.top='50px';
+      canvas.appendChild(label);
+
+      const owned=legacySkills.filter(s=>s.branch===branch&&legacySkillsOwned.has(s.id)).length;
+      const total=legacySkills.filter(s=>s.branch===branch).length;
+      const prog=document.createElement('div');
+      prog.className='legacy-branch-progress';
+      prog.style.left=center+'px';
+      prog.textContent=owned+' / '+total+' unlocked';
+      canvas.appendChild(prog);
+    });
+
+    const svgNS='http://www.w3.org/2000/svg';
+    const svg=document.createElementNS(svgNS,'svg');
     svg.setAttribute('class','legacy-lines');
     svg.setAttribute('viewBox','0 0 1320 1180');
 
-    legacySkills.forEach(skill => {
-      (skill.prereqs || []).forEach(parentId => {
-        const parent = legacySkills.find(s => s.id === parentId);
-        if (!parent) return;
-        const line = document.createElementNS(svgNS,'path');
-        const x1 = parent.x, y1 = parent.y + 46, x2 = skill.x, y2 = skill.y + 46;
-        const mid = (y1 + y2) / 2;
-        line.setAttribute('d', `M ${x1} ${y1} C ${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}`);
-        line.setAttribute('class','legacy-line' + (legacySkillsOwned.has(parent.id) && legacySkillsOwned.has(skill.id) ? ' active' : ''));
+    legacySkills.forEach(skill=>{
+      (skill.prereqs||[]).forEach(parentId=>{
+        const parent=legacySkills.find(s=>s.id===parentId);
+        if(!parent)return;
+        const line=document.createElementNS(svgNS,'path');
+        const x1=parent.x,y1=parent.y+46,x2=skill.x,y2=skill.y+46;
+        const mid=(y1+y2)/2;
+        line.setAttribute('d',`M ${x1} ${y1} C ${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}`);
+        let cls='legacy-line'+(legacySkillsOwned.has(parent.id)&&legacySkillsOwned.has(skill.id)?' active':'');
+        if(legacyBranchFilter!=='All'&&skill.branch!==legacyBranchFilter&&parent.branch!==legacyBranchFilter&&skill.branch!=='Mastery')cls+=' branch-dimmed';
+        line.setAttribute('class',cls);
         svg.appendChild(line);
       });
     });
     canvas.appendChild(svg);
 
-    const branchCenters = {};
-    legacySkills.forEach(s => {
-      if (s.branch === 'Mastery') return;
-      branchCenters[s.branch] = branchCenters[s.branch] || [];
-      branchCenters[s.branch].push(s.x);
-    });
-    Object.entries(branchCenters).forEach(([branch,xs]) => {
-      const label = document.createElement('div');
-      label.className = 'legacy-branch-label';
-      label.textContent = branch;
-      label.style.left = (xs.reduce((a,b)=>a+b,0)/xs.length) + 'px';
-      label.style.top = '50px';
-      canvas.appendChild(label);
-    });
+    legacySkills.forEach(skill=>{
+      const bought=legacySkillsOwned.has(skill.id);
+      const prereqs=legacyPrereqsMet(skill);
+      const affordable=legacyTokensAvailable()>=skill.cost;
+      const node=document.createElement('div');
+      let cls='legacy-node'+(bought?' purchased':((!prereqs||!affordable)?' locked':''));
+      if(skill.branch==='Mastery')cls+=' mastery-node';
+      if(legacyBranchFilter!=='All'&&skill.branch!==legacyBranchFilter&&skill.branch!=='Mastery')cls+=' branch-dimmed';
+      node.className=cls;
+      node.style.left=(skill.x-90)+'px';
+      node.style.top=skill.y+'px';
 
-    legacySkills.forEach(skill => {
-      const bought = legacySkillsOwned.has(skill.id);
-      const prereqs = legacyPrereqsMet(skill);
-      const affordable = legacyTokensAvailable() >= skill.cost;
-      const node = document.createElement('div');
-      node.className = 'legacy-node' + (bought ? ' purchased' : ((!prereqs || !affordable) ? ' locked' : ''));
-      node.style.left = (skill.x - 90) + 'px';
-      node.style.top = skill.y + 'px';
+      const reqNames=(skill.prereqs||[]).map(id=>(legacySkills.find(s=>s.id===id)||{}).name).filter(Boolean);
+      node.innerHTML=
+        '<div class="legacy-node-top"><div class="legacy-node-name">'+skill.name+'</div><div class="legacy-node-cost">'+(bought?'✓ OWNED':skill.cost+' Legacy')+'</div></div>'+
+        '<div class="legacy-node-desc">'+skill.desc+'</div>'+
+        '<div class="legacy-node-prereq">'+skill.branch+(reqNames.length?' · Requires: '+reqNames.join(', '):'')+'</div>';
 
-      const reqNames = (skill.prereqs || []).map(id => (legacySkills.find(s => s.id === id) || {}).name).filter(Boolean);
-      node.innerHTML =
-        '<div class="legacy-node-top"><div class="legacy-node-name">' + skill.name + '</div><div class="legacy-node-cost">' + (bought ? '✓ OWNED' : skill.cost + ' Legacy') + '</div></div>' +
-        '<div class="legacy-node-desc">' + skill.desc + '</div>' +
-        (reqNames.length ? '<div class="legacy-node-prereq">Requires: ' + reqNames.join(', ') + '</div>' : '');
-
-      if (!bought && prereqs && affordable) node.addEventListener('click', () => buyLegacySkill(skill));
+      if(!bought&&prereqs&&affordable)node.addEventListener('click',()=>buyLegacySkill(skill));
       canvas.appendChild(node);
     });
 
@@ -5785,41 +6452,126 @@ body.beyond-world-open{overflow:hidden!important}
     saveGame(); render(); syncSocialStats(true);
   }
 
+  function cosmeticRarity(c){
+    if(c.limited||c.creatorOnly)return 'limited';
+    if(c.secret)return 'mythic';
+    const cost=Number(c.cost)||0;
+    if(cost>=1e30)return 'mythic';
+    if(cost>=1e22)return 'legendary';
+    if(cost>=1e12)return 'epic';
+    if(cost>=1e7)return 'rare';
+    return 'common';
+  }
+
+  function cosmeticRarityLabel(r){
+    return ({common:'Common',rare:'Rare',epic:'Epic',legendary:'Legendary',mythic:'Mythic',limited:'Limited'})[r]||'Common';
+  }
+
   function renderCosmetics() {
-    const list = document.getElementById('cosmeticsList');
-    if (!list) return;
-    list.innerHTML = '';
-    ['title','frame','effect'].forEach(kind => {
-      const visible = cosmetics.filter(c => c.kind === kind && (!c.secret || serverItemOwned(c.serverItem)));
-      const h = document.createElement('div'); h.className = 'cosmetics-title'; h.style.marginTop='3px';
-      h.textContent = kind === 'title' ? 'Titles' : kind === 'frame' ? 'Frames' : 'Effects';
+    const list=document.getElementById('cosmeticsList');
+    if(!list)return;
+    list.innerHTML='';
+
+    const visibleAll=cosmetics.filter(c=>!c.secret||serverItemOwned(c.serverItem));
+    const ownedSet=visibleAll.filter(c=>cosmeticsOwned.has(c.id)||(c.serverItem&&serverItemOwned(c.serverItem)));
+    const equippedCount=[equippedTitle,equippedFrame,equippedEffect].filter(Boolean).length;
+
+    const ownedCount=document.getElementById('cosmeticsOwnedCount');
+    const totalCount=document.getElementById('cosmeticsTotalCount');
+    const eqCount=document.getElementById('cosmeticsEquippedCount');
+    if(ownedCount)ownedCount.textContent=ownedSet.length;
+    if(totalCount)totalCount.textContent=visibleAll.length;
+    if(eqCount)eqCount.textContent=equippedCount;
+
+    const term=cosmeticSearch.trim().toLowerCase();
+    const matches=visibleAll.filter(c=>{
+      const owned=cosmeticsOwned.has(c.id)||(c.serverItem&&serverItemOwned(c.serverItem));
+      if(cosmeticFilter==='owned'&&!owned)return false;
+      if(cosmeticFilter==='limited'&&!(c.limited||c.creatorOnly))return false;
+      if(['title','frame','effect'].includes(cosmeticFilter)&&c.kind!==cosmeticFilter)return false;
+      if(term&&!((c.name||'').toLowerCase().includes(term)||(c.desc||'').toLowerCase().includes(term)))return false;
+      return true;
+    });
+
+    ['title','frame','effect'].forEach(kind=>{
+      const items=matches.filter(c=>c.kind===kind);
+      if(!items.length)return;
+
+      const h=document.createElement('div');
+      h.className='cosmetics-category-head';
+      h.innerHTML='<b>'+(kind==='title'?'🏷️ Titles':kind==='frame'?'🖼️ Frames':'✨ Effects')+'</b><span>'+items.length+' shown</span>';
       list.appendChild(h);
 
-      visible.forEach(c => {
-        const owned = cosmeticsOwned.has(c.id) || (c.serverItem && serverItemOwned(c.serverItem));
-        const equipped = (kind === 'title' ? equippedTitle : kind === 'frame' ? equippedFrame : equippedEffect) === c.value;
-        const row = document.createElement('div'); row.className='cosmetic-item'+(equipped?' equipped':'');
-        const info=document.createElement('div'); info.className='cosmetic-info';
-        const n=document.createElement('div'); n.className='cosmetic-name'; n.textContent=c.name;
-        if (c.secret) {
-          const badge=document.createElement('div'); badge.className='secret-label'; badge.textContent=(c.limited?'◆ Limited':'✦ Secret');
+      items.forEach(c=>{
+        const owned=cosmeticsOwned.has(c.id)||(c.serverItem&&serverItemOwned(c.serverItem));
+        const equipped=(kind==='title'?equippedTitle:kind==='frame'?equippedFrame:equippedEffect)===c.value;
+        const rarity=cosmeticRarity(c);
+
+        const row=document.createElement('div');
+        row.className='cosmetic-item'+(equipped?' equipped':'');
+        const info=document.createElement('div');
+        info.className='cosmetic-info';
+
+        const nameRow=document.createElement('div');
+        nameRow.className='cosmetic-name-row';
+        const n=document.createElement('div');
+        n.className='cosmetic-name';
+        n.textContent=c.name;
+        const rarityEl=document.createElement('span');
+        rarityEl.className='cosmetic-rarity rarity-'+rarity;
+        rarityEl.textContent=cosmeticRarityLabel(rarity);
+        nameRow.append(n,rarityEl);
+
+        if(c.secret){
+          const badge=document.createElement('div');
+          badge.className='secret-label';
+          badge.textContent=c.creatorOnly?'★ Creator':c.limited?'◆ Limited':'✦ Secret';
           info.appendChild(badge);
         }
-        const d=document.createElement('div'); d.className='cosmetic-desc';
+
+        const d=document.createElement('div');
+        d.className='cosmetic-desc';
         d.textContent=c.desc+(owned?' · owned':' · '+fmt(c.cost)+' Archies');
-        info.append(n,d);
-        const actions=document.createElement('div'); actions.className='cosmetic-actions';
-        const preview=document.createElement('button'); preview.className='cosmetic-btn preview'; preview.type='button'; preview.textContent='Preview';
+        info.append(nameRow,d);
+
+        const actions=document.createElement('div');
+        actions.className='cosmetic-actions';
+        const preview=document.createElement('button');
+        preview.className='cosmetic-btn preview';
+        preview.type='button';
+        preview.textContent='Preview';
         preview.addEventListener('click',(e)=>{e.stopPropagation();previewCosmeticById(c.id);});
-        const b=document.createElement('button'); b.className='cosmetic-btn'; b.type='button'; b.textContent=equipped?'Equipped':owned?'Equip':'Buy & Equip'; b.disabled=equipped;
+
+        const b=document.createElement('button');
+        b.className='cosmetic-btn';
+        b.type='button';
+        b.textContent=equipped?'Equipped':owned?'Equip':'Buy';
+        b.disabled=equipped;
         b.addEventListener('click',(e)=>{e.stopPropagation();buyOrEquipCosmetic(c);});
+
         actions.append(preview,b);
-        row.append(info,actions); list.appendChild(row);
+        row.append(info,actions);
+        list.appendChild(row);
       });
 
-      const clear=document.createElement('button'); clear.className='cosmetic-btn secondary'; clear.textContent='Use default '+kind;
-      clear.addEventListener('click',()=>unequipCosmetic(kind)); list.appendChild(clear);
+      const clear=document.createElement('button');
+      clear.className='cosmetic-btn secondary';
+      clear.textContent='Use default '+kind;
+      clear.addEventListener('click',()=>unequipCosmetic(kind));
+      list.appendChild(clear);
     });
+
+    if(!matches.length){
+      const empty=document.createElement('div');
+      empty.className='cosmetics-empty';
+      empty.textContent='No cosmetics match this filter.';
+      list.appendChild(empty);
+    }
+
+    document.querySelectorAll('.cosmetics-filter-chip').forEach(btn=>{
+      btn.classList.toggle('active',btn.dataset.cosFilter===cosmeticFilter);
+    });
+
     renderTreasureVault();
     renderCosmeticPreview();
   }
@@ -8370,6 +9122,113 @@ body.beyond-world-open{overflow:hidden!important}
   async function adminStartServerClickoff(){const ok=await adminCall('archie_admin_start_clickoff',{p_seconds:30},'Server Click-Off started.');if(ok){await pollClickoffState(true);refreshAdminEventUi();}}
   async function adminStopServerClickoff(){const ok=await adminCall('archie_admin_stop_clickoff',{},'Server Click-Off stopped.');if(ok){await pollClickoffState(true);refreshAdminEventUi();}}
 
+
+  function formatChatTime(value){
+    if(!value)return '';
+    const d=new Date(value);
+    if(Number.isNaN(d.getTime()))return '';
+    return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  }
+
+  function renderChatMessages(rows,append=true){
+    const box=document.getElementById('archieChatMessages');
+    if(!box)return;
+    const nearBottom=box.scrollHeight-box.scrollTop-box.clientHeight<55;
+    if(!append)box.innerHTML='';
+
+    (rows||[]).forEach(row=>{
+      if(box.querySelector('[data-chat-id="'+row.id+'"]'))return;
+      const item=document.createElement('div');
+      item.className='archie-chat-message'+(row.is_creator?' creator':'');
+      item.dataset.chatId=row.id;
+
+      const meta=document.createElement('div');
+      meta.className='archie-chat-meta';
+      const name=document.createElement('div');
+      name.className='archie-chat-name';
+      name.textContent=row.username||'Player';
+      const badge=document.createElement('span');
+      badge.className='archie-chat-creator';
+      badge.textContent='CREATOR';
+      const time=document.createElement('span');
+      time.className='archie-chat-time';
+      time.textContent=formatChatTime(row.created_at);
+
+      const body=document.createElement('div');
+      body.className='archie-chat-text';
+      body.textContent=row.message||'';
+
+      meta.append(name,badge,time);
+      item.append(meta,body);
+      box.appendChild(item);
+
+      chatLastMessageId=Math.max(chatLastMessageId,Number(row.id)||0);
+    });
+
+    while(box.children.length>80)box.firstElementChild?.remove();
+    if(nearBottom||!append)box.scrollTop=box.scrollHeight;
+  }
+
+  async function refreshChat(force=false){
+    if(!leaderboardDb||!leaderboardUser||chatPollBusy)return;
+    chatPollBusy=true;
+    try{
+      const {data,error}=await leaderboardDb.rpc('archie_get_chat_messages',{
+        p_after_id:force?0:chatLastMessageId,
+        p_limit:force?60:40
+      });
+      if(error)throw error;
+      const rows=Array.isArray(data)?data:[];
+      if(force){chatLastMessageId=0;renderChatMessages(rows,false);}
+      else renderChatMessages(rows,true);
+      const status=document.getElementById('archieChatStatus');
+      if(status)status.textContent=leaderboardProfile?'Live · messages are filtered':'Choose a username to send messages';
+    }catch(err){
+      const status=document.getElementById('archieChatStatus');
+      if(status)status.textContent='Chat connection paused';
+      if(force)console.warn('Chat:',err&&err.message?err.message:err);
+    }finally{
+      chatPollBusy=false;
+    }
+  }
+
+  async function sendChatMessage(){
+    const input=document.getElementById('archieChatInput');
+    const status=document.getElementById('archieChatStatus');
+    if(!input||chatSendBusy)return;
+    const message=input.value.trim();
+    if(!message)return;
+    if(!leaderboardProfile){
+      if(status)status.textContent='Choose a leaderboard username before chatting.';
+      return;
+    }
+
+    chatSendBusy=true;
+    const send=document.getElementById('archieChatSend');
+    if(send)send.disabled=true;
+    try{
+      const {error}=await leaderboardDb.rpc('archie_send_chat_message',{p_message:message});
+      if(error)throw error;
+      input.value='';
+      if(status)status.textContent='Sent';
+      await refreshChat(false);
+    }catch(err){
+      const msg=err&&err.message?err.message:'Message failed';
+      if(status)status.textContent=msg.includes('language')?'Message blocked by chat filter.':msg;
+    }finally{
+      chatSendBusy=false;
+      if(send)send.disabled=false;
+    }
+  }
+
+  function toggleChat(){
+    chatCollapsed=!chatCollapsed;
+    const chat=document.getElementById('archieChat');
+    const btn=document.getElementById('archieChatToggle');
+    if(chat)chat.classList.toggle('collapsed',chatCollapsed);
+    if(btn)btn.textContent=chatCollapsed?'+':'−';
+  }
+
   async function publishAdminMessage(clear = false) {
     const box = document.getElementById('adminGlobalMessage');
     const status = document.getElementById('adminMessageStatus');
@@ -8602,6 +9461,7 @@ body.beyond-world-open{overflow:hidden!important}
   setInterval(()=>syncBeyondLeaderboard(false),5000);
   setInterval(syncSocialStats, 5000);
   setInterval(()=>pollClickoffState(false),700);
+  setInterval(()=>refreshChat(false),1600);
   setInterval(flushClickoffClicks,160);
   setInterval(()=>{if(clickoffScreenShowing())renderClickoffState();},100);
   setInterval(() => { const active = document.querySelector('.tab.active'); if (active && active.dataset.tab === 'friends') refreshFriends(); }, 10000);
@@ -8808,12 +9668,31 @@ body.beyond-world-open{overflow:hidden!important}
     document.querySelectorAll('.beyond-panel').forEach(p=>p.classList.toggle('active',p.id==='beyondPanel-'+tab.dataset.beyondTab));
   }));
   document.getElementById('cosmeticPreviewReset').addEventListener('click',resetCosmeticPreview);
+  document.querySelectorAll('.cosmetics-filter-chip').forEach(btn=>btn.addEventListener('click',()=>{
+    cosmeticFilter=btn.dataset.cosFilter||'all';
+    renderCosmetics();
+  }));
+  document.getElementById('cosmeticsSearch').addEventListener('input',(e)=>{
+    cosmeticSearch=String(e.target.value||'');
+    renderCosmetics();
+  });
+
+  document.getElementById('archieChatHead').addEventListener('click',(e)=>{
+    if(e.target.closest('#archieChatToggle'))return;
+    toggleChat();
+  });
+  document.getElementById('archieChatToggle').addEventListener('click',(e)=>{e.stopPropagation();toggleChat();});
+  document.getElementById('archieChatSend').addEventListener('click',sendChatMessage);
+  document.getElementById('archieChatInput').addEventListener('keydown',(e)=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMessage();}
+  });
   window.addEventListener('resize',()=>requestAnimationFrame(()=>{ fitMainScoreText(); updateDynamicScoreGlow(); }),{passive:true});
   window.addEventListener('orientationchange',()=>setTimeout(()=>{ fitMainScoreText(); updateDynamicScoreGlow(); },120),{passive:true});
 
   renderSeasonOverlay(true);
   initLeaderboard();
   setTimeout(()=>pollClickoffState(true),900);
+  setTimeout(()=>refreshChat(true),1200);
 
   // Safety-net saves: browsers can kill a tab without firing normal handlers,
   // so we save on every visibility change / unload too, not just on actions.
